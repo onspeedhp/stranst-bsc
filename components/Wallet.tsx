@@ -34,7 +34,7 @@ const walletList = [
 ];
 
 export default function Wallet() {
-  const [isHaveWallet] = useState(true);
+  const [isHaveWallet] = useState(false);
   return (
     <>
       {!isHaveWallet ? (

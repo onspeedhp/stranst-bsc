@@ -1,7 +1,7 @@
 import React from 'react';
 import { StarBuyBtn } from '../Icon';
 import Mint from '../Mint/Mint';
-import Benefit from '../Benefit';
+import Benefit from '../Benefit/Benefit';
 import TonBanner from '../TonBanner';
 
 const HeadingContent = () => (

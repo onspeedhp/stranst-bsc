@@ -1,5 +1,6 @@
-import { ArrowRight, Coins, Globe, PieChart } from 'lucide-react';
+import { Coins, Globe, PieChart } from 'lucide-react';
 import React from 'react';
+import BenefitDialog from './BenefitDialog';
 
 const benefitList = [
   {
@@ -56,10 +57,7 @@ export default function Benefit() {
           />
         ))}
       </div>
-      <div className="flex items-center py-2 gap-2.5 cursor-pointer hover:opacity-80 mt-4">
-        <p className='text-sm font-semibold text-slate-400'>See Benefit details</p>
-        <ArrowRight size={16} color='#94A3B8'/>
-      </div>
+      <BenefitDialog />
     </div>
   );
 }
