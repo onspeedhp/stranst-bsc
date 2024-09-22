@@ -47,8 +47,8 @@ const MissionItem = ({
     })}
   >
     <div className="flex items-center gap-3">
-      <p className='text-sm leading-5 text-slate-50 font-sans'>{title} NFTs</p>
-      <p className='text-sm leading-5 text-slate-50 font-semibold font-sans'>{reward.toLocaleString()} USD</p>
+      <p className='text-sm leading-5 text-slate-50'>{title} NFTs</p>
+      <p className='text-sm leading-5 text-slate-50 font-semibold'>{reward.toLocaleString()} USD</p>
     </div>
     {isSuccess && (
       <CheckCheck

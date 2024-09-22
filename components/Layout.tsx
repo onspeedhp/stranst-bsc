@@ -8,9 +8,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Image
         alt="main-bg"
         src="/image/main-bg.png"
-        layout="fill"
-        objectFit="cover"
-        className="fixed left-0 top-0 -z-10"
+        fill
+        className="fixed left-0 top-0 -z-10 object-cover"
       />
       <Header />
       {children}
