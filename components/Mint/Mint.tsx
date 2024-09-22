@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { StarBuyBtn } from '../Icon';
 import styles from './mint.module.css';
 import clsx from 'clsx';
+import MintDialog from './MintDialog';
 
 export default function Mint() {
   const [outOfStock] = useState(false);
@@ -36,15 +37,7 @@ export default function Mint() {
               </div>
             </div>
           ) : (
-            <div className={clsx(styles['glow-btn'])}>
-              <div className={styles['btn-glow']} />
-              <div className={clsx('flex items-center gap-2', styles['btn'])}>
-                <StarBuyBtn />
-                <p className="text-[18px] leading-7 font-semibold text-white">
-                  Buy Now
-                </p>
-              </div>
-            </div>
+            <MintDialog/>
           )}
         </>
       )}
