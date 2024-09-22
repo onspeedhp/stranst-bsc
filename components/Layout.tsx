@@ -5,12 +5,12 @@ import Link from 'next/link';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative w-full h-screen overflow-hidden flex flex-col flex-grow">
+    <div className="relative w-screen xl:min-h-screen xl:overflow-hidden flex flex-col flex-grow">
       <Image
         alt="main-bg"
         src="/image/main-bg.png"
         fill
-        className="fixed left-0 top-0 -z-10 object-cover"
+        className="fixed left-0 top-0 -z-10"
       />
       <Header />
       <div className="flex-1">{children}</div>

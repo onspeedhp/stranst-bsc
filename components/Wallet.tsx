@@ -4,7 +4,6 @@ import Button from './ui/Button';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,

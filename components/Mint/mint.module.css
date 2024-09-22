@@ -1,0 +1,64 @@
+.glow-btn {
+    height: 59px;
+    width: 238px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .btn-glow,
+  .btn {
+    position: absolute;
+    width: 238px;
+    height: 59px;
+    border-radius: 35px;
+    z-index: 0;
+    overflow: hidden;
+  }
+  
+  .btn-glow {
+    filter: blur(25px);
+  }
+  
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #9747FF 0%, #EA1187 100%);
+    text-decoration: none;
+    color: white;
+    z-index: 1;
+  }
+  
+  .btn::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    background: linear-gradient(90deg, #9747FF 0%, #EA1187 100%);
+    border-radius: 35px;
+    z-index: -1;
+  }
+  
+  .btn-glow::before,
+  .btn::before {
+    content: '';
+    width: 1000px;
+    height: 1000px;
+    top: 50%;
+    left: 50%;
+    background: conic-gradient(from 0deg at 50% 50%, #F1C9FF 0deg, rgba(155, 155, 155, 0) 91.08deg, rgba(153, 153, 153, 0) 360deg);
+    position: absolute;
+    transform: translate(-50%, -50%) rotate(0deg);
+    z-index: -2;
+    animation: glow 3s infinite ease-in-out;
+  }
+  
+  @keyframes glow {
+    100% {
+      transform: translate(-50%, -50%) rotate(1turn);
+    }
+  }
