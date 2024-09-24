@@ -54,7 +54,10 @@ export default function MintBuy() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userAddress: wallet?.account.address }),
+        body: JSON.stringify({
+          userAddress: wallet?.account.address,
+          refAddress: '',
+        }),
       }
     );
 

@@ -15,6 +15,8 @@ export const POST = async (req: NextRequest) => {
   try {
     const data = await req.json();
 
+    // TODO: Store data.refAddress
+
     const wallet = await openWallet(
       process.env.NEXT_PUBLIC_MNEMONIC!.split(' '),
       true
