@@ -7,10 +7,15 @@ import { StarBuyBtn } from '../Icon';
 import MintBuy from './MintBuy';
 import MintSuccess from './MintDone';
 import axios from 'axios';
-import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
+import {
+  useTonAddress,
+  useTonConnectUI,
+  useTonWallet,
+} from '@tonconnect/ui-react';
 import { Address, beginCell, toNano } from 'ton-core';
 import { BASE_PRICE } from '@/constant/baseprice';
 import { fetchJettonWallets } from '@/app/utils';
+import { useSearchParams } from 'next/navigation';
 
 export default function MintDialog({
   setMinted,
@@ -18,6 +23,8 @@ export default function MintDialog({
   setMinted: (value: boolean) => void;
 }) {
   const wallet = useTonWallet();
+  const userFriendlyAddress = useTonAddress();
+  const searchParams = useSearchParams();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [tonConnectUI] = useTonConnectUI();
@@ -54,7 +61,6 @@ export default function MintDialog({
     };
 
     await tonConnectUI.sendTransaction(myTransaction);
-    setMinted(true);
     setLoading(false);
   };
 
@@ -63,10 +69,12 @@ export default function MintDialog({
     total: number;
   }) => {
     try {
+      const ref = searchParams.get('ref');
       await transferToken();
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {
         ...submitData,
-        walletAddress: wallet?.account.address!,
+        ref: ref || null,
+        walletAddress: userFriendlyAddress,
       });
       setIsSuccess(true);
     } catch (error) {
@@ -76,7 +84,14 @@ export default function MintDialog({
   };
 
   return (
-    <Dialog onOpenChange={() => setIsSuccess(null)}>
+    <Dialog
+      onOpenChange={() => {
+        if (isSuccess) {
+          setMinted(true);
+        }
+        setIsSuccess(null);
+      }}
+    >
       <DialogTrigger aria-hidden={false}>
         <div className={clsx(styles['glow-btn'])}>
           <div className={styles['btn-glow']} />
