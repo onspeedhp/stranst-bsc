@@ -1,3 +1,4 @@
+'use client';
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
@@ -26,12 +27,11 @@ export default function MintDialog({
   const userFriendlyAddress = useTonAddress();
   const searchParams = useSearchParams();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setLoading] = useState(false);
   const [tonConnectUI] = useTonConnectUI();
 
   const transferToken = async () => {
-    // TODO: remove
-    console.log(loading);
     setLoading(true);
     const body = beginCell()
       .storeUint(0xf8a7ea5, 32) // jetton transfer op code
@@ -73,7 +73,7 @@ export default function MintDialog({
       await transferToken();
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {
         ...submitData,
-        ref: ref || null,
+        ref: ref && ref !== userFriendlyAddress ? ref : null,
         walletAddress: userFriendlyAddress,
       });
       setIsSuccess(true);
@@ -84,37 +84,45 @@ export default function MintDialog({
   };
 
   return (
-    <Dialog
-      onOpenChange={() => {
-        if (isSuccess) {
-          setMinted(true);
-        }
-        setIsSuccess(null);
-      }}
-    >
-      <DialogTrigger aria-hidden={false}>
-        <div className={clsx(styles['glow-btn'])}>
-          <div className={styles['btn-glow']} />
-          <div className={clsx('flex items-center gap-2', styles['btn'])}>
-            <StarBuyBtn />
-            <p className="text-[18px] leading-7 font-semibold text-white">
-              Buy Now
-            </p>
-          </div>
-        </div>
-      </DialogTrigger>
-      <DialogContent
-        className={clsx(
-          'bg-[#171D41] max-w-[704px] border-none rounded-xl overflow-y-auto',
-          { 'max-w-[406px] pb-0': isSuccess !== null }
-        )}
-      >
-        {isSuccess === null ? (
-          <MintBuy submitData={handleSubmit} />
-        ) : (
-          <MintSuccess isSuccess={isSuccess} />
-        )}
-      </DialogContent>
-    </Dialog>
+    <>
+      {!userFriendlyAddress ? (
+        <p className="text-[18px] leading-7 font-semibold text-slate-50">
+          Connect wallet to continue.
+        </p>
+      ) : (
+        <Dialog
+          onOpenChange={() => {
+            if (isSuccess) {
+              setMinted(true);
+            }
+            setIsSuccess(null);
+          }}
+        >
+          <DialogTrigger aria-hidden={false}>
+            <div className={clsx(styles['glow-btn'])}>
+              <div className={styles['btn-glow']} />
+              <div className={clsx('flex items-center gap-2', styles['btn'])}>
+                <StarBuyBtn />
+                <p className="text-[18px] leading-7 font-semibold text-white">
+                  Buy Now
+                </p>
+              </div>
+            </div>
+          </DialogTrigger>
+          <DialogContent
+            className={clsx(
+              'bg-[#171D41] max-w-[704px] border-none rounded-xl overflow-y-auto',
+              { 'max-w-[406px] pb-0': isSuccess !== null }
+            )}
+          >
+            {isSuccess === null ? (
+              <MintBuy submitData={handleSubmit} />
+            ) : (
+              <MintSuccess isSuccess={isSuccess} />
+            )}
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
   );
 }

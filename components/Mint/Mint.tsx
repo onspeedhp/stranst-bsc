@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { StarBuyBtn } from '../Icon';
 import styles from './mint.module.css';
 import clsx from 'clsx';
@@ -24,7 +24,7 @@ export default function Mint() {
   }, []);
 
   return (
-    <>
+    <Suspense>
       {minted ? (
         <p className="text-[18px] leading-7 font-semibold text-slate-50">
           Congratulations! You’re one of the Strant VIP Pass holders.
@@ -56,6 +56,6 @@ export default function Mint() {
           )}
         </>
       )}
-    </>
+    </Suspense>
   );
 }
