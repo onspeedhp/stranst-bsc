@@ -9,7 +9,7 @@ import MintBuy from './MintBuy';
 import MintSuccess from './MintDone';
 
 export default function MintDialog() {
-  const [isSuccess] = useState<boolean | null>(true);
+  const [isSuccess] = useState<boolean | null>(null);
 
   return (
     <Dialog>
