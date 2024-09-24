@@ -5,8 +5,10 @@ import styles from './mint.module.css';
 import clsx from 'clsx';
 import MintDialog from './MintDialog';
 import axios from 'axios';
+import { useTonWallet } from '@tonconnect/ui-react';
 
 export default function Mint() {
+  const wallet = useTonWallet();
   const [outOfStock, setOutOfStock] = useState(false);
   const [minted, setMinted] = useState(false);
 
@@ -29,9 +31,13 @@ export default function Mint() {
   };
 
   useEffect(() => {
-    // TODO: replace wallet address
-    const walletAddress = '123';
-    checkMinted(walletAddress);
+    if (wallet?.account) {
+      const walletAddress = wallet.account.address;
+      checkMinted(walletAddress);
+    }
+  }, [wallet]);
+
+  useEffect(() => {
     checkOutOfStock();
   }, []);
 
