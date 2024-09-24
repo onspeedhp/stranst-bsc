@@ -17,6 +17,7 @@ import { Address, beginCell, toNano } from 'ton-core';
 import { BASE_PRICE } from '@/constant/baseprice';
 import { fetchJettonWallets } from '@/app/utils';
 import { useSearchParams } from 'next/navigation';
+import Button from '../ui/Button';
 
 export default function MintDialog({
   setMinted,
@@ -86,9 +87,9 @@ export default function MintDialog({
   return (
     <>
       {!userFriendlyAddress ? (
-        <p className="text-[18px] leading-7 font-semibold text-slate-50">
-          Connect wallet to continue.
-        </p>
+        <div className='w-fit' onClick={() => tonConnectUI.openModal()}>
+          <Button>Connect Wallet</Button>
+        </div>
       ) : (
         <Dialog
           onOpenChange={() => {

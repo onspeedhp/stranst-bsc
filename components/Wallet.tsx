@@ -1,6 +1,11 @@
 'use client';
 import React from 'react';
-import { TonConnectButton } from '@tonconnect/ui-react';
+import {
+  TonConnectButton,
+  useTonAddress,
+  useTonConnectUI,
+} from '@tonconnect/ui-react';
+import Button from './ui/Button';
 
 // const walletList = [
 //   {
@@ -26,9 +31,18 @@ import { TonConnectButton } from '@tonconnect/ui-react';
 // ];
 
 export default function Wallet() {
+  const [tonConnectUI] = useTonConnectUI();
+  const address = useTonAddress();
+
   return (
     <>
-      <TonConnectButton />
+      {!address ? (
+        <div onClick={() => tonConnectUI.openModal()}>
+          <Button>Connect Wallet</Button>
+        </div>
+      ) : (
+        <TonConnectButton />
+      )}
     </>
   );
 }
