@@ -1,5 +1,4 @@
 import { Minus, Plus } from 'lucide-react';
-import { useState } from 'react';
 
 export default function MintCounter({
   amount,

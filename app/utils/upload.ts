@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function uploadJson(content: any) {
   try {
     const data = JSON.stringify({

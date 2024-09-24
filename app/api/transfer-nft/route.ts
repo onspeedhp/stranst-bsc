@@ -3,13 +3,10 @@ import {
   createTransferBody,
   getAddressByIndex,
   openWallet,
-  sleep,
   waitSeqno,
 } from '@/app/utils';
 import { address, internal, SendMode, toNano } from 'ton-core';
 import { NextRequest, NextResponse } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
-import { uploadJson } from '@/app/utils/upload';
 
 export const POST = async (req: NextRequest) => {
   try {

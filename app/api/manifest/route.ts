@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
   try {
     return NextResponse.json({
       url: `${process.env.NEXT_PUBLIC_APP_URL}`,

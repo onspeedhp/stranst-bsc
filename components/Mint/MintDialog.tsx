@@ -19,6 +19,8 @@ export default function MintDialog() {
   const [tonConnectUI] = useTonConnectUI();
 
   const transferToken = async () => {
+    // TODO: remove
+    console.log(loading)
     setLoading(true);
     const body = beginCell()
       .storeUint(0xf8a7ea5, 32) // jetton transfer op code

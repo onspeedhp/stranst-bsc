@@ -1,6 +1,5 @@
 import HomeLeft from '@/components/Home/HomeLeft';
 import HomeRight from '@/components/Home/HomeRight';
-import Link from 'next/link';
 
 export default function Home() {
   return (

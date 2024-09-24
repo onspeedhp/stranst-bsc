@@ -151,7 +151,7 @@ export default function BenefitDialog() {
             <p className='mb-3 font-semibold text-slate-50'>{item.type}</p>
             <div className="grid grid-cols-3 gap-5">
               {item.items.map((child) => (
-                <div>
+                <div key={child.title}>
                   {child.icon}
                   <p className='my-2 text-white text-sm font-semibold'>{child.title}</p>
                   <p className='text-sm text-slate-300'>{child.content}</p>
