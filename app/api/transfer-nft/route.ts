@@ -20,7 +20,8 @@ export const POST = async (req: NextRequest) => {
       true
     );
 
-    const itemIndex = 1;
+    // TODO: Get item index
+    const itemIndex = 0;
 
     // const nftData = {
     //   name: 'Strants Pass Vip',
@@ -82,6 +83,8 @@ export const POST = async (req: NextRequest) => {
     });
 
     await waitSeqno(seqno, wallet);
+
+    // TODO: Insert database part
 
     return NextResponse.json({
       status: 200,

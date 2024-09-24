@@ -9,6 +9,7 @@ import { fetchJettonWallets } from '@/app/utils';
 export default function MintBuy() {
   const [amount, setAmount] = useState(1);
   const BASE_PRICE = 100;
+  // TODO: Add loading
   const [loading, setLoading] = useState(false);
 
   const [tonConnectUI] = useTonConnectUI();
@@ -59,7 +60,7 @@ export default function MintBuy() {
 
     const data = await res.json();
     console.log(data);
-    
+
     setLoading(false);
   };
 
