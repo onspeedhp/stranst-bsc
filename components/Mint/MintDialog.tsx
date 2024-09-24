@@ -12,7 +12,11 @@ import { Address, beginCell, toNano } from 'ton-core';
 import { BASE_PRICE } from '@/constant/baseprice';
 import { fetchJettonWallets } from '@/app/utils';
 
-export default function MintDialog() {
+export default function MintDialog({
+  setMinted,
+}: {
+  setMinted: (value: boolean) => void;
+}) {
   const wallet = useTonWallet();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
@@ -20,7 +24,7 @@ export default function MintDialog() {
 
   const transferToken = async () => {
     // TODO: remove
-    console.log(loading)
+    console.log(loading);
     setLoading(true);
     const body = beginCell()
       .storeUint(0xf8a7ea5, 32) // jetton transfer op code
@@ -50,24 +54,7 @@ export default function MintDialog() {
     };
 
     await tonConnectUI.sendTransaction(myTransaction);
-
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL}/api/transfer-nft`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userAddress: wallet?.account.address,
-          refAddress: '',
-        }),
-      }
-    );
-
-    const data = await res.json();
-    console.log(data);
-
+    setMinted(true);
     setLoading(false);
   };
 
@@ -77,7 +64,7 @@ export default function MintDialog() {
   }) => {
     try {
       await transferToken();
-      await axios.post('/api/mint', {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {
         ...submitData,
         walletAddress: wallet?.account.address!,
       });

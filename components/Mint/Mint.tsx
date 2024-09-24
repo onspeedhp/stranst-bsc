@@ -5,37 +5,37 @@ import styles from './mint.module.css';
 import clsx from 'clsx';
 import MintDialog from './MintDialog';
 import axios from 'axios';
-import { useTonWallet } from '@tonconnect/ui-react';
+// import { useTonWallet } from '@tonconnect/ui-react';
 
 export default function Mint() {
-  const wallet = useTonWallet();
+  // const wallet = useTonWallet();
   const [outOfStock, setOutOfStock] = useState(false);
   const [minted, setMinted] = useState(false);
 
-  const checkMinted = async (walletAddress: string) => {
-    try {
-      const { data } = await axios.post('/api/checkMinted', { walletAddress });
-      setMinted(data.isMinted);
-    } catch (error) {
-      console.error('Error checking minted status:', error);
-    }
-  };
+  // const checkMinted = async (walletAddress: string) => {
+  //   try {
+  //     const { data } = await axios.post('/api/checkMinted', { walletAddress });
+  //     setMinted(data.isMinted);
+  //   } catch (error) {
+  //     console.error('Error checking minted status:', error);
+  //   }
+  // };
 
   const checkOutOfStock = async () => {
     try {
-      const { data } = await axios.get('/api/checkOutOfStock');
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/checkOutOfStock`);
       setOutOfStock(data.isOutOfStock);
     } catch (error) {
       console.error('Error checking out of stock status:', error);
     }
   };
 
-  useEffect(() => {
-    if (wallet?.account) {
-      const walletAddress = wallet.account.address;
-      checkMinted(walletAddress);
-    }
-  }, [wallet]);
+  // useEffect(() => {
+  //   if (wallet?.account) {
+  //     const walletAddress = wallet.account.address;
+  //     checkMinted(walletAddress);
+  //   }
+  // }, [wallet]);
 
   useEffect(() => {
     checkOutOfStock();
@@ -70,7 +70,7 @@ export default function Mint() {
               </div>
             </div>
           ) : (
-            <MintDialog />
+            <MintDialog setMinted={setMinted}/>
           )}
         </>
       )}

@@ -14,7 +14,7 @@ export default function MintBuy({
 
   const getMax = async () => {
     try {
-      const { data } = await axios.get('/api/amount');
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/totalbuy`);
       setMaxbuy(2000 - Number(data.totalBuy));
     } catch (error) {
       console.error('Error checking max buy:', error);
