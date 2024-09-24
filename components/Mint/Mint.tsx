@@ -1,18 +1,45 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StarBuyBtn } from '../Icon';
 import styles from './mint.module.css';
 import clsx from 'clsx';
 import MintDialog from './MintDialog';
+import axios from 'axios';
 
 export default function Mint() {
-  const [outOfStock] = useState(false);
-  const [buyed] = useState(false);
+  const [outOfStock, setOutOfStock] = useState(false);
+  const [minted, setMinted] = useState(false);
+
+  const checkMinted = async (walletAddress: string) => {
+    try {
+      const { data } = await axios.post('/api/checkMinted', { walletAddress });
+      setMinted(data.isMinted);
+    } catch (error) {
+      console.error('Error checking minted status:', error);
+    }
+  };
+
+  const checkOutOfStock = async () => {
+    try {
+      const { data } = await axios.get('/api/checkOutOfStock');
+      setOutOfStock(data.isOutOfStock);
+    } catch (error) {
+      console.error('Error checking out of stock status:', error);
+    }
+  };
+
+  useEffect(() => {
+    // TODO: replace wallet address
+    const walletAddress = '123';
+    checkMinted(walletAddress);
+    checkOutOfStock();
+  }, []);
+
   return (
     <>
-      {buyed ? (
+      {minted ? (
         <p className="text-[18px] leading-7 font-semibold text-slate-50">
-          Congratulation! You’re one of the Strant VIP Pass holder.
+          Congratulations! You’re one of the Strant VIP Pass holders.
         </p>
       ) : (
         <>
@@ -37,7 +64,7 @@ export default function Mint() {
               </div>
             </div>
           ) : (
-            <MintDialog/>
+            <MintDialog />
           )}
         </>
       )}

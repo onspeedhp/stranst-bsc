@@ -7,12 +7,27 @@ import Image from 'next/image';
 import MintCounter from './MintCouter';
 import MintBuy from './MintBuy';
 import MintSuccess from './MintDone';
+import axios from 'axios';
 
 export default function MintDialog() {
-  const [isSuccess] = useState<boolean | null>(true);
+  const [isSuccess,setIsSuccess] = useState<boolean | null>(null);
+
+  const handleSubmit = async (submitData: {amount: number; total: number}) => {
+    try {
+      // TODO: replace walletaddress
+        await axios.post('/api/mint',{
+          ...submitData,
+          walletAddress: '123'
+        });
+        setIsSuccess(true)
+      } catch (error) {
+        console.error('Error update data:', error);
+        setIsSuccess(false)
+      }
+  }
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={()=>setIsSuccess(null)}>
       <DialogTrigger aria-hidden={false}>
         <div className={clsx(styles['glow-btn'])}>
           <div className={styles['btn-glow']} />
@@ -31,7 +46,7 @@ export default function MintDialog() {
         )}
       >
         {isSuccess === null ? (
-          <MintBuy />
+          <MintBuy submitData={handleSubmit}/>
         ) : (
           <MintSuccess isSuccess={isSuccess} />
         )}

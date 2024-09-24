@@ -1,11 +1,29 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MintCounter from './MintCouter';
+import axios from 'axios';
 
-export default function MintBuy() {
+export default function MintBuy({
+  submitData,
+}: {
+  submitData: ({ total, amount }: { total: number; amount: number }) => void;
+}) {
   const [amount, setAmount] = useState(1);
+  const [maxbuy, setMaxbuy] = useState(1);
   const BASE_PRICE = 100;
 
+  const getMax = async () => {
+    try {
+      const { data } = await axios.get('/api/amount');
+      setMaxbuy(2000 - Number(data.totalBuy));
+    } catch (error) {
+      console.error('Error checking max buy:', error);
+    }
+  };
+
+  useEffect(() => {
+    getMax();
+  }, []);
 
   return (
     <div className="grid grid-cols-2 gap-8 items-center">
@@ -32,6 +50,7 @@ export default function MintBuy() {
               <MintCounter
                 amount={amount}
                 setAmount={setAmount}
+                max={maxbuy}
               />
             </div>
             <div className="flex items-center justify-between mt-3">
@@ -42,7 +61,10 @@ export default function MintBuy() {
             </div>
           </div>
         </div>
-        <div className="bg-gradient-to-l from-[#9747FF] to-[#EA1187] rounded-xl py-2.5 text-center text-[18px] leading-7 font-semibold text-white cursor-pointer hover:opacity-80">
+        <div
+          onClick={() => submitData({ amount, total: amount * BASE_PRICE })}
+          className="bg-gradient-to-l from-[#9747FF] to-[#EA1187] rounded-xl py-2.5 text-center text-[18px] leading-7 font-semibold text-white cursor-pointer hover:opacity-80"
+        >
           Countinue
         </div>
       </div>
