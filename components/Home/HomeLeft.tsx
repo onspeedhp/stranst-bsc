@@ -10,7 +10,7 @@ export default function HomeLeft() {
         className="max-w-[485px] max-h-[671px] h-[35vw] xl:h-[30vw] 2xl:h-[35vw]"
       />
       <div className="absolute bottom-[-60px] left-1/2 transform -translate-x-1/2">
-        <div className="bg-gradient-to-l from-[#34205E66] to-[#815F9199] p-4 rounded-xl border border-[#F8FAFC]">
+        <div className="bg-gradient-to-l from-[#34205E66] to-[#815F9199] p-4 rounded-xl border border-[#F8FAFC] min-w-[183px]">
           <p className="text-center text-slate-50">Price</p>
           <p className="text-center font-semibold text-slate-50 mt-2 text-[30px] leading-[36px]">
             {BASE_PRICE} USDT
