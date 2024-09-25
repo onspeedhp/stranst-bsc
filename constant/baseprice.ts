@@ -1,1 +1,1 @@
-export const BASE_PRICE = 100;
+export const BASE_PRICE = 1;

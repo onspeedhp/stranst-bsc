@@ -41,7 +41,7 @@ export default function MintBuy({
           Pass - 1st Edition
         </p>
         <p className='mt-3 text-lg font-semibold tracking-[-0.5%] bg-gradient-to-r from-[#A2ADB9] via-[#F8FAFC] to-[#99A6B2] text-transparent bg-clip-text'>
-          100 USDT
+          {BASE_PRICE} USDT
         </p>
         <div className="mt-6 border-t border-slate-600 mb-6">
           <div className="pt-2">

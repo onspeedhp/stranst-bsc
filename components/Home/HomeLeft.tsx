@@ -1,3 +1,4 @@
+import { BASE_PRICE } from '@/constant/baseprice';
 import React from 'react';
 
 export default function HomeLeft() {
@@ -12,7 +13,7 @@ export default function HomeLeft() {
         <div className="bg-gradient-to-l from-[#34205E66] to-[#815F9199] p-4 rounded-xl border border-[#F8FAFC]">
           <p className="text-center text-slate-50">Price</p>
           <p className="text-center font-semibold text-slate-50 mt-2 text-[30px] leading-[36px]">
-            100 USDT
+            {BASE_PRICE} USDT
           </p>
           <div className="absolute py-1 px-3 bottom-[-14px] rounded-[2px] bg-gradient-to-r from-[#171D41] to-[#4C1AB6]">
             <p className="font-semibold leading-5 tracking-[-0.6%]">
