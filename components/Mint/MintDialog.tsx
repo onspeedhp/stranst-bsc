@@ -14,7 +14,6 @@ import {
   useTonWallet,
 } from '@tonconnect/ui-react';
 import { Address, beginCell, toNano } from 'ton-core';
-import { BASE_PRICE } from '@/constant/baseprice';
 import { fetchJettonWallets } from '@/app/utils';
 import { useSearchParams } from 'next/navigation';
 import Button from '../ui/Button';
@@ -32,12 +31,12 @@ export default function MintDialog({
   const [_, setLoading] = useState(false);
   const [tonConnectUI] = useTonConnectUI();
 
-  const transferToken = async () => {
+  const transferToken = async (total: number) => {
     setLoading(true);
     const body = beginCell()
       .storeUint(0xf8a7ea5, 32) // jetton transfer op code
       .storeUint(0, 64) // query_id:uint64
-      .storeCoins(toNano(BASE_PRICE / 1000)) // amount:(VarUInteger 16) -  Jetton amount for transfer (decimals = 6 - USDT, 9 - default). Function toNano use decimals = 9 (remember it)
+      .storeCoins(toNano(total  / 1000)) // amount:(VarUInteger 16) -  Jetton amount for transfer (decimals = 6 - USDT, 9 - default). Function toNano use decimals = 9 (remember it)
       .storeAddress(Address.parse(process.env.NEXT_PUBLIC_ADMIN_KEY!)) // destination:MsgAddress
       .storeAddress(Address.parse(wallet?.account.address!)) // response_destination:MsgAddress
       .storeUint(0, 1) // custom_payload:(Maybe ^Cell)
@@ -71,7 +70,7 @@ export default function MintDialog({
   }) => {
     try {
       const ref = searchParams.get('ref');
-      await transferToken();
+      await transferToken(submitData.total);
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {
         ...submitData,
         ref: ref && ref !== userFriendlyAddress ? ref : null,
