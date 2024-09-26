@@ -11,7 +11,7 @@ export default function Header() {
         src="/image/logo.png"
         width="168"
         height="70"
-        className='object-cover object-center w-[168px] h-[70px]'
+        className='object-cover object-center w-[116px] h-[44px] lg:w-[168px] lg:h-[70px]'
       />
       <div className="flex items-center gap-3">
         <Ref />
