@@ -3,8 +3,10 @@ import {
   DialogTrigger,
   DialogContent,
   DialogTitle,
+  DialogClose,
 } from '../ui/dialog';
 import {
+  ArrowLeft,
   ArrowRight,
   Coins,
   Gem,
@@ -123,9 +125,12 @@ export default function BenefitDialog() {
   return (
     <Dialog>
       <DialogTrigger aria-hidden={false}>
-        <div className="flex items-center py-2 gap-2.5 cursor-pointer hover:opacity-80 mt-4">
-          <p className="text-sm font-semibold text-slate-400">
+        <div className="flex justify-center lg:justify-start m-0 items-center py-2 gap-2.5 cursor-pointer hover:opacity-80 lg:mt-4">
+          <p className="hidden lg:block text-sm font-semibold text-slate-400">
             See Benefit details
+          </p>
+          <p className="text-sm font-semibold text-slate-400">
+            See the benefits of being a VIP Pass holder
           </p>
           <ArrowRight
             size={16}
@@ -133,12 +138,15 @@ export default function BenefitDialog() {
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-[#171D41] border-none rounded-xl max-w-[982px] max-h-screen overflow-y-auto">
-        <DialogHeader>
+      <DialogContent className="bg-[#171D41] border-none rounded-xl max-w-[982px] max-h-screen overflow-y-auto rounded-none lg:rounded-sm">
+        <DialogHeader className="relative">
+          <DialogClose>
+            <ArrowLeft className="absolute left-0 top-1/2 -translate-y-[8px]" />
+          </DialogClose>
           <DialogTitle className="text-lg tracking-[-0.5%] text-white font-bold">
             VIP Pass holder benefits
           </DialogTitle>
-          <p className="text-sm text-slate-300">
+          <p className="text-sm text-slate-300 hidden lg:block">
             Become a STRANT VIP Pass holder and enter a world of exclusive
             privileges
           </p>
@@ -148,13 +156,15 @@ export default function BenefitDialog() {
             key={idx}
             className={clsx({ 'mb-6': idx + 1 !== benefitList.length })}
           >
-            <p className='mb-3 font-semibold text-slate-50'>{item.type}</p>
-            <div className="grid grid-cols-3 gap-5">
+            <p className="mb-3 font-semibold text-slate-50">{item.type}</p>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               {item.items.map((child) => (
                 <div key={child.title}>
                   {child.icon}
-                  <p className='my-2 text-white text-sm font-semibold'>{child.title}</p>
-                  <p className='text-sm text-slate-300'>{child.content}</p>
+                  <p className="my-2 text-white text-sm font-semibold">
+                    {child.title}
+                  </p>
+                  <p className="text-sm text-slate-300">{child.content}</p>
                 </div>
               ))}
             </div>

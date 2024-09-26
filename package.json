@@ -31,7 +31,8 @@
     "ton-core": "^0.53.0",
     "ton-crypto": "^3.2.0",
     "tonweb": "^0.0.66",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "vaul": "^0.9.9"
   },
   "devDependencies": {
     "@types/node": "^20",

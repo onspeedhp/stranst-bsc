@@ -3,11 +3,19 @@ import React, { useEffect, useState } from 'react';
 import Button from '../ui/Button';
 import { UserPlus } from '../Icon';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Check, Copy, Share, Users } from 'lucide-react';
+import { Check, Copy, Share, Users, X } from 'lucide-react';
 import Image from 'next/image';
 import RefMission from './RefMission';
 import { useTonAddress } from '@tonconnect/ui-react';
 import axios from 'axios';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '../ui/drawer';
+import { DialogClose } from '../ui/dialog';
 
 const IsNotVip = () => {
   return (
@@ -102,31 +110,62 @@ export default function Ref() {
     checkMinted(userFriendlyAddress);
   }, [userFriendlyAddress]);
   return (
-    <Popover>
-      <PopoverTrigger>
-        <Button className="bg-[#0F172AD9] flex items-center gap-3">
-          <UserPlus />
-          Refer Friends for Prizes
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent
-        align="end"
-        className="p-0 rounded-none overflow-hidden border-none bg-transparent w-[353px]"
-      >
-        <div className="bg-gradient-to-l from-[#5F4A82] to-[#B3BDCB] p-[1px] rounded-xl">
-          <div className="w-full h-full bg-[#191D44] rounded-xl">
-            <div
-              className={`rounded-xl bg-gradient-to-l from-[#34205E66] to-[#815F9199] p-4 relative`}
-            >
+    <>
+      <div className="hidden lg:blocks">
+        <Popover>
+          <PopoverTrigger>
+            <Button className="bg-[#0F172AD9] flex items-center gap-3">
+              <UserPlus />
+              <p className="hidden lg:block">Refer Friends for Prizes</p>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent
+            align="end"
+            className="p-0 rounded-none overflow-hidden border-none bg-transparent w-[353px]"
+          >
+            <div className="bg-gradient-to-l from-[#5F4A82] to-[#B3BDCB] p-[1px] rounded-xl">
+              <div className="w-full h-full bg-[#191D44] rounded-xl">
+                <div
+                  className={`rounded-xl bg-gradient-to-l from-[#34205E66] to-[#815F9199] p-4 relative`}
+                >
+                  {isVip ? (
+                    <IsVip walletAddress={userFriendlyAddress} />
+                  ) : (
+                    <IsNotVip />
+                  )}
+                </div>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+      <div className="block lg:hiddren">
+        <Drawer>
+          <DrawerTrigger>
+            <Button className="bg-[#0F172AD9] flex items-center gap-3">
+              <UserPlus />
+              <p className="hidden lg:block">Refer Friends for Prizes</p>
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader className="flex items-center justify-between">
+              <DrawerTitle>Refer Friends for Prizes</DrawerTitle>
+              <DialogClose>
+                <X />
+              </DialogClose>
+            </DrawerHeader>
+            <div className="px-4">
               {isVip ? (
                 <IsVip walletAddress={userFriendlyAddress} />
               ) : (
-                <IsNotVip />
+                <div className="h-[50vh] flex flex-col items-center justify-center">
+                  <p className='text-sm text-slate-400'>Unlock VIP Pass to use this feature</p>
+                </div>
               )}
             </div>
-          </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+          </DrawerContent>
+        </Drawer>
+      </div>
+    </>
   );
 }

@@ -110,7 +110,7 @@ export default function MintDialog({
           </DialogTrigger>
           <DialogContent
             className={clsx(
-              'bg-[#171D41] max-w-[704px] border-none rounded-xl overflow-y-auto',
+              'bg-[#171D41] max-w-[704px] border-none rounded-xl overflow-y-auto h-full lg:h-auto',
               { 'max-w-[406px] pb-0': isSuccess !== null }
             )}
           >
@@ -121,7 +121,7 @@ export default function MintDialog({
             )}
           </DialogContent>
         </Dialog>
-      )}
+      )} 
     </>
   );
 }
