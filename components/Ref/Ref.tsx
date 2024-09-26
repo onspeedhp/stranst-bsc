@@ -16,7 +16,7 @@ import {
   DrawerTrigger,
 } from '../ui/drawer';
 import { DialogClose } from '../ui/dialog';
-import { shareOnMobile } from "react-mobile-share";
+import { shareOnMobile } from 'react-mobile-share';
 
 const IsNotVip = () => {
   return (
@@ -64,7 +64,7 @@ const IsVip = ({
         </div>
       </div>
       <Button
-        className="bg-gradient-to-r from-[#9747FF] to-[#EA1187] flex gap-3 items-center justify-center"
+        className="bg-gradient-to-r from-[#9747FF] to-[#EA1187] flex gap-3 items-center justify-center lg:hidden"
         onClick={() =>
           shareOnMobile({
             text: 'Hey checkout our collections',
@@ -192,7 +192,9 @@ export default function Ref() {
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader className="flex items-center justify-between">
-              <DrawerTitle className='text-white'>Refer Friends for Prizes</DrawerTitle>
+              <DrawerTitle className="text-white">
+                Refer Friends for Prizes
+              </DrawerTitle>
               <DialogClose>
                 <X className="mr-4" />
               </DialogClose>

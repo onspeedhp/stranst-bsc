@@ -11,7 +11,7 @@ export default function Button({
 }) {
   return (
     <div
-      className={`px-4 py-2 rounded-xl text-base leading-7 font-semibold hover:opacity-50 cursor-pointer ${
+      className={`px-4 py-2 rounded-xl text-base leading-7 font-semibold lg:hover:opacity-50 cursor-pointer ${
         className ?? 'bg-main'
       }`}
       onClick={onClick}
