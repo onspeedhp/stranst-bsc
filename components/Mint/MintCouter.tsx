@@ -47,11 +47,11 @@ export default function MintCounter({
         max={max}
         onChange={handleChange}
         onBlur={handleBlur}
-        className="border-l border-r border-slate-700 bg-slate-800 text-center w-16 text-2xl font-bold text-white py-2 outline-none focus:ring-2 focus:ring-blue-500"
+        className="border-l border-r border-slate-700 bg-slate-800 text-center w-16 text-2xl font-bold text-white py-2 outline-none lg:focus:ring-2 lg:focus:ring-blue-500"
       />
       <button
         onClick={increment}
-        className="hover:bg-gray-700 transition ease-in-out h-10 p-1"
+        className="lg:hover:bg-gray-700 transition ease-in-out h-10 p-1"
       >
         <Plus color="#94A3B8" />
       </button>

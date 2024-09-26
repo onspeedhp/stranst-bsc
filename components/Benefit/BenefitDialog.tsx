@@ -138,9 +138,9 @@ export default function BenefitDialog() {
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-[#171D41] border-none rounded-xl max-w-[982px] max-h-screen overflow-y-auto rounded-none lg:rounded-sm">
+      <DialogContent className="bg-[#171D41] border-none py-12 lg:py-0 max-w-[982px] max-h-screen overflow-y-auto rounded-none lg:rounded-xl">
         <DialogHeader className="relative">
-          <DialogClose>
+          <DialogClose className='outline-none'>
             <ArrowLeft className="absolute left-0 top-1/2 -translate-y-[8px]" />
           </DialogClose>
           <DialogTitle className="text-lg tracking-[-0.5%] text-white font-bold">
