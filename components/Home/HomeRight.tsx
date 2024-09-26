@@ -3,7 +3,8 @@ import Mint from '../Mint/Mint';
 import Benefit from '../Benefit/Benefit';
 import TonBanner from '../TonBanner';
 import BenefitDialog from '../Benefit/BenefitDialog';
-import { BASE_PRICE } from '@/constant/baseprice';
+import { ChevronRight } from 'lucide-react';
+import NFT from '../NFT/NFT';
 
 const HeadingContent = () => (
   <div className="flex flex-col items-center lg:items-start gap-2 lg:gap-3">
@@ -28,8 +29,21 @@ export default function HomeRight() {
       <div className=" hidden lg:block relative my-4 h-[1px]">
         <div className="absolute top-0 bottom-0 bg-slate-600 -left-4 -right-4" />
       </div>
-      <div className="lg:hidden">
-        <BenefitDialog />
+      <div className="lg:hidden w-full">
+        <div className="flex justify-center">
+          <BenefitDialog />
+        </div>
+        <div className="mt-2">
+          <div className="flex items-center justify-between p-3 bg-gradient-to-r from-[#9A01CEB2] via-[#4E3BE0B2] to-[#43A1FFB2] rounded-lg">
+            <p className="text-sm font-semibold italic text-white">
+              Strong Partnership - TON Blockchain
+            </p>
+            <ChevronRight
+              size={24}
+              color="white"
+            />
+          </div>
+        </div>
       </div>
       <div className="hidden lg:block">
         <Benefit />
@@ -37,27 +51,8 @@ export default function HomeRight() {
           <TonBanner />
         </div>
       </div>
-      <div className="mt-10 mb-24 lg:hidden">
-        <div className="flex items-center justify-center relative">
-          <img
-            src="/image/nft/nft-image.png"
-            alt="nft"
-            className="w-[80%]"
-          />
-          <div className="absolute bottom-[-60px] left-1/2 transform -translate-x-1/2">
-            <div className="bg-gradient-to-l from-[#34205E66] to-[#815F9199] p-4 rounded-xl border border-[#F8FAFC] min-w-[183px]">
-              <p className="text-center text-slate-50">Price</p>
-              <p className="text-center font-semibold bg-gradient-to-r from-[#A2ADB9] via-[#F8FAFC] to-[#99A6B2] text-transparent bg-clip-text mt-2 text-[30px] leading-[36px]">
-                {BASE_PRICE} USDT
-              </p>
-              <div className="absolute py-1 px-3 bottom-[-14px] rounded-[2px] bg-gradient-to-r from-[#171D41] to-[#4C1AB6]">
-                <p className="font-semibold leading-5 tracking-[-0.6%]">
-                  ONLY 12 LEFT!!!
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="lg:hidden">
+        <NFT />
       </div>
       <Mint />
     </div>
