@@ -16,6 +16,7 @@ import {
   DrawerTrigger,
 } from '../ui/drawer';
 import { DialogClose } from '../ui/dialog';
+import { shareOnMobile } from "react-mobile-share";
 
 const IsNotVip = () => {
   return (
@@ -43,7 +44,7 @@ const IsVip = ({
     }, 1000);
   };
   return (
-    <>
+    <div className="pb-7 lg:pb-0">
       <p className="text-slate-50">Referral Link</p>
       <div className="flex justify-between items-center rounded-[6px] border border-slate-700 bg-slate-800 px-3 py-2 mt-2 mb-3">
         <p className="text-slate-50 truncate pr-3">{refUrl}</p>
@@ -62,7 +63,16 @@ const IsVip = ({
           )}
         </div>
       </div>
-      <Button className="bg-gradient-to-r from-[#9747FF] to-[#EA1187] flex gap-3 items-center justify-center">
+      <Button
+        className="bg-gradient-to-r from-[#9747FF] to-[#EA1187] flex gap-3 items-center justify-center"
+        onClick={() =>
+          shareOnMobile({
+            text: 'Hey checkout our collections',
+            url: refUrl,
+            title: 'Strants',
+          })
+        }
+      >
         <Share
           color="white"
           size={20}
@@ -92,7 +102,7 @@ const IsVip = ({
         height={161}
         className="absolute right-0 bottom-0"
       />
-    </>
+    </div>
   );
 };
 
@@ -131,14 +141,14 @@ export default function Ref() {
         getTotalRef(userFriendlyAddress);
       }
     };
-  
+
     checkAndFetch();
 
     const interval = setInterval(checkAndFetch, 60000);
 
     return () => clearInterval(interval);
   }, [userFriendlyAddress]);
-  
+
   return (
     <>
       <div className="hidden lg:block">

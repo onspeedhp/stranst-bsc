@@ -25,6 +25,8 @@
     "pg": "^8.13.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-mobile-share": "^2.2.2",
+    "react-web-share": "^2.0.2",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "ton": "^13.9.0",

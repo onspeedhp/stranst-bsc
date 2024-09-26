@@ -3004,6 +3004,11 @@ react-is@^16.13.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-mobile-share@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-mobile-share/-/react-mobile-share-2.2.2.tgz#a621b39b0b789c6edf5bf87e37a604f4958952db"
+  integrity sha512-vgw6T6EmSn8mk/41mVF7BemWyWBz5+QaOv0x2UKQTJb1XqAzMdes0ohUZHOCuL/+nsmsBIgNtKcz5MOi7wJsMg==
+
 react-native-securerandom@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/react-native-securerandom/-/react-native-securerandom-0.1.1.tgz#f130623a412c338b0afadedbc204c5cbb8bf2070"
@@ -3038,6 +3043,11 @@ react-style-singleton@^2.2.1:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^2.0.0"
+
+react-web-share@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-web-share/-/react-web-share-2.0.2.tgz#ed0f08fd07ec28777b8fc7290bd59f0be78f1410"
+  integrity sha512-bGm1TJc6xtC0MhAnYFsrzT4En7l2oAdLTgCK7nk7b4xGTg3L5gOldiPrmYQ8a/dEXNydgekvOj/tfjduIlIRVA==
 
 react@^18:
   version "18.3.1"
