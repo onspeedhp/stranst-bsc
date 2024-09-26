@@ -74,9 +74,11 @@ export default function MintDialog({
     total: number;
   }) => {
     try {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/totalbuy`);
-      if(Number(data.totalBuy) >= 2000) {
-        throw new Error('out of stock')
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
+      );
+      if (Number(data.totalBuy) >= 2000) {
+        throw new Error('out of stock');
       }
       const ref = searchParams.get('ref');
       await transferToken(submitData.total);
@@ -131,12 +133,17 @@ export default function MintDialog({
             )}
           >
             {isSuccess === null ? (
-              <MintBuy submitData={handleSubmit} />
+              <div>
+                <DialogClose className="lg:hidden outline-none p-2">
+                  <ArrowLeft size={24}/>
+                </DialogClose>
+                <MintBuy submitData={handleSubmit} />
+              </div>
             ) : (
               <MintSuccess isSuccess={isSuccess} />
             )}
             {isSuccess !== null && (
-              <DialogClose className="lg:hidden mb-5">
+              <DialogClose className="lg:hidden mb-5 outline-none">
                 <div className="flex items-center justify-center gap-1.5 py-3 bg-[#0F172AD9] rounded-xl">
                   <ArrowLeft />
                   <p className="font-semibold text-white">Back to Homepage</p>
