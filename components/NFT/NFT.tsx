@@ -18,7 +18,7 @@ const PriceCard = ({ maxbuy }: { maxbuy: number }) => (
         {BASE_PRICE} USDT
       </p>
       <div className="absolute py-1 px-3 bottom-[-14px] left-2 right-2 rounded-[2px] bg-gradient-to-r from-[#171D41] to-[#4C1AB6]">
-        <p className="font-semibold leading-5 tracking-[-0.6%] text-center">ONLY {maxbuy} LEFT!!!</p>
+        <p className="font-semibold leading-5 tracking-[-0.6%] text-center text-white">ONLY {maxbuy} LEFT!!!</p>
       </div>
     </div>
   </div>

@@ -192,7 +192,7 @@ export default function Ref() {
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader className="flex items-center justify-between">
-              <DrawerTitle>Refer Friends for Prizes</DrawerTitle>
+              <DrawerTitle className='text-white'>Refer Friends for Prizes</DrawerTitle>
               <DialogClose>
                 <X className="mr-4" />
               </DialogClose>
