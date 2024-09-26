@@ -26,8 +26,8 @@ export default function MintBuy({
   }, []);
 
   return (
-    <div className='grid grid-cols-2 gap-8 items-center'>
-      <div className='relative'>
+    <div className='grid grid-cols1 lg:grid-cols-2 gap-8 items-center'>
+      <div className='relative hidden lg:block'>
         <Image
           src='/image/nft/nft-image-2.png'
           alt='nft-image'
@@ -36,13 +36,20 @@ export default function MintBuy({
         />
       </div>
       <div>
-        <p className='text-[30px] leading-[36px] tracking-[-0.75%] font-semibold text-white'>
-          <span className='text-xl tracking-[-0.6%]'>Purchasing</span> NFT VIP
+        <p className='text-[30px] leading-[36px] tracking-[-0.75%] font-semibold text-white italic'>
+          <span className='text-xl tracking-[-0.6%] not-italic'>Purchasing</span> NFT VIP
           Pass - 1st Edition
         </p>
         <p className='mt-3 text-lg font-semibold tracking-[-0.5%] bg-gradient-to-r from-[#A2ADB9] via-[#F8FAFC] to-[#99A6B2] text-transparent bg-clip-text'>
           {BASE_PRICE} USDT
         </p>
+        <Image
+          src='/image/nft/nft-image-2.png'
+          alt='nft-image'
+          width={278}
+          height={344}
+          className='block lg:hidden mx-auto'
+        />
         <div className="mt-6 border-t border-slate-600 mb-6">
           <div className="pt-2">
             <div className="flex items-center justify-between">

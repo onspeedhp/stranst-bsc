@@ -111,7 +111,7 @@ export default function Ref() {
   }, [userFriendlyAddress]);
   return (
     <>
-      <div className="hidden lg:blocks">
+      <div className="hidden lg:block">
         <Popover>
           <PopoverTrigger>
             <Button className="bg-[#0F172AD9] flex items-center gap-3">
@@ -139,9 +139,9 @@ export default function Ref() {
           </PopoverContent>
         </Popover>
       </div>
-      <div className="block lg:hiddren">
+      <div className="block lg:hidden">
         <Drawer>
-          <DrawerTrigger>
+          <DrawerTrigger aria-hidden={false}>
             <Button className="bg-[#0F172AD9] flex items-center gap-3">
               <UserPlus />
               <p className="hidden lg:block">Refer Friends for Prizes</p>
@@ -151,7 +151,7 @@ export default function Ref() {
             <DrawerHeader className="flex items-center justify-between">
               <DrawerTitle>Refer Friends for Prizes</DrawerTitle>
               <DialogClose>
-                <X />
+                <X className='mr-4'/>
               </DialogClose>
             </DrawerHeader>
             <div className="px-4">
@@ -159,6 +159,7 @@ export default function Ref() {
                 <IsVip walletAddress={userFriendlyAddress} />
               ) : (
                 <div className="h-[50vh] flex flex-col items-center justify-center">
+                  <Image src="/image/emptybox.png" width={317} height={221} alt='empty'/>
                   <p className='text-sm text-slate-400'>Unlock VIP Pass to use this feature</p>
                 </div>
               )}
