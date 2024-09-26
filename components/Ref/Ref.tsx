@@ -25,7 +25,13 @@ const IsNotVip = () => {
   );
 };
 
-const IsVip = ({ walletAddress }: { walletAddress: string }) => {
+const IsVip = ({
+  walletAddress,
+  totalRef,
+}: {
+  walletAddress: string;
+  totalRef: number;
+}) => {
   const refUrl = `${process.env.NEXT_PUBLIC_APP_URL}?ref=${walletAddress}`;
   const [isCopy, setIsCopy] = useState(false);
 
@@ -72,12 +78,12 @@ const IsVip = ({ walletAddress }: { walletAddress: string }) => {
             color="white"
             size={28}
           />
-          <p className="text-slate-50 font-semibold">123 referrals</p>
+          <p className="text-slate-50 font-semibold">{totalRef} referrals</p>
         </div>
         <p className="text-gray-50 text-sm leading-5">
           10% of our revenue during the event will be given to the referrer!
         </p>
-        <RefMission />
+        <RefMission totalRef={totalRef} />
       </div>
       <Image
         src="/image/ref-activitive.png"
@@ -93,6 +99,7 @@ const IsVip = ({ walletAddress }: { walletAddress: string }) => {
 export default function Ref() {
   const userFriendlyAddress = useTonAddress();
   const [isVip, setIsVip] = useState(false);
+  const [totalRef, setTotalRef] = useState(0);
 
   const checkMinted = async (walletAddress: string) => {
     try {
@@ -106,9 +113,32 @@ export default function Ref() {
     }
   };
 
+  const getTotalRef = async (walletAddress: string) => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/totalRef/${walletAddress}`
+      );
+      setTotalRef(data);
+    } catch (error) {
+      console.error('Error checking minted status:', error);
+    }
+  };
+
   useEffect(() => {
-    checkMinted(userFriendlyAddress);
+    const checkAndFetch = () => {
+      if (userFriendlyAddress) {
+        checkMinted(userFriendlyAddress);
+        getTotalRef(userFriendlyAddress);
+      }
+    };
+  
+    checkAndFetch();
+
+    const interval = setInterval(checkAndFetch, 60000);
+
+    return () => clearInterval(interval);
   }, [userFriendlyAddress]);
+  
   return (
     <>
       <div className="hidden lg:block">
@@ -129,7 +159,10 @@ export default function Ref() {
                   className={`rounded-xl bg-gradient-to-l from-[#34205E66] to-[#815F9199] p-4 relative`}
                 >
                   {isVip ? (
-                    <IsVip walletAddress={userFriendlyAddress} />
+                    <IsVip
+                      walletAddress={userFriendlyAddress}
+                      totalRef={totalRef}
+                    />
                   ) : (
                     <IsNotVip />
                   )}
@@ -151,16 +184,26 @@ export default function Ref() {
             <DrawerHeader className="flex items-center justify-between">
               <DrawerTitle>Refer Friends for Prizes</DrawerTitle>
               <DialogClose>
-                <X className='mr-4'/>
+                <X className="mr-4" />
               </DialogClose>
             </DrawerHeader>
             <div className="px-4">
               {isVip ? (
-                <IsVip walletAddress={userFriendlyAddress} />
+                <IsVip
+                  walletAddress={userFriendlyAddress}
+                  totalRef={totalRef}
+                />
               ) : (
                 <div className="h-[50vh] flex flex-col items-center justify-center">
-                  <Image src="/image/emptybox.png" width={317} height={221} alt='empty'/>
-                  <p className='text-sm text-slate-400'>Unlock VIP Pass to use this feature</p>
+                  <Image
+                    src="/image/emptybox.png"
+                    width={317}
+                    height={221}
+                    alt="empty"
+                  />
+                  <p className="text-sm text-slate-400">
+                    Unlock VIP Pass to use this feature
+                  </p>
                 </div>
               )}
             </div>

@@ -15,7 +15,7 @@ const missionList: MissionInterface[] = [
   { status: 'pending', title: 1000, reward: 10000 },
 ];
 
-export default function RefMission() {
+export default function RefMission({totalRef}:{totalRef: number}) {
   return (
     <div className="relative z-10">
       {missionList.map((item, idx) => (
@@ -23,7 +23,7 @@ export default function RefMission() {
           key={idx}
           title={item.title}
           reward={item.reward}
-          isSuccess={item.status === 'success'}
+          isSuccess={totalRef === item.title}
         />
       ))}
     </div>
@@ -48,7 +48,7 @@ const MissionItem = ({
   >
     <div className="flex items-center gap-3">
       <p className='text-sm leading-5 text-slate-50'>{title} NFTs</p>
-      <p className='text-sm leading-5 text-slate-50 font-semibold'>{reward.toLocaleString()} USD</p>
+      <p className='text-sm leading-5 text-slate-50 font-semibold'>{reward.toLocaleString()} USDT</p>
     </div>
     {isSuccess && (
       <CheckCheck
