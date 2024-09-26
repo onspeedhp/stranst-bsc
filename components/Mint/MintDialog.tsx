@@ -36,7 +36,7 @@ export default function MintDialog({
     const body = beginCell()
       .storeUint(0xf8a7ea5, 32) // jetton transfer op code
       .storeUint(0, 64) // query_id:uint64
-      .storeCoins(toNano(total  / 1000)) // amount:(VarUInteger 16) -  Jetton amount for transfer (decimals = 6 - USDT, 9 - default). Function toNano use decimals = 9 (remember it)
+      .storeCoins(toNano(total / 1000)) // amount:(VarUInteger 16) -  Jetton amount for transfer (decimals = 6 - USDT, 9 - default). Function toNano use decimals = 9 (remember it)
       .storeAddress(Address.parse(process.env.NEXT_PUBLIC_ADMIN_KEY!)) // destination:MsgAddress
       .storeAddress(Address.parse(wallet?.account.address!)) // response_destination:MsgAddress
       .storeUint(0, 1) // custom_payload:(Maybe ^Cell)
@@ -45,8 +45,7 @@ export default function MintDialog({
       .endCell();
 
     const jettonWalletAddress = await fetchJettonWallets({
-      ownerAddress: wallet?.account.address.toString()!,
-      jettonAddress: 'kQD0GKBM8ZbryVk2aESmzfU6b9b_8era_IkvBSELujFZPsyy',
+      ownerAddress: wallet?.account.address.toString()!
     });
 
     const myTransaction = {
@@ -70,7 +69,7 @@ export default function MintDialog({
   }) => {
     try {
       const ref = searchParams.get('ref');
-      await transferToken(submitData.total);
+      // await transferToken(submitData.total);
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {
         ...submitData,
         ref: ref && ref !== userFriendlyAddress ? ref : null,
@@ -103,7 +102,7 @@ export default function MintDialog({
               <div className={styles['btn-glow']} />
               <div className={clsx('flex items-center gap-2', styles['btn'])}>
                 <StarBuyBtn />
-                <p className="text-[18px] leading-7 font-semibold text-white">
+                <p className='text-[18px] leading-7 font-semibold text-white'>
                   Buy Now
                 </p>
               </div>
