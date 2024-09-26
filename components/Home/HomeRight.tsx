@@ -7,7 +7,7 @@ import { BASE_PRICE } from '@/constant/baseprice';
 
 const HeadingContent = () => (
   <div className="flex flex-col items-center lg:items-start gap-2 lg:gap-3">
-    <p className="bg-gradient-to-r from-[#9747FF] to-[#EA1187] lg:text-[18px] font-semibold leading-7 inline-block text-transparent bg-clip-text">
+    <p className="bg-gradient-to-r from-[#9747FF] to-[#EA1187] text-sm lg:text-[18px] font-semibold lg:leading-7 inline-block text-transparent bg-clip-text">
       {`A Golden Opportunity to Own STRANT's First NFT!`}
     </p>
     <p className="text-[30px] leading-[36px] font-extrabold tracking-[-0.75%] text-white">
