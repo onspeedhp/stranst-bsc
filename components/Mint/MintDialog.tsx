@@ -80,6 +80,9 @@ export default function MintDialog({
       if (Number(data.totalBuy) >= 2000) {
         throw new Error('out of stock');
       }
+      if (submitData.amount > (2000 - Number(data.totalBuy))) {
+        throw new Error('over buy');
+      }
       const ref = searchParams.get('ref');
       await transferToken(submitData.total);
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {

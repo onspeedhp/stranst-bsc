@@ -44,7 +44,7 @@ export default function MintCounter({
         type="number"
         value={amount}
         min={0}
-        max={max}
+        max={max || 2000}
         onChange={handleChange}
         onBlur={handleBlur}
         className="border-l border-r border-slate-700 bg-slate-800 text-center w-16 text-2xl font-bold text-white py-2 outline-none lg:focus:ring-2 lg:focus:ring-blue-500"
