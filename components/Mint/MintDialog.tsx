@@ -74,6 +74,10 @@ export default function MintDialog({
     total: number;
   }) => {
     try {
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/totalbuy`);
+      if(Number(data.totalBuy) >= 2000) {
+        throw new Error('out of stock')
+      }
       const ref = searchParams.get('ref');
       await transferToken(submitData.total);
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {

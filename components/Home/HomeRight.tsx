@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import Mint from '../Mint/Mint';
 import Benefit from '../Benefit/Benefit';
@@ -34,7 +35,8 @@ export default function HomeRight() {
           <BenefitDialog />
         </div>
         <div className="mt-2">
-          <div className="flex items-center justify-between p-3 bg-gradient-to-r from-[#9A01CEB2] via-[#4E3BE0B2] to-[#43A1FFB2] rounded-lg">
+          <div className="flex items-center justify-between p-3 bg-gradient-to-r from-[#9A01CEB2] via-[#4E3BE0B2] to-[#43A1FFB2] rounded-lg"
+          onClick={() => window.open('https://ton.org/', '_blank')}>
             <p className="text-sm font-semibold italic text-white">
               Strong Partnership - TON Blockchain
             </p>

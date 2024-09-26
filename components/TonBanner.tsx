@@ -13,7 +13,7 @@ export default function TonBanner() {
         renowned for its lightning-fast transaction speeds, high security, and
         limitless scalability.
       </p>
-      <div className="flex items-center gap-2.5 pl-4 py-1 pr-1 bg-[#0F172A80] w-fit rounded-full">
+      <div className="flex items-center gap-2.5 pl-4 py-1 pr-1 bg-[#0F172A80] w-fit rounded-full cursor-pointer" onClick={() => window.open('https://ton.org/', '_blank')}>
         <p className="text-sm text-white">Learn More about TON Blockchain</p>
         <div className="p-1 bg-sky-500 rounded-full">
           <ChevronRight
