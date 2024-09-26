@@ -1,11 +1,9 @@
-import { KeyPair, mnemonicToPrivateKey } from 'ton-crypto';
+import { KeyPair } from 'ton-crypto';
 import {
   address,
   Address,
   beginCell,
-  Cell,
   OpenedContract,
-  TonClient,
   WalletContractV4,
 } from 'ton';
 
