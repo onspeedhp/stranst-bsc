@@ -76,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" prefix="og: http://ogp.me/ns#">
       <body className={`${raleway.className} antialiased`}>
         <Root>
           <Layout>{children}</Layout>
