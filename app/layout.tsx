@@ -8,7 +8,28 @@ const raleway = Raleway({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Strant',
-  description: 'Strant',
+  description:
+    'Strant',
+  keywords: 'Strant, NFT, SEO, TON',
+  openGraph: {
+    title: 'Strant',
+    description:
+      'Strant',
+    url: 'https://strant.io',
+    images: [
+      {
+        url: '/image/strant-og.jpg',
+        alt: 'Strant',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Strant',
+    description: 'Strant',
+    images: ['/image/strant-og.jpg'],
+  },
   icons: {
     icon: [
       {
