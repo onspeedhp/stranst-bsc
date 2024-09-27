@@ -43,13 +43,13 @@ export default function NFT() {
   return (
     <>
       <div className="hidden lg:block">
-        <NftImage src="/image/nft/nft-image.png" className="max-w-[485px] max-h-[671px] h-[35vw] xl:h-[30vw] 2xl:h-[35vw]">
+        <NftImage src="/image/nft/nft.gif" className="h-[35vw] xl:h-[30vw]">
           <PriceCard maxbuy={maxbuy} />
         </NftImage>
       </div>
       <div className="block lg:hidden">
         <div className="mt-10 mb-24">
-          <NftImage src="/image/nft/nft-image.png" className="w-[80%]">
+          <NftImage src="/image/nft/nft.gif" className="w-[80%]">
             <PriceCard maxbuy={maxbuy} />
           </NftImage>
         </div>
