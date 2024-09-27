@@ -7,27 +7,28 @@ import { Root } from '@/components/Root';
 const raleway = Raleway({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Strant',
+  title: 'STRANT – Smart AI Assistant for Investment & Education 🤖💼',
   description:
-    'Strant',
+    'STRANT is a pioneering platform that applies artificial intelligence (AI) to support both investors and educational institutions.',
   keywords: 'Strant, NFT, SEO, TON',
   openGraph: {
-    title: 'Strant',
+    title: 'STRANT – Smart AI Assistant for Investment & Education 🤖💼',
     description:
-      'Strant',
+      'STRANT is a pioneering platform that applies artificial intelligence (AI) to support both investors and educational institutions.',
     url: 'https://strant.io',
     images: [
       {
         url: '/image/strant-og.jpg',
-        alt: 'Strant',
+        alt: 'STRANT is a pioneering platform that applies artificial intelligence (AI) to support both investors and educational institutions.',
       },
     ],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Strant',
-    description: 'Strant',
+    title: 'STRANT – Smart AI Assistant for Investment & Education 🤖💼',
+    description:
+      'STRANT is a pioneering platform that applies artificial intelligence (AI) to support both investors and educational institutions.',
     images: ['/image/strant-og.jpg'],
   },
   icons: {
@@ -76,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" prefix="og: http://ogp.me/ns#">
+    <html lang="en">
       <body className={`${raleway.className} antialiased`}>
         <Root>
           <Layout>{children}</Layout>
