@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     url: 'https://strant.io',
     images: [
       {
-        url: '/image/strant-og.jpg',
+        url: 'https://strant.io/image/strant-og.jpg',
         alt: 'STRANT is a pioneering platform that applies artificial intelligence (AI) to support both investors and educational institutions.',
         width: 800,
         height: 354,
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
       'STRANT is a pioneering platform that applies artificial intelligence (AI) to support both investors and educational institutions.',
     images: [
       {
-        url: '/image/strant-og.jpg',
+        url: 'https://strant.io/image/strant-og.jpg',
         alt: 'STRANT is a pioneering platform that applies artificial intelligence (AI) to support both investors and educational institutions.',
         width: 800,
         height: 354,
