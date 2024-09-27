@@ -38,7 +38,9 @@ export default function Wallet() {
     <>
       {!address ? (
         <div onClick={() => tonConnectUI.openModal()}>
-          <Button>Connect Wallet</Button>
+          <Button>
+            <p className="text-white">Connect Wallet</p>
+          </Button>
         </div>
       ) : (
         <TonConnectButton />
