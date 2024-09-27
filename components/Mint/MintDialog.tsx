@@ -33,12 +33,10 @@ export default function MintDialog({
   const userFriendlyAddress = useTonAddress();
   const searchParams = useSearchParams();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [tonConnectUI] = useTonConnectUI();
 
   const transferToken = async (total: number) => {
-    setLoading(true);
     const body = beginCell()
       .storeUint(0xf8a7ea5, 32) // jetton transfer op code
       .storeUint(0, 64) // query_id:uint64
@@ -74,6 +72,7 @@ export default function MintDialog({
     total: number;
   }) => {
     try {
+    setLoading(true);
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
       );
@@ -94,6 +93,8 @@ export default function MintDialog({
     } catch (error) {
       console.error('Error update data:', error);
       setIsSuccess(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -140,7 +141,7 @@ export default function MintDialog({
                 <DialogClose className="lg:hidden outline-none p-2">
                   <ArrowLeft size={24}/>
                 </DialogClose>
-                <MintBuy submitData={handleSubmit} />
+                <MintBuy submitData={handleSubmit} loading={loading}/>
               </div>
             ) : (
               <MintSuccess isSuccess={isSuccess} />
