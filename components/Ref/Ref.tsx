@@ -156,7 +156,7 @@ export default function Ref() {
           <PopoverTrigger>
             <Button className="bg-[#0F172AD9] flex items-center gap-3">
               <UserPlus />
-              <p className="hidden lg:block">Refer Friends for Prizes</p>
+              <p className="hidden lg:block text-white">Refer Friends for Prizes</p>
             </Button>
           </PopoverTrigger>
           <PopoverContent

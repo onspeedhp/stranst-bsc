@@ -104,7 +104,7 @@ export default function MintDialog({
           className="w-fit"
           onClick={() => tonConnectUI.openModal()}
         >
-          <Button>Connect Wallet</Button>
+          <Button><p className='text-white'>Connect Wallet</p></Button>
         </div>
       ) : (
         <Dialog
