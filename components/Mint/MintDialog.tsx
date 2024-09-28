@@ -65,7 +65,6 @@ export default function MintDialog({
     };
 
     await tonConnectUI.sendTransaction(myTransaction);
-    setLoading(false);
   };
 
   const handleSubmit = async (submitData: {
@@ -77,11 +76,18 @@ export default function MintDialog({
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
       );
-      if (Number(data.totalBuy) >= (Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000)) {
+      if (
+        Number(data.totalBuy) >=
+        (Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000)
+      ) {
         Sentry.captureException('out of stock');
         throw new Error('out of stock');
       }
-      if (submitData.amount > (Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000) - Number(data.totalBuy)) {
+      if (
+        submitData.amount >
+        (Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000) -
+          Number(data.totalBuy)
+      ) {
         Sentry.captureException('over buy');
         throw new Error('over buy');
       }
