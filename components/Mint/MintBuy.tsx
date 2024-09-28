@@ -82,7 +82,7 @@ export default function MintBuy({
             { 'opacity-50 pointer-events-none': loading }
           )}
         >
-          {loading ? 'In progress...' : 'Countinue'}
+          {loading ? 'In progress...' : 'Continue'}
         </div>
       </div>
     </div>
