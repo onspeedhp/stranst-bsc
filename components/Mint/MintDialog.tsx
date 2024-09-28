@@ -24,7 +24,6 @@ import { useSearchParams } from 'next/navigation';
 import Button from '../ui/Button';
 import { ArrowLeft } from 'lucide-react';
 import * as Sentry from '@sentry/react';
-import * as Sentry from '@sentry/react';
 
 export default function MintDialog({
   setMinted,
