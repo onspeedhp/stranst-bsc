@@ -23,6 +23,7 @@ import { fetchJettonWallets } from '@/app/utils';
 import { useSearchParams } from 'next/navigation';
 import Button from '../ui/Button';
 import { ArrowLeft } from 'lucide-react';
+import * as Sentry from '@sentry/react';
 
 export default function MintDialog({
   setMinted,
@@ -72,14 +73,16 @@ export default function MintDialog({
     total: number;
   }) => {
     try {
-    setLoading(true);
+      setLoading(true);
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
       );
       if (Number(data.totalBuy) >= 2000) {
+        Sentry.captureException('out of stock');
         throw new Error('out of stock');
       }
-      if (submitData.amount > (2000 - Number(data.totalBuy))) {
+      if (submitData.amount > 2000 - Number(data.totalBuy)) {
+        Sentry.captureException('over buy');
         throw new Error('over buy');
       }
       const ref = searchParams.get('ref');
@@ -92,6 +95,7 @@ export default function MintDialog({
       setIsSuccess(true);
     } catch (error) {
       console.error('Error update data:', error);
+      Sentry.captureException(error);
       setIsSuccess(false);
     } finally {
       setLoading(false);
@@ -105,7 +109,9 @@ export default function MintDialog({
           className="w-fit"
           onClick={() => tonConnectUI.openModal()}
         >
-          <Button><p className='text-white'>Connect Wallet</p></Button>
+          <Button>
+            <p className="text-white">Connect Wallet</p>
+          </Button>
         </div>
       ) : (
         <Dialog
@@ -139,9 +145,12 @@ export default function MintDialog({
             {isSuccess === null ? (
               <div>
                 <DialogClose className="lg:hidden outline-none p-2">
-                  <ArrowLeft size={24}/>
+                  <ArrowLeft size={24} />
                 </DialogClose>
-                <MintBuy submitData={handleSubmit} loading={loading}/>
+                <MintBuy
+                  submitData={handleSubmit}
+                  loading={loading}
+                />
               </div>
             ) : (
               <MintSuccess isSuccess={isSuccess} />
