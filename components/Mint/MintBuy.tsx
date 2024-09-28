@@ -20,7 +20,7 @@ export default function MintBuy({
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
       );
-      setMaxbuy(2000 - Number(data.totalBuy));
+      setMaxbuy((Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000) - Number(data.totalBuy));
     } catch (error) {
       console.error('Error checking max buy:', error);
     }
