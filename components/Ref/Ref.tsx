@@ -163,10 +163,10 @@ export default function Ref() {
             align="end"
             className="p-0 rounded-none overflow-hidden border-none bg-transparent w-[353px]"
           >
-            <div className="bg-gradient-to-l from-[#5F4A82] to-[#B3BDCB] p-[1px] rounded-xl">
-              <div className="w-full h-full bg-[#191D44] rounded-xl">
+            <div className="border border-[#098BA8] rounded-xl">
+              <div className="w-full h-full rounded-xl">
                 <div
-                  className={`rounded-xl bg-gradient-to-l from-[#34205E66] to-[#815F9199] p-4 relative`}
+                  className={`rounded-xl bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] p-4 relative`}
                 >
                   {isVip ? (
                     <IsVip

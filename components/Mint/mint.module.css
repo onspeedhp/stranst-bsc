@@ -28,7 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(90deg, #9747FF 0%, #EA1187 100%);
+    background: linear-gradient(90deg, #37BFEA 0%, #0B0F3F 100%);
     text-decoration: none;
     color: white;
     z-index: 1;
@@ -37,11 +37,11 @@
   .btn::after {
     content: '';
     position: absolute;
-    top: 4px;
-    left: 4px;
-    right: 4px;
-    bottom: 4px;
-    background: linear-gradient(90deg, #9747FF 0%, #EA1187 100%);
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: linear-gradient(90deg, #37BFEA 0%, #0B0F3F 100%);
     border-radius: 35px;
     z-index: -1;
   }

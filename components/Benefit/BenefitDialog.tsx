@@ -129,9 +129,6 @@ export default function BenefitDialog() {
           <p className="hidden lg:block text-sm font-semibold text-slate-400">
             See Benefit details
           </p>
-          <p className="text-sm font-semibold text-slate-400">
-            See the benefits of being a VIP Pass holder
-          </p>
           <ArrowRight
             size={16}
             color="#94A3B8"

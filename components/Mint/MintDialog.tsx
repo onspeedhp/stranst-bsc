@@ -13,13 +13,6 @@ import { StarBuyBtn } from '../Icon';
 import MintBuy from './MintBuy';
 import MintSuccess from './MintDone';
 import axios from 'axios';
-import {
-  useTonAddress,
-  useTonConnectUI,
-  useTonWallet,
-} from '@tonconnect/ui-react';
-import { Address, beginCell, toNano } from 'ton-core';
-import { fetchJettonWallets } from '@/app/utils';
 import { useSearchParams } from 'next/navigation';
 import Button from '../ui/Button';
 import { ArrowLeft } from 'lucide-react';
@@ -30,42 +23,11 @@ export default function MintDialog({
 }: {
   setMinted: (value: boolean) => void;
 }) {
-  const wallet = useTonWallet();
-  const userFriendlyAddress = useTonAddress();
+  const userFriendlyAddress = true;
   const searchParams = useSearchParams();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
-  const [tonConnectUI] = useTonConnectUI();
 
-  const transferToken = async (total: number) => {
-    const body = beginCell()
-      .storeUint(0xf8a7ea5, 32) // jetton transfer op code
-      .storeUint(0, 64) // query_id:uint64
-      .storeCoins(toNano(total / 1000)) // amount:(VarUInteger 16) -  Jetton amount for transfer (decimals = 6 - USDT, 9 - default). Function toNano use decimals = 9 (remember it)
-      .storeAddress(Address.parse(process.env.NEXT_PUBLIC_ADMIN_KEY!)) // destination:MsgAddress
-      .storeAddress(Address.parse(wallet?.account.address!)) // response_destination:MsgAddress
-      .storeUint(0, 1) // custom_payload:(Maybe ^Cell)
-      .storeCoins(toNano('0.05')) // forward_ton_amount:(VarUInteger 16) - if >0, will send notification message
-      .storeUint(0, 1) // forward_payload:(Either Cell ^Cell)
-      .endCell();
-
-    const jettonWalletAddress = await fetchJettonWallets({
-      ownerAddress: wallet?.account.address.toString()!,
-    });
-
-    const myTransaction = {
-      validUntil: Math.floor(Date.now() / 1000) + 360,
-      messages: [
-        {
-          address: jettonWalletAddress!, // sender jetton wallet
-          amount: toNano('0.07').toString(), // for commission fees, excess will be returned
-          payload: body.toBoc().toString('base64'), // payload with jetton transfer body
-        },
-      ],
-    };
-
-    await tonConnectUI.sendTransaction(myTransaction);
-  };
 
   const handleSubmit = async (submitData: {
     amount: number;
@@ -92,12 +54,13 @@ export default function MintDialog({
         throw new Error('over buy');
       }
       const ref = searchParams.get('ref');
-      await transferToken(submitData.total);
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {
-        ...submitData,
-        ref: ref && ref !== userFriendlyAddress ? ref : null,
-        walletAddress: userFriendlyAddress,
-      });
+      console.log(ref);
+      // await transferToken(submitData.total);
+      // await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {
+      //   ...submitData,
+      //   ref: ref && ref !== userFriendlyAddress ? ref : null,
+      //   walletAddress: userFriendlyAddress,
+      // });
       setIsSuccess(true);
     } catch (error) {
       console.error('Error update data:', error);
@@ -113,7 +76,7 @@ export default function MintDialog({
       {!userFriendlyAddress ? (
         <div
           className="w-fit"
-          onClick={() => tonConnectUI.openModal()}
+          onClick={() => {}}
         >
           <Button>
             <p className="text-white">Connect Wallet</p>
