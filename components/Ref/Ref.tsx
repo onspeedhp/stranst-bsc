@@ -156,27 +156,25 @@ export default function Ref() {
           <PopoverTrigger>
             <Button className="bg-[#0F172AD9] flex items-center gap-3">
               <UserPlus />
-              <p className="hidden lg:block text-white">Refer Friends for Prizes</p>
+              <p className="hidden lg:block text-white">
+                Refer Friends for Prizes
+              </p>
             </Button>
           </PopoverTrigger>
           <PopoverContent
             align="end"
             className="p-0 rounded-none overflow-hidden border-none bg-transparent w-[353px]"
           >
-            <div className="border border-[#098BA8] rounded-xl">
-              <div className="w-full h-full rounded-xl">
-                <div
-                  className={`rounded-xl bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] p-4 relative`}
-                >
-                  {isVip ? (
-                    <IsVip
-                      walletAddress={userFriendlyAddress}
-                      totalRef={totalRef}
-                    />
-                  ) : (
-                    <IsNotVip />
-                  )}
-                </div>
+            <div className="relative rounded-xl gradient-border">
+              <div className="bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] rounded-xl p-4">
+                {isVip ? (
+                  <IsVip
+                    walletAddress={userFriendlyAddress}
+                    totalRef={totalRef}
+                  />
+                ) : (
+                  <IsNotVip />
+                )}
               </div>
             </div>
           </PopoverContent>
