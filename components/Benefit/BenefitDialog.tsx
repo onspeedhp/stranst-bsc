@@ -5,10 +5,7 @@ import {
   DialogTitle,
   DialogClose,
 } from '../ui/dialog';
-import {
-  ArrowLeft,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import React from 'react';
 import { DialogHeader } from '../ui/dialog';
 import clsx from 'clsx';
@@ -826,13 +823,16 @@ export default function BenefitDialog() {
           <p className="hidden lg:block text-sm font-semibold text-slate-400">
             See Benefit details
           </p>
+          <p className="lg:hidden text-sm font-semibold text-slate-400">
+            See the benefits of being a VIP Pass holder
+          </p>
           <ArrowRight
             size={16}
             color="#94A3B8"
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-[#101111] border-none py-12 lg:py-6 max-w-[982px] max-h-screen overflow-y-auto rounded-none lg:rounded-xl">
+      <DialogContent className="bg-[#101111] border-none py-12 lg:py-6 max-w-[982px] max-h-screen overflow-y-auto rounded-none lg:rounded-xl blur-[100]">
         <DialogHeader className="relative">
           <DialogClose className="outline-none lg:hidden">
             <ArrowLeft className="absolute left-0 top-1/2 -translate-y-[8px]" />

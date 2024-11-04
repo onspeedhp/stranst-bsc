@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import React, { useState } from 'react';
@@ -16,7 +18,6 @@ import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import Button from '../ui/Button';
 import { ArrowLeft } from 'lucide-react';
-import * as Sentry from '@sentry/react';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 import { BrowserProvider, Contract, formatUnits } from 'ethers';
 
@@ -25,7 +26,6 @@ export default function MintDialog({
 }: {
   setMinted: (value: boolean) => void;
 }) {
-  const userFriendlyAddress = true;
   const searchParams = useSearchParams();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
@@ -59,8 +59,8 @@ export default function MintDialog({
       //   Sentry.captureException('over buy');
       //   throw new Error('over buy');
       // }
-      // const ref = searchParams.get('ref');
-      // console.log(ref);
+      const ref = searchParams.get('ref');
+      console.log(ref);
 
       console.log('Here');
 
@@ -93,14 +93,17 @@ export default function MintDialog({
         const approveTx = await nftContract.approveAndEmit(totalBuy);
         await approveTx.wait();
         console.log('Tokens approved for minting NFTs:', approveTx);
+        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {
+          ...submitData,
+          ref: ref && ref !== address ? ref : null,
+          walletAddress: address,
+        });
+        setIsSuccess(true);
       } catch (error) {
         console.log(error);
       }
-
-      // setIsSuccess(true);
     } catch (error) {
       console.error('Error update data:', error);
-      Sentry.captureException(error);
       setIsSuccess(false);
     } finally {
       setLoading(false);
@@ -109,10 +112,13 @@ export default function MintDialog({
 
   return (
     <>
-      {!userFriendlyAddress ? (
-        <div className='w-fit' onClick={() => {}}>
+      {false ? (
+        <div
+          className="w-fit"
+          onClick={() => {}}
+        >
           <Button>
-            <p className='text-white'>Connect Wallet</p>
+            <p className="text-white">Connect Wallet</p>
           </Button>
         </div>
       ) : (
@@ -129,7 +135,7 @@ export default function MintDialog({
               <div className={styles['btn-glow']} />
               <div className={clsx('flex items-center gap-2', styles['btn'])}>
                 <StarBuyBtn />
-                <p className='text-[18px] leading-7 font-semibold text-white'>
+                <p className="text-[18px] leading-7 font-semibold text-white">
                   Buy Now
                 </p>
               </div>
@@ -137,7 +143,7 @@ export default function MintDialog({
           </DialogTrigger>
           <DialogContent
             className={clsx(
-              'bg-[#171D41] max-w-[704px] border-none rounded-none lg:rounded-xl overflow-y-auto h-full lg:h-auto',
+              'bg-[#101111] blur-[100] max-w-[704px] border-none rounded-none lg:rounded-xl overflow-y-auto h-full lg:h-auto',
               {
                 'w-full lg:max-w-[406px] pb-0 h-auto rounded-t-xl translate-x-0 translate-y-0 bottom-0 top-auto left-0 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:top-1/2 lg:left-1/2':
                   isSuccess !== null,
@@ -146,19 +152,22 @@ export default function MintDialog({
           >
             {isSuccess === null ? (
               <div>
-                <DialogClose className='lg:hidden outline-none p-2'>
+                <DialogClose className="lg:hidden outline-none p-2">
                   <ArrowLeft size={24} />
                 </DialogClose>
-                <MintBuy submitData={handleSubmit} loading={loading} />
+                <MintBuy
+                  submitData={handleSubmit}
+                  loading={loading}
+                />
               </div>
             ) : (
-              <MintSuccess isSuccess={isSuccess} />
+              <MintSuccess isSuccess={true} />
             )}
             {isSuccess !== null && (
-              <DialogClose className='lg:hidden mb-5 outline-none'>
-                <div className='flex items-center justify-center gap-1.5 py-3 bg-[#0F172AD9] rounded-xl'>
+              <DialogClose className="lg:hidden mb-5 outline-none">
+                <div className="flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl">
                   <ArrowLeft />
-                  <p className='font-semibold text-white'>Back to Homepage</p>
+                  <p className="font-semibold text-white">Back to Homepage</p>
                 </div>
               </DialogClose>
             )}

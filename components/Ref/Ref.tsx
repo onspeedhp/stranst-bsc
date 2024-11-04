@@ -63,7 +63,7 @@ const IsVip = ({
         </div>
       </div>
       <Button
-        className="bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] flex gap-3 items-center justify-center lg:hidden"
+        className="bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] flex gap-3 items-center justify-center"
         onClick={() =>
           shareOnMobile({
             text: 'Hey checkout our collections',
@@ -106,7 +106,7 @@ const IsVip = ({
 };
 
 export default function Ref() {
-  const [isVip, setIsVip] = useState(true);
+  const [isVip, setIsVip] = useState(false);
   const [totalRef, setTotalRef] = useState(0);
 
   //   const checkMinted = async (walletAddress: string) => {
