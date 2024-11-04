@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import Ref from './Ref/Ref';
+// import Ref from './Ref/Ref';
 import Wallet from './Wallet';
 
 export default function Header() {
@@ -14,7 +14,7 @@ export default function Header() {
         className='object-cover object-center w-[116px] h-[44px] lg:w-[168px] lg:h-[70px]'
       />
       <div className="flex items-center gap-3">
-        <Ref />
+        {/* <Ref /> */}
         <Wallet />
       </div>
     </div>
