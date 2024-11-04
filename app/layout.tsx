@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import './globals.css';
 import Layout from '@/components/Layout';
-import { Root } from '@/components/Root';
+// import { Root } from '@/components/Root';
 
 const raleway = Raleway({ subsets: ['latin'] });
 

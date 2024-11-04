@@ -44,6 +44,7 @@ export default function NFT() {
   const [maxbuy, setMaxbuy] = useState(1000);
 
   const getMax = async () => {
+    // TODO: get amount nft left
     try {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
