@@ -19,7 +19,7 @@ import { shareOnMobile } from 'react-mobile-share';
 
 const IsNotVip = () => {
   return (
-    <p className="text-slate-400 text-center">
+    <p className="text-slate-400 text-center p-4">
       Unlock VIP Pass to use this feature
     </p>
   );
@@ -43,7 +43,7 @@ const IsVip = ({
     }, 1000);
   };
   return (
-    <div className="pb-7 lg:pb-0">
+    <div className="pb-7 lg:pb-0 lg:pt-4 lg:px-4 lg:bg-gradient-to-b lg:from-[#37BFEA] lg:to-[#0B0F3F] rounded-xl">
       <p className="text-slate-50">Referral Link</p>
       <div className="flex justify-between items-center rounded-[6px] border border-slate-700 bg-slate-800 px-3 py-2 mt-2 mb-3">
         <p className="text-slate-50 truncate pr-3">{refUrl}</p>
@@ -63,7 +63,7 @@ const IsVip = ({
         </div>
       </div>
       <Button
-        className="bg-gradient-to-r from-[#9747FF] to-[#EA1187] flex gap-3 items-center justify-center lg:hidden"
+        className="bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] flex gap-3 items-center justify-center lg:hidden"
         onClick={() =>
           shareOnMobile({
             text: 'Hey checkout our collections',
@@ -92,61 +92,61 @@ const IsVip = ({
         <p className="text-gray-50 text-sm leading-5">
           10% of our revenue during the event will be given to the referrer!
         </p>
-        <RefMission totalRef={totalRef} />
+        {/* <RefMission totalRef={totalRef} /> */}
       </div>
       <Image
         src="/image/ref-activitive.png"
         alt="ref-act"
-        width={183}
-        height={161}
-        className="absolute right-0 bottom-0"
+        width={267}
+        height={235}
+        className="ml-auto"
       />
     </div>
   );
 };
 
 export default function Ref() {
-  const [isVip, setIsVip] = useState(false);
+  const [isVip, setIsVip] = useState(true);
   const [totalRef, setTotalRef] = useState(0);
 
-//   const checkMinted = async (walletAddress: string) => {
-//     try {
-//       const { data } = await axios.post(
-//         `${process.env.NEXT_PUBLIC_API_URL}/checkMinted`,
-//         { walletAddress }
-//       );
-//       setIsVip(data.isMinted);
-//     } catch (error) {
-//       console.error('Error checking minted status:', error);
-//     }
-//   };
+  //   const checkMinted = async (walletAddress: string) => {
+  //     try {
+  //       const { data } = await axios.post(
+  //         `${process.env.NEXT_PUBLIC_API_URL}/checkMinted`,
+  //         { walletAddress }
+  //       );
+  //       setIsVip(data.isMinted);
+  //     } catch (error) {
+  //       console.error('Error checking minted status:', error);
+  //     }
+  //   };
 
-//   const getTotalRef = async (walletAddress: string) => {
-//     try {
-//       const { data } = await axios.get(
-//         `${process.env.NEXT_PUBLIC_API_URL}/totalRef/${walletAddress}`
-//       );
-//       setTotalRef(data);
-//     } catch (error) {
-//       console.error('Error checking minted status:', error);
-//     }
-//   };
+  //   const getTotalRef = async (walletAddress: string) => {
+  //     try {
+  //       const { data } = await axios.get(
+  //         `${process.env.NEXT_PUBLIC_API_URL}/totalRef/${walletAddress}`
+  //       );
+  //       setTotalRef(data);
+  //     } catch (error) {
+  //       console.error('Error checking minted status:', error);
+  //     }
+  //   };
 
-//   TODO: check ref
-//   useEffect(() => {
-//     const checkAndFetch = () => {
-//       if (userFriendlyAddress) {
-//         checkMinted(userFriendlyAddress);
-//         getTotalRef(userFriendlyAddress);
-//       }
-//     };
+  //   TODO: check ref
+  //   useEffect(() => {
+  //     const checkAndFetch = () => {
+  //       if (userFriendlyAddress) {
+  //         checkMinted(userFriendlyAddress);
+  //         getTotalRef(userFriendlyAddress);
+  //       }
+  //     };
 
-//     checkAndFetch();
+  //     checkAndFetch();
 
-//     const interval = setInterval(checkAndFetch, 60000);
+  //     const interval = setInterval(checkAndFetch, 60000);
 
-//     return () => clearInterval(interval);
-//   }, [userFriendlyAddress]);
+  //     return () => clearInterval(interval);
+  //   }, [userFriendlyAddress]);
 
   return (
     <>
@@ -165,11 +165,11 @@ export default function Ref() {
             className="p-0 rounded-none overflow-hidden border-none bg-transparent w-[353px]"
           >
             <div className="relative rounded-xl gradient-border">
-              <div className="bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] rounded-xl p-4">
+              <div className="bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] rounded-xl overflow-hidden p-[1px]">
                 {isVip ? (
-                    // TODO: Wallet address
+                  // TODO: Wallet address
                   <IsVip
-                    walletAddress={"userFriendlyAddress"}
+                    walletAddress={'userFriendlyAddress'}
                     totalRef={totalRef}
                   />
                 ) : (
@@ -188,7 +188,7 @@ export default function Ref() {
               <p className="hidden lg:block">Refer Friends for Prizes</p>
             </Button>
           </DrawerTrigger>
-          <DrawerContent>
+          <DrawerContent className='bg-[#101111]'>
             <DrawerHeader className="flex items-center justify-between">
               <DrawerTitle className="text-white">
                 Refer Friends for Prizes
@@ -201,7 +201,7 @@ export default function Ref() {
               {isVip ? (
                 // Wallet Address
                 <IsVip
-                  walletAddress={"userFriendlyAddress"}
+                  walletAddress={'userFriendlyAddress'}
                   totalRef={totalRef}
                 />
               ) : (
