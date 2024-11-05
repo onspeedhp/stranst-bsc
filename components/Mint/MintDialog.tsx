@@ -21,7 +21,11 @@ import { ArrowLeft } from 'lucide-react';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 import { BrowserProvider, Contract, ethers } from 'ethers';
 import { useCollectionContract, useTokenContract } from '@/hooks/useContract';
-import { BASE_PRICE, NFT_CONTRACT_ADDRESS } from '@/constant';
+import {
+  BASE_PRICE,
+  NFT_CONTRACT_ADDRESS,
+  TOTAL_SELLING_NFT,
+} from '@/constant';
 
 export default function MintDialog({
   setMinted,
@@ -32,7 +36,7 @@ export default function MintDialog({
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [isApproved, setIsApproved] = useState(false);
-  const { isConnected } = useAppKitAccount();
+  const { isConnected, address } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider('eip155');
 
   const handleSubmit = async (submitData: {
@@ -41,9 +45,7 @@ export default function MintDialog({
   }) => {
     try {
       setLoading(true);
-      if (!isConnected) throw Error('User disconnected');
-
-      const ref = searchParams.get('ref');
+      if (!isConnected || !address) throw Error('User disconnected');
 
       const ethersProvider = new BrowserProvider(walletProvider as any);
 
@@ -68,10 +70,15 @@ export default function MintDialog({
       } else {
         const nftContract = useCollectionContract(signer);
 
+        const ref = searchParams.get('ref');
+        const addressRef = await nftContract.ownerOf(ref);
+
         const mintNftTx = await nftContract.createEdaNFT(
           submitData.amount,
           signer.address.toString(),
-          BigInt(ref ? 0 : 10000)
+          BigInt(
+            ref && addressRef !== address ? Number(ref) : TOTAL_SELLING_NFT
+          )
         );
 
         await mintNftTx.wait();

@@ -25,4 +25,5 @@ export const NFT_CONTRACT_ABI = [
   'function doesUserOwnAnyNFTs(address user) public view returns (bool)',
   'function getTotalMinted() public view returns (uint256)',
   'function getNFTsOfOwner(address owner) external view returns (uint256[])',
+  'function ownerOf(uint256 tokenId) external view returns (address)',
 ];
