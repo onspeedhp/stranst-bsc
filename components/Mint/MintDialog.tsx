@@ -18,7 +18,7 @@ import Button from '../ui/Button';
 import { ArrowLeft } from 'lucide-react';
 import * as Sentry from '@sentry/react';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
-import { BrowserProvider, Contract, formatUnits } from 'ethers';
+import { BrowserProvider, Contract, ethers } from 'ethers';
 
 export default function MintDialog({
   setMinted,
@@ -65,11 +65,11 @@ export default function MintDialog({
       console.log('Here');
 
       const totalBuy = 1;
-
-      const nftContractAddress = '0x6F9738F401527695E8E8359692A4B9dbFbBf29Cd';
-      const nftAbi = [
-        'event TokensApproved(address indexed owner, uint256 amount, uint256 quantity)',
-        'function approveAndEmit(uint256 quantity) public',
+      const vaultAddress = '0x6F966D6A8276191Bf28597D7daC5CcdDdB746b52';
+      const tokenContractAddress = '0x84b9B910527Ad5C03A9Ca831909E21e236EA7b06';
+      const tokneAbi = [
+        'function transfer(address recipient, uint256 amount) external returns (bool)',
+        'function decimals() external view returns (uint8)',
       ];
 
       const bscTestnet = {
@@ -86,11 +86,19 @@ export default function MintDialog({
 
       const signer = await ethersProvider.getSigner();
 
-      const nftContract = new Contract(nftContractAddress, nftAbi, signer);
+      const tokenContract = new Contract(
+        tokenContractAddress,
+        tokneAbi,
+        signer
+      );
+      const decimals = ethers.toNumber(await tokenContract.decimals());
 
       try {
         // Call the approveAndEmit function to emit the TokensApproved event
-        const approveTx = await nftContract.approveAndEmit(totalBuy);
+        const approveTx = await tokenContract.transfer(
+          vaultAddress,
+          BigInt(1 * 10 ** decimals)
+        );
         await approveTx.wait();
         console.log('Tokens approved for minting NFTs:', approveTx);
       } catch (error) {
