@@ -20,6 +20,8 @@ import Button from '../ui/Button';
 import { ArrowLeft } from 'lucide-react';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 import { BrowserProvider, Contract, ethers } from 'ethers';
+import { useCollectionContract, useTokenContract } from '@/hooks/useContract';
+import { NFT_CONTRACT_ADDRESS } from '@/constant';
 
 export default function MintDialog({
   setMinted,
@@ -30,16 +32,13 @@ export default function MintDialog({
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [isApproved, setIsApproved] = useState(false);
-  // TODO: setisapproved when approved and setisSuccess when all done
-  const { address, caipAddress, isConnected } = useAppKitAccount();
+  const { isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider('eip155');
 
   const handleSubmit = async (submitData: {
     amount: number;
     total: number;
   }) => {
-    console.log(submitData);
-
     try {
       setLoading(true);
       if (!isConnected) throw Error('User disconnected');
@@ -47,41 +46,28 @@ export default function MintDialog({
       const ref = searchParams.get('ref');
 
       const price = 0.1;
-      const tokenContractAddress = '0xB562a98729dF6B610f36c1f50dD925bB5f693E4b';
-      const nftContractAddress = '0xB7a9686AECBa216A83A8624e18eCb872252d9934';
-
-      const tokneAbi = [
-        'function approve(address recipient, uint256 amount) external returns (bool)',
-        'function decimals() external view returns (uint8)',
-      ];
-
-      const nftAbi = [
-        'function createEdaNFT(uint256 quantity, address receiver, uint256 nftRefId) public',
-      ];
-
       const ethersProvider = new BrowserProvider(walletProvider as any);
 
       const signer = await ethersProvider.getSigner();
 
-      const tokenContract = new Contract(
-        tokenContractAddress,
-        tokneAbi,
-        signer
-      );
+      if (!isApproved) {
+        const tokenContract = useTokenContract(signer);
 
-      const nftContract = new Contract(nftContractAddress, nftAbi, signer);
+        const decimals = ethers.toNumber(await tokenContract.decimals());
 
-      const decimals = ethers.toNumber(await tokenContract.decimals());
-
-      try {
         // Call the approveAndEmit function to emit the TokensApproved event
         const approveTx = await tokenContract.approve(
-          nftContractAddress,
+          NFT_CONTRACT_ADDRESS,
           BigInt(submitData.amount * price * 10 ** decimals)
         );
 
         await approveTx.wait();
+
         console.log('Tokens approved for minting NFTs:', approveTx);
+
+        setIsApproved(true);
+      } else {
+        const nftContract = useCollectionContract(signer);
 
         const mintNftTx = await nftContract.createEdaNFT(
           submitData.amount,
@@ -93,8 +79,6 @@ export default function MintDialog({
         console.log('Mint NFT');
 
         setIsSuccess(true);
-      } catch (error) {
-        console.log(error);
       }
     } catch (error) {
       console.error('Error update data:', error);

@@ -1,5 +1,6 @@
 'use client';
-import { BASE_PRICE } from '@/constant/baseprice';
+import { BASE_PRICE, TOTAL_SELLING_NFT } from '@/constant';
+import { useCollectionContract, useTokenContract } from '@/hooks/useContract';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -41,11 +42,12 @@ export default function NFT() {
 
   const getMax = async () => {
     // TODO: get amount nft left
+
     try {
-      // const { data } = await axios.get(
-      //   `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
-      // );
-      setMaxbuy(1);
+      const nftContract = useCollectionContract();
+      const totalMinter = await nftContract.getTotalMinted();
+
+      setMaxbuy(TOTAL_SELLING_NFT - Number(totalMinter));
     } catch (error) {
       console.error('Error checking max buy:', error);
     }
