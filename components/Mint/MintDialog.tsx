@@ -29,7 +29,8 @@ export default function MintDialog({
   const searchParams = useSearchParams();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
-
+  const [isApproved, setIsApproved] = useState(false);
+  // TODO: setisapproved when approved and setisSuccess when all done
   const { address, caipAddress, isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider('eip155');
 
@@ -158,6 +159,7 @@ export default function MintDialog({
                 <MintBuy
                   submitData={handleSubmit}
                   loading={loading}
+                  isApproved={isApproved}
                 />
               </div>
             ) : (
