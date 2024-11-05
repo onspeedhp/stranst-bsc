@@ -8,9 +8,11 @@ import clsx from 'clsx';
 export default function MintBuy({
   submitData,
   loading,
+  isApproved,
 }: {
   submitData: ({ total, amount }: { total: number; amount: number }) => void;
   loading: boolean;
+  isApproved: boolean;
 }) {
   const [amount, setAmount] = useState(1);
   const [maxbuy, setMaxbuy] = useState(1);
@@ -82,7 +84,7 @@ export default function MintBuy({
             { 'opacity-50 pointer-events-none': loading }
           )}
         >
-          {loading ? 'In progress...' : 'Continue'}
+          {loading ? 'In progress...' : isApproved ? 'Mint NFT' : 'Approve'}
         </div>
       </div>
     </div>

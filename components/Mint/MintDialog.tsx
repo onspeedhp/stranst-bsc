@@ -29,8 +29,9 @@ export default function MintDialog({
   const searchParams = useSearchParams();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const { isConnected } = useAppKitAccount();
+  const [isApproved, setIsApproved] = useState(false);
+  // TODO: setisapproved when approved and setisSuccess when all done
+  const { address, caipAddress, isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider('eip155');
 
   const handleSubmit = async (submitData: {
@@ -145,7 +146,11 @@ export default function MintDialog({
                 <DialogClose className='lg:hidden outline-none p-2'>
                   <ArrowLeft size={24} />
                 </DialogClose>
-                <MintBuy submitData={handleSubmit} loading={loading} />
+                <MintBuy
+                  submitData={handleSubmit}
+                  loading={loading}
+                  isApproved={isApproved}
+                />
               </div>
             ) : (
               <MintSuccess isSuccess={true} />
