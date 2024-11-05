@@ -71,14 +71,19 @@ export default function MintDialog({
         const nftContract = useCollectionContract(signer);
 
         const ref = searchParams.get('ref');
-        const addressRef = await nftContract.ownerOf(ref);
+        let refId = TOTAL_SELLING_NFT;
+
+        if (ref) {
+          const addressRef = await nftContract.ownerOf(ref);
+          if (addressRef !== address) {
+            refId = Number(ref);
+          }
+        }
 
         const mintNftTx = await nftContract.createEdaNFT(
           submitData.amount,
           signer.address.toString(),
-          BigInt(
-            ref && addressRef !== address ? Number(ref) : TOTAL_SELLING_NFT
-          )
+          BigInt(refId)
         );
 
         await mintNftTx.wait();
