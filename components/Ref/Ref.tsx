@@ -16,6 +16,8 @@ import {
 } from '../ui/drawer';
 import { DialogClose } from '../ui/dialog';
 import { shareOnMobile } from 'react-mobile-share';
+import { useCollectionContract } from '@/hooks/useContract';
+import { useAppKitAccount } from '@reown/appkit/react';
 
 const IsNotVip = () => {
   return (
@@ -36,7 +38,7 @@ const IsVip = ({ nftId, totalRef }: { nftId: string; totalRef: number }) => {
       setIsCopy(false);
     }, 1000);
   };
-  
+
   return (
     <div className='pb-7 lg:pb-0 lg:pt-4 lg:px-4 lg:bg-gradient-to-b lg:from-[#37BFEA] lg:to-[#0B0F3F] rounded-xl'>
       <p className='text-slate-50'>Referral Link</p>
@@ -90,6 +92,30 @@ const IsVip = ({ nftId, totalRef }: { nftId: string; totalRef: number }) => {
 export default function Ref() {
   const [isVip, setIsVip] = useState(false);
   const [totalRef, setTotalRef] = useState(0);
+
+  const [nftIdArr, setNftIdArr] = useState([]);
+  const { isConnected, address } = useAppKitAccount();
+
+  const getUserNftIdArr = async () => {
+    if (isConnected && address) {
+      try {
+        const nftContract = useCollectionContract();
+        const listNftOfOwner = await nftContract.getNFTsOfOwner(address);
+        const nftIdAddr = listNftOfOwner.map((nftId: any) =>
+          Number(nftId).toString()
+        );
+        console.log(nftIdAddr);
+
+        // TODO: Đây là cách để lấy được list id của các nft mà người dùng hiện đang sở hữu
+      } catch (error) {
+        console.log('Get list nft id failed: ', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUserNftIdArr();
+  }, []);
 
   //   const checkMinted = async (walletAddress: string) => {
   //     try {
