@@ -19,20 +19,14 @@ import { shareOnMobile } from 'react-mobile-share';
 
 const IsNotVip = () => {
   return (
-    <p className="text-slate-400 text-center p-4">
+    <p className='text-slate-400 text-center p-4'>
       Unlock VIP Pass to use this feature
     </p>
   );
 };
 
-const IsVip = ({
-  walletAddress,
-  totalRef,
-}: {
-  walletAddress: string;
-  totalRef: number;
-}) => {
-  const refUrl = `${process.env.NEXT_PUBLIC_APP_URL}?ref=${walletAddress}`;
+const IsVip = ({ nftId, totalRef }: { nftId: string; totalRef: number }) => {
+  const refUrl = `${process.env.NEXT_PUBLIC_APP_URL}?ref=${nftId}`;
   const [isCopy, setIsCopy] = useState(false);
 
   const handleCopyUrl = () => {
@@ -42,28 +36,22 @@ const IsVip = ({
       setIsCopy(false);
     }, 1000);
   };
+  
   return (
-    <div className="pb-7 lg:pb-0 lg:pt-4 lg:px-4 lg:bg-gradient-to-b lg:from-[#37BFEA] lg:to-[#0B0F3F] rounded-xl">
-      <p className="text-slate-50">Referral Link</p>
-      <div className="flex justify-between items-center rounded-[6px] border border-slate-700 bg-slate-800 px-3 py-2 mt-2 mb-3">
-        <p className="text-slate-50 truncate pr-3">{refUrl}</p>
-        <div className="cursor-pointer hover:opacity-80">
+    <div className='pb-7 lg:pb-0 lg:pt-4 lg:px-4 lg:bg-gradient-to-b lg:from-[#37BFEA] lg:to-[#0B0F3F] rounded-xl'>
+      <p className='text-slate-50'>Referral Link</p>
+      <div className='flex justify-between items-center rounded-[6px] border border-slate-700 bg-slate-800 px-3 py-2 mt-2 mb-3'>
+        <p className='text-slate-50 truncate pr-3'>{refUrl}</p>
+        <div className='cursor-pointer hover:opacity-80'>
           {isCopy ? (
-            <Check
-              color="#64748B"
-              size={13}
-            />
+            <Check color='#64748B' size={13} />
           ) : (
-            <Copy
-              onClick={handleCopyUrl}
-              color="#64748B"
-              size={13}
-            />
+            <Copy onClick={handleCopyUrl} color='#64748B' size={13} />
           )}
         </div>
       </div>
       <Button
-        className="bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] flex gap-3 items-center justify-center"
+        className='bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] flex gap-3 items-center justify-center'
         onClick={() =>
           shareOnMobile({
             text: 'Hey checkout our collections',
@@ -72,34 +60,28 @@ const IsVip = ({
           })
         }
       >
-        <Share
-          color="white"
-          size={20}
-        />
-        <p className="text-white">Share</p>
+        <Share color='white' size={20} />
+        <p className='text-white'>Share</p>
       </Button>
-      <div className="relative my-6 h-[1px]">
-        <div className="absolute top-0 bottom-0 bg-slate-600 -left-4 -right-4" />
+      <div className='relative my-6 h-[1px]'>
+        <div className='absolute top-0 bottom-0 bg-slate-600 -left-4 -right-4' />
       </div>
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-2">
-          <Users
-            color="white"
-            size={28}
-          />
-          <p className="text-slate-50 font-semibold">{totalRef} referrals</p>
+      <div className='flex flex-col gap-3'>
+        <div className='flex items-center gap-2'>
+          <Users color='white' size={28} />
+          <p className='text-slate-50 font-semibold'>{totalRef} referrals</p>
         </div>
-        <p className="text-gray-50 text-sm leading-5">
-          10% of our revenue during the event will be given to the referrer!
+        <p className='text-gray-50 text-sm leading-5'>
+          10% of our revenue during the event will be given to the referer!
         </p>
         {/* <RefMission totalRef={totalRef} /> */}
       </div>
       <Image
-        src="/image/ref-activitive.png"
-        alt="ref-act"
+        src='/image/ref-activitive.png'
+        alt='ref-act'
         width={267}
         height={235}
-        className="ml-auto"
+        className='ml-auto'
       />
     </div>
   );
@@ -150,28 +132,25 @@ export default function Ref() {
 
   return (
     <>
-      <div className="hidden lg:block">
+      <div className='hidden lg:block'>
         <Popover>
           <PopoverTrigger>
-            <Button className="bg-[#0F172AD9] flex items-center gap-3">
+            <Button className='bg-[#0F172AD9] flex items-center gap-3'>
               <UserPlus />
-              <p className="hidden lg:block text-white">
+              <p className='hidden lg:block text-white'>
                 Refer Friends for Prizes
               </p>
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            align="end"
-            className="p-0 rounded-none overflow-hidden border-none bg-transparent w-[353px]"
+            align='end'
+            className='p-0 rounded-none overflow-hidden border-none bg-transparent w-[353px]'
           >
-            <div className="relative rounded-xl gradient-border">
-              <div className="bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] rounded-xl overflow-hidden p-[1px]">
+            <div className='relative rounded-xl gradient-border'>
+              <div className='bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] rounded-xl overflow-hidden p-[1px]'>
                 {isVip ? (
                   // TODO: Wallet address
-                  <IsVip
-                    walletAddress={'userFriendlyAddress'}
-                    totalRef={totalRef}
-                  />
+                  <IsVip nftId={'userFriendlyAddress'} totalRef={totalRef} />
                 ) : (
                   <IsNotVip />
                 )}
@@ -180,39 +159,36 @@ export default function Ref() {
           </PopoverContent>
         </Popover>
       </div>
-      <div className="block lg:hidden">
+      <div className='block lg:hidden'>
         <Drawer>
           <DrawerTrigger aria-hidden={false}>
-            <Button className="bg-[#0F172AD9] flex items-center gap-3">
+            <Button className='bg-[#0F172AD9] flex items-center gap-3'>
               <UserPlus />
-              <p className="hidden lg:block">Refer Friends for Prizes</p>
+              <p className='hidden lg:block'>Refer Friends for Prizes</p>
             </Button>
           </DrawerTrigger>
           <DrawerContent className='bg-[#101111]'>
-            <DrawerHeader className="flex items-center justify-between">
-              <DrawerTitle className="text-white">
+            <DrawerHeader className='flex items-center justify-between'>
+              <DrawerTitle className='text-white'>
                 Refer Friends for Prizes
               </DrawerTitle>
               <DialogClose>
-                <X className="mr-4" />
+                <X className='mr-4' />
               </DialogClose>
             </DrawerHeader>
-            <div className="px-4">
+            <div className='px-4'>
               {isVip ? (
                 // Wallet Address
-                <IsVip
-                  walletAddress={'userFriendlyAddress'}
-                  totalRef={totalRef}
-                />
+                <IsVip nftId={'userFriendlyAddress'} totalRef={totalRef} />
               ) : (
-                <div className="h-[50vh] flex flex-col items-center justify-center">
+                <div className='h-[50vh] flex flex-col items-center justify-center'>
                   <Image
-                    src="/image/emptybox.png"
+                    src='/image/emptybox.png'
                     width={317}
                     height={221}
-                    alt="empty"
+                    alt='empty'
                   />
-                  <p className="text-sm text-slate-400">
+                  <p className='text-sm text-slate-400'>
                     Unlock VIP Pass to use this feature
                   </p>
                 </div>

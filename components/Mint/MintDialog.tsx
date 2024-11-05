@@ -30,59 +30,35 @@ export default function MintDialog({
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const { address, caipAddress, isConnected } = useAppKitAccount();
+  const { isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider('eip155');
 
   const handleSubmit = async (submitData: {
     amount: number;
     total: number;
   }) => {
+    console.log(submitData);
+
     try {
       setLoading(true);
       if (!isConnected) throw Error('User disconnected');
 
-      // const { data } = await axios.get(
-      //   `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
-      // );
-      // if (
-      //   Number(data.totalBuy) >=
-      //   (Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000)
-      // ) {
-      //   Sentry.captureException('out of stock');
-      //   throw new Error('out of stock');
-      // }
-      // if (
-      //   submitData.amount >
-      //   (Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000) -
-      //     Number(data.totalBuy)
-      // ) {
-      //   Sentry.captureException('over buy');
-      //   throw new Error('over buy');
-      // }
       const ref = searchParams.get('ref');
-      console.log(ref);
 
-      console.log('Here');
+      const price = 0.1;
+      const tokenContractAddress = '0xB562a98729dF6B610f36c1f50dD925bB5f693E4b';
+      const nftContractAddress = '0xB7a9686AECBa216A83A8624e18eCb872252d9934';
 
-      const totalBuy = 1;
-      const vaultAddress = '0x6F966D6A8276191Bf28597D7daC5CcdDdB746b52';
-      const tokenContractAddress = '0x84b9B910527Ad5C03A9Ca831909E21e236EA7b06';
       const tokneAbi = [
-        'function transfer(address recipient, uint256 amount) external returns (bool)',
+        'function approve(address recipient, uint256 amount) external returns (bool)',
         'function decimals() external view returns (uint8)',
       ];
 
-      const bscTestnet = {
-        name: 'BSC Testnet',
-        chainId: 97, // BSC Testnet chain ID
-        ensAddress: undefined, // BSC does not use ENS, so this can be left as undefined
-        ensNetwork: undefined, // Also not required for BSC
-      };
+      const nftAbi = [
+        'function createEdaNFT(uint256 quantity, address receiver, uint256 nftRefId) public',
+      ];
 
-      const ethersProvider = new BrowserProvider(
-        walletProvider as any,
-        bscTestnet
-      );
+      const ethersProvider = new BrowserProvider(walletProvider as any);
 
       const signer = await ethersProvider.getSigner();
 
@@ -91,21 +67,30 @@ export default function MintDialog({
         tokneAbi,
         signer
       );
+
+      const nftContract = new Contract(nftContractAddress, nftAbi, signer);
+
       const decimals = ethers.toNumber(await tokenContract.decimals());
 
       try {
         // Call the approveAndEmit function to emit the TokensApproved event
-        const approveTx = await tokenContract.transfer(
-          vaultAddress,
-          BigInt(1 * 10 ** decimals)
+        const approveTx = await tokenContract.approve(
+          nftContractAddress,
+          BigInt(submitData.amount * price * 10 ** decimals)
         );
+
         await approveTx.wait();
         console.log('Tokens approved for minting NFTs:', approveTx);
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint`, {
-          ...submitData,
-          ref: ref && ref !== address ? ref : null,
-          walletAddress: address,
-        });
+
+        const mintNftTx = await nftContract.createEdaNFT(
+          submitData.amount,
+          signer.address.toString(),
+          BigInt(ref ? 0 : 10000)
+        );
+
+        await mintNftTx.wait();
+        console.log('Mint NFT');
+
         setIsSuccess(true);
       } catch (error) {
         console.log(error);
@@ -121,12 +106,9 @@ export default function MintDialog({
   return (
     <>
       {false ? (
-        <div
-          className="w-fit"
-          onClick={() => {}}
-        >
+        <div className='w-fit' onClick={() => {}}>
           <Button>
-            <p className="text-white">Connect Wallet</p>
+            <p className='text-white'>Connect Wallet</p>
           </Button>
         </div>
       ) : (
@@ -143,7 +125,7 @@ export default function MintDialog({
               <div className={styles['btn-glow']} />
               <div className={clsx('flex items-center gap-2', styles['btn'])}>
                 <StarBuyBtn />
-                <p className="text-[18px] leading-7 font-semibold text-white">
+                <p className='text-[18px] leading-7 font-semibold text-white'>
                   Buy Now
                 </p>
               </div>
@@ -160,22 +142,19 @@ export default function MintDialog({
           >
             {isSuccess === null ? (
               <div>
-                <DialogClose className="lg:hidden outline-none p-2">
+                <DialogClose className='lg:hidden outline-none p-2'>
                   <ArrowLeft size={24} />
                 </DialogClose>
-                <MintBuy
-                  submitData={handleSubmit}
-                  loading={loading}
-                />
+                <MintBuy submitData={handleSubmit} loading={loading} />
               </div>
             ) : (
               <MintSuccess isSuccess={true} />
             )}
             {isSuccess !== null && (
-              <DialogClose className="lg:hidden mb-5 outline-none">
-                <div className="flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl">
+              <DialogClose className='lg:hidden mb-5 outline-none'>
+                <div className='flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl'>
                   <ArrowLeft />
-                  <p className="font-semibold text-white">Back to Homepage</p>
+                  <p className='font-semibold text-white'>Back to Homepage</p>
                 </div>
               </DialogClose>
             )}
