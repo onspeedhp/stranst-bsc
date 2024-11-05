@@ -93,7 +93,7 @@ export default function Ref() {
   const [isVip, setIsVip] = useState(false);
   const [totalRef, setTotalRef] = useState(0);
 
-  const [nftIdArr, setNftIdArr] = useState([]);
+  const [nftIdAdrr, setNftIdAdrr] = useState([]);
   const { isConnected, address } = useAppKitAccount();
 
   const getUserNftIdArr = async () => {
@@ -101,10 +101,12 @@ export default function Ref() {
       try {
         const nftContract = useCollectionContract();
         const listNftOfOwner = await nftContract.getNFTsOfOwner(address);
-        const nftIdAddr = listNftOfOwner.map((nftId: any) =>
+        const list = listNftOfOwner.map((nftId: any) =>
           Number(nftId).toString()
         );
-        console.log(nftIdAddr);
+
+        setNftIdAdrr(list);
+        setIsVip(list.length !== 0);
 
         // TODO: Đây là cách để lấy được list id của các nft mà người dùng hiện đang sở hữu
       } catch (error) {
@@ -176,7 +178,7 @@ export default function Ref() {
               <div className='bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] rounded-xl overflow-hidden p-[1px]'>
                 {isVip ? (
                   // TODO: Wallet address
-                  <IsVip nftId={'userFriendlyAddress'} totalRef={totalRef} />
+                  <IsVip nftId={'0'} totalRef={totalRef} />
                 ) : (
                   <IsNotVip />
                 )}
