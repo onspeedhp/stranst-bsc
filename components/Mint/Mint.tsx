@@ -4,7 +4,8 @@ import { StarBuyBtn } from '../Icon';
 import styles from './mint.module.css';
 import clsx from 'clsx';
 import MintDialog from './MintDialog';
-import axios from 'axios';
+import { useCollectionContract } from '@/hooks/useContract';
+import { TOTAL_SELLING_NFT } from '@/constant';
 
 export default function Mint() {
   const [outOfStock, setOutOfStock] = useState(false);
@@ -12,8 +13,10 @@ export default function Mint() {
 
   const checkOutOfStock = async () => {
     try {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/checkOutOfStock`);
-      setOutOfStock(data.isOutOfStock);
+      const nftContract = useCollectionContract();
+      const totalMinted = await nftContract.getTotalMinted();
+
+      setOutOfStock(Number(totalMinted) === TOTAL_SELLING_NFT);
     } catch (error) {
       console.error('Error checking out of stock status:', error);
     }
@@ -26,7 +29,7 @@ export default function Mint() {
   return (
     <Suspense>
       {minted ? (
-        <p className="text-[18px] leading-7 font-semibold text-slate-50">
+        <p className='text-[18px] leading-7 font-semibold text-slate-50'>
           Congratulations! You’re one of the Strant VIP Pass holders.
         </p>
       ) : (
@@ -39,20 +42,20 @@ export default function Mint() {
               )}
             >
               <div
-                className="w-full h-full rounded-[35px] flex items-center justify-center gap-2"
+                className='w-full h-full rounded-[35px] flex items-center justify-center gap-2'
                 style={{
                   background:
                     'linear-gradient(90deg, #9747FF 0%, #EA1187 100%)',
                 }}
               >
                 <StarBuyBtn />
-                <p className="text-[18px] leading-7 font-semibold text-white">
+                <p className='text-[18px] leading-7 font-semibold text-white'>
                   Out Of Stock
                 </p>
               </div>
             </div>
           ) : (
-            <MintDialog setMinted={setMinted}/>
+            <MintDialog setMinted={setMinted} />
           )}
         </>
       )}

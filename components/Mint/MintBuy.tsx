@@ -2,8 +2,9 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import MintCounter from './MintCouter';
 import axios from 'axios';
-import { BASE_PRICE } from '@/constant';
+import { BASE_PRICE, TOTAL_SELLING_NFT } from '@/constant';
 import clsx from 'clsx';
+import { useCollectionContract } from '@/hooks/useContract';
 
 export default function MintBuy({
   submitData,
@@ -19,13 +20,10 @@ export default function MintBuy({
 
   const getMax = async () => {
     try {
-      const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
-      );
-      setMaxbuy(
-        (Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000) -
-          Number(data.totalBuy)
-      );
+      const nftContract = useCollectionContract();
+      const totalMinted = await nftContract.getTotalMinted();
+
+      setMaxbuy(TOTAL_SELLING_NFT - Number(totalMinted));
     } catch (error) {
       console.error('Error checking max buy:', error);
     }

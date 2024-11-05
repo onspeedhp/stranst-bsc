@@ -41,13 +41,11 @@ export default function NFT() {
   const [maxbuy, setMaxbuy] = useState(1000);
 
   const getMax = async () => {
-    // TODO: get amount nft left
-
     try {
       const nftContract = useCollectionContract();
-      const totalMinter = await nftContract.getTotalMinted();
+      const totalMinted = await nftContract.getTotalMinted();
 
-      setMaxbuy(TOTAL_SELLING_NFT - Number(totalMinter));
+      setMaxbuy(TOTAL_SELLING_NFT - Number(totalMinted));
     } catch (error) {
       console.error('Error checking max buy:', error);
     }

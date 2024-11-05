@@ -21,7 +21,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 import { BrowserProvider, Contract, ethers } from 'ethers';
 import { useCollectionContract, useTokenContract } from '@/hooks/useContract';
-import { NFT_CONTRACT_ADDRESS } from '@/constant';
+import { BASE_PRICE, NFT_CONTRACT_ADDRESS } from '@/constant';
 
 export default function MintDialog({
   setMinted,
@@ -45,7 +45,6 @@ export default function MintDialog({
 
       const ref = searchParams.get('ref');
 
-      const price = 0.1;
       const ethersProvider = new BrowserProvider(walletProvider as any);
 
       const signer = await ethersProvider.getSigner();
@@ -58,7 +57,7 @@ export default function MintDialog({
         // Call the approveAndEmit function to emit the TokensApproved event
         const approveTx = await tokenContract.approve(
           NFT_CONTRACT_ADDRESS,
-          BigInt(submitData.amount * price * 10 ** decimals)
+          BigInt(submitData.amount * BASE_PRICE * 10 ** decimals)
         );
 
         await approveTx.wait();
