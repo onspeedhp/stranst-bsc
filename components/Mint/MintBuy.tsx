@@ -20,7 +20,10 @@ export default function MintBuy({
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/totalbuy`
       );
-      setMaxbuy((Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000) - Number(data.totalBuy));
+      setMaxbuy(
+        (Number(process.env.NEXT_PUBLIC_TOTAL_NFTS) || 2000) -
+          Number(data.totalBuy)
+      );
     } catch (error) {
       console.error('Error checking max buy:', error);
     }
@@ -34,27 +37,24 @@ export default function MintBuy({
     <div className="grid grid-cols1 lg:grid-cols-2 gap-8 items-center">
       <div className="relative hidden lg:block">
         <Image
-          src="/image/nft/nft-image-2.png"
+          src="/image/nft/nft-image.png"
           alt="nft-image"
           width={278}
-          height={344}
+          height={366}
         />
       </div>
       <div>
-        <p className="text-[30px] leading-[36px] tracking-[-0.75%] font-semibold text-white italic">
-          <span className="text-xl tracking-[-0.6%] not-italic">
-            Purchasing
-          </span>{' '}
+        <p className="text-[24px] leading-[32px] tracking-[-0.75%] font-semibold text-white">
           NFT VIP Pass - 1st Edition
         </p>
         <p className="mt-3 text-lg font-semibold tracking-[-0.5%] bg-gradient-to-r from-[#A2ADB9] via-[#F8FAFC] to-[#99A6B2] text-transparent bg-clip-text">
           {BASE_PRICE} USDT
         </p>
         <Image
-          src="/image/nft/nft-image-2.png"
+          src="/image/nft/nft-image.png"
           alt="nft-image"
           width={278}
-          height={344}
+          height={366}
           className="block lg:hidden mx-auto"
         />
         <div className="mt-6 border-t border-slate-600 mb-6">
@@ -78,7 +78,7 @@ export default function MintBuy({
         <div
           onClick={() => submitData({ amount, total: amount * BASE_PRICE })}
           className={clsx(
-            'bg-gradient-to-l from-[#9747FF] to-[#EA1187] rounded-xl py-2.5 text-center text-[18px] leading-7 font-semibold text-white cursor-pointer hover:opacity-80',
+            'bg-gradient-to-l from-[#8237EA] to-[#098BA8] rounded-xl py-2.5 text-center text-[18px] leading-7 font-semibold text-white cursor-pointer hover:opacity-80',
             { 'opacity-50 pointer-events-none': loading }
           )}
         >

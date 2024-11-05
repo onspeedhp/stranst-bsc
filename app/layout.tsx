@@ -44,8 +44,8 @@ export const metadata: Metadata = {
     icon: [
       {
         media: '(prefers-color-scheme: light)',
-        url: '/image/favicon-strant-light.png',
-        href: '/image/favicon-strant-light.png',
+        url: '/image/strant-og.png',
+        href: '/image/strant-og.png',
       },
       {
         media: '(prefers-color-scheme: dark)',
@@ -56,25 +56,25 @@ export const metadata: Metadata = {
     apple: [
       {
         media: '(prefers-color-scheme: light)',
-        url: '/image/favicon-strant-light.png',
-        href: '/image/favicon-strant-light.png',
+        url: '/image/strant-og.png',
+        href: '/image/strant-og.png',
       },
       {
         media: '(prefers-color-scheme: dark)',
-        url: '/image/favicon-strant-dark.png',
-        href: '/image/favicon-strant-dark.png',
+        url: '/image/strant-og.png',
+        href: '/image/strant-og.png',
       },
     ],
     shortcut: [
       {
         media: '(prefers-color-scheme: light)',
-        url: '/image/favicon-strant-light.png',
+        url: '/image/strant-og.png',
         href: '/image/favicon-strant-light.png',
       },
       {
         media: '(prefers-color-scheme: dark)',
-        url: '/image/favicon-strant-dark.png',
-        href: '/image/favicon-strant-dark.png',
+        url: '/image/strant-og.png',
+        href: '/image/strant-og.png',
       },
     ],
   },
