@@ -1,15 +1,22 @@
 'use client';
-import React from 'react';
+
+import { useAppKitAccount } from '@reown/appkit/react';
+import { useEffect, useState } from 'react';
 
 export default function Wallet() {
+  const { isConnected } = useAppKitAccount();
+  const [classn,setClassn] = useState('connect-btn') 
+
+  useEffect(()=>{
+    if(isConnected) {
+      setClassn('connect-btn connected')
+    } else{
+      setClassn('connect-btn')
+    }
+  },[isConnected])
   return (
-    <>
-      {/* <Button>
-        <p className='text-white'>Connect Wallet</p>
-      </Button> */}
-      <div className="connect-btn">
-        <w3m-button />
-      </div>
-    </>
+    <div className={classn}>
+      <w3m-button />
+    </div>
   );
 }

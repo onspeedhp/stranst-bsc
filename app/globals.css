@@ -138,6 +138,10 @@ input[type=number] {
   z-index: -1;
 }
 
-.connect-btn {
-  margin: -4px -8px;
+@media screen and (max-width: 500px) {
+  .connect-btn.connected {
+    margin-top: -4px;
+    margin-bottom: -4px;
+    margin-left: -40px;
+  }
 }
