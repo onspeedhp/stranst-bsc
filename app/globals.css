@@ -137,3 +137,8 @@ input[type=number] {
   mask-composite: exclude;
   z-index: -1;
 }
+
+.connect-btn button {
+  padding: 0 !important;
+
+}
