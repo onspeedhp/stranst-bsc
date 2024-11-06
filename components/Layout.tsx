@@ -5,7 +5,6 @@ import Header from './Header';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { PropsWithChildren } from 'react';
 import { createAppKit } from '@reown/appkit/react';
 import { EthersAdapter } from '@reown/appkit-adapter-ethers';
 import { bscTestnet, bsc } from '@reown/appkit/networks';

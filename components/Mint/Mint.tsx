@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React, { Suspense, useEffect, useState } from 'react';
 import { StarBuyBtn } from '../Icon';

@@ -52,6 +52,7 @@ export default function MintDialog({
       const signer = await ethersProvider.getSigner();
 
       if (!isApproved) {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         const tokenContract = useTokenContract(signer);
 
         const decimals = ethers.toNumber(await tokenContract.decimals());
@@ -68,6 +69,7 @@ export default function MintDialog({
 
         setIsApproved(true);
       } else {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         const nftContract = useCollectionContract(signer);
 
         const ref = searchParams.get('ref');
@@ -101,11 +103,9 @@ export default function MintDialog({
 
   return (
     <>
-      {false ? (
+      {!address ? (
         <div className='w-fit' onClick={() => {}}>
-          <Button>
-            <p className='text-white'>Connect Wallet</p>
-          </Button>
+          <w3m-button />
         </div>
       ) : (
         <Dialog

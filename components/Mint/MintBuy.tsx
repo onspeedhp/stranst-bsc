@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import MintCounter from './MintCouter';
-import axios from 'axios';
 import { BASE_PRICE, TOTAL_SELLING_NFT } from '@/constant';
 import clsx from 'clsx';
 import { useCollectionContract } from '@/hooks/useContract';

@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import { BASE_PRICE, TOTAL_SELLING_NFT } from '@/constant';
-import { useCollectionContract, useTokenContract } from '@/hooks/useContract';
-import axios from 'axios';
+import { useCollectionContract } from '@/hooks/useContract';
 import React, { useEffect, useState } from 'react';
 
 const NftImage = ({
