@@ -138,7 +138,6 @@ input[type=number] {
   z-index: -1;
 }
 
-.connect-btn button {
-  padding: 0 !important;
-
+.connect-btn {
+  margin: -4px -8px;
 }

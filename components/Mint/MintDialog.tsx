@@ -108,9 +108,7 @@ export default function MintDialog({
           className="w-fit"
           onClick={() => {}}
         >
-          <div className="connect-btn">
-            <w3m-button />
-          </div>
+          <w3m-button />
         </div>
       ) : (
         <Dialog

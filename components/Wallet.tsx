@@ -7,7 +7,9 @@ export default function Wallet() {
       {/* <Button>
         <p className='text-white'>Connect Wallet</p>
       </Button> */}
-      <w3m-button />
+      <div className="connect-btn">
+        <w3m-button />
+      </div>
     </>
   );
 }
