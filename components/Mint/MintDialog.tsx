@@ -148,7 +148,7 @@ export default function MintDialog({
                 />
               </div>
             ) : (
-              <MintSuccess isSuccess={true} />
+              <MintSuccess isSuccess={isSuccess} />
             )}
             {isSuccess !== null && (
               <DialogClose className='lg:hidden mb-5 outline-none'>

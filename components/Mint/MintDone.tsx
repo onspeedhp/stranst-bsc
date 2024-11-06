@@ -14,7 +14,7 @@ export default function MintSuccess({ isSuccess }: { isSuccess: boolean }) {
     </>
   ) : (
     <>
-      {`It seems there's a hiccup with your purchase. Don't worry, we're working on it!`}
+      {`It seems there's a hiccup with your purchase. Don't worry, we're working on it! `}
       Please try again shortly or <a href="">Contact Us</a> for assistance.
     </>
   );
@@ -67,20 +67,20 @@ export default function MintSuccess({ isSuccess }: { isSuccess: boolean }) {
 
   return (
     <div>
-      <div className="flex items-center justify-center mb-2 lg:m-0 lg:hidden">
+      <div className="flex items-center justify-center mb-2">
         {icon}
       </div>
       <p
         className={clsx(
-          'text-[20px] leading-7 tracking-[-0.5%] font-semibold mb-2 text-center lg:text-left',
+          'text-[20px] leading-7 tracking-[-0.5%] font-semibold mb-2 text-center',
           isSuccess
-            ? 'text-[#7ACC7D] lg:text-white'
-            : 'text-[#F57E76] lg:text-white'
+            ? 'text-[#7ACC7D]'
+            : 'text-[#F57E76]'
         )}
       >
         {titleText}
       </p>
-      <p className="text-sm text-[#B6BECC] lg:text-gray-400 text-center lg:text-left">
+      <p className="text-sm text-[#B6BECC] lg:text-gray-400 text-center">
         {messageText}
       </p>
       <Image

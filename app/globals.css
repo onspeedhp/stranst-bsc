@@ -137,3 +137,7 @@ input[type=number] {
   mask-composite: exclude;
   z-index: -1;
 }
+
+button:has(wui-image) {
+  padding: 0;
+}
