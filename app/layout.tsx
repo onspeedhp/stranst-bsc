@@ -88,9 +88,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${raleway.className} antialiased`}>
-        {/* <Root> */}
         <Layout>{children}</Layout>
-        {/* </Root> */}
       </body>
     </html>
   );
