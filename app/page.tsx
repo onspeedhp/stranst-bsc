@@ -8,7 +8,7 @@ const Countdown = dynamic(() => import('../components/Countdown/Countdown'), {
 });
 
 const renderHomeContent = () => {
-  if (process.env.NEXT_PUBLIC_IS_COUNTDOWN) {
+  if (process.env.NEXT_PUBLIC_IS_COUNTDOWN === 'true') {
     return <Countdown />;
   }
 
