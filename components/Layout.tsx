@@ -14,23 +14,24 @@ const projectId = process.env.NEXT_PUBLIC_PROJECT_ID!;
 
 // 2. Create a metadata object
 const metadata = {
-  name: 'My Website',
-  description: 'My Website description',
+  name: 'STRANT – Smart AI Assistant for Investment & Education 🤖💼',
+  description:
+    'STRANT is a pioneering platform that applies artificial intelligence (AI) to support both investors and educational institutions.',
   url: process.env.NEXT_PUBLIC_APP_URL!, // origin must match your domain & subdomain
-  icons: ['https://avatars.mywebsite.com/'],
+  icons: [`${process.env.NEXT_PUBLIC_APP_URL!}/image/strant-og.jpg`],
 };
 
 // 3. Create the AppKit instance
 createAppKit({
   adapters: [new EthersAdapter()],
   metadata,
+  defaultNetwork:
+    process.env.NEXT_PUBLIC_CLUSTER === 'testnet' ? bscTestnet : bsc,
   networks: [bscTestnet, bsc],
   projectId,
   features: {
-    email: false,
-    socials: false,
+    email: true,
   },
-  enableWalletConnect: true,
   featuredWalletIds: [
     'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',
   ],
