@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import Timer from './Timer';
 
 export interface TimeRemaining {
@@ -9,9 +9,8 @@ export interface TimeRemaining {
   seconds: number;
 }
 
-const calculateTimeLeft = (endTime: number): TimeRemaining => {
-  const now = Date.now();
-  const difference = endTime - now;
+const calculateTimeLeft = (endTime: number, currentTime: number): TimeRemaining => {
+  const difference = endTime - currentTime;
 
   if (difference <= 0) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -26,21 +25,44 @@ const calculateTimeLeft = (endTime: number): TimeRemaining => {
 };
 
 export default function Countdown() {
-  const endTime = useMemo(
-    () => new Date(process.env.NEXT_PUBLIC_START_TIME!).getTime(),
-    []
-  );
-  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>(
-    calculateTimeLeft(endTime)
-  );
+  const [serverTime, setServerTime] = useState<number | null>(null);
+  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  const endTime = new Date(process.env.NEXT_PUBLIC_START_TIME!).getTime();
 
   useEffect(() => {
-    const timerInterval = setInterval(() => {
-      setTimeRemaining(calculateTimeLeft(endTime));
-    }, 1000);
+    const fetchExternalTime = async () => {
+      try {
+        const response = await fetch('https://timeapi.io/api/time/current/zone?timeZone=UTC');
+        if (!response.ok) throw new Error('Failed to fetch server time');
+        const data = await response.json();
+        const utcTime = new Date(data.dateTime).getTime();
+        setServerTime(utcTime);
+      } catch (error) {
+        console.error('Error fetching time from external server:', error);
+      }
+    };
 
-    return () => clearInterval(timerInterval);
-  }, [endTime]);
+    fetchExternalTime();
+  }, []);
+
+  useEffect(() => {
+    if (serverTime !== null) {
+      const intervalId = setInterval(() => {
+        setServerTime((prevTime) => (prevTime ? prevTime + 1000 : null));
+        setTimeRemaining(calculateTimeLeft(endTime, serverTime));
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [endTime, serverTime]);
+
+  if (serverTime === null) return <div/>;
 
   return (
     <div className="min-h-screen flex items-center justify-center">
