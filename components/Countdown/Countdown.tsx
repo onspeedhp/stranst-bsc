@@ -74,8 +74,8 @@ export default function Countdown() {
       >
         <div className="flex flex-col items-center mb-[60px]">
           <p className="text-sm leading-[18px] font-semibold">Upcoming</p>
-          <p className="text-[24px] leading-[60px] font-bold bg-gradient-to-r from-[#11144B] via-[#1C3DDE] to-[#11144A] text-transparent bg-clip-text">
-            EXCLUSIVE STRANT VIP Pass
+          <p className="text-[22px] xl:text-[24px] xl:leading-[60px] font-bold bg-gradient-to-r from-[#11144B] via-[#1C3DDE] to-[#11144A] text-transparent bg-clip-text">
+            EXCLUSIVE STRANT VIP PASS
           </p>
           <p className="text-base leading-[18px] text-[#E0E0E0]">
             Available in{' '}
