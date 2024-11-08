@@ -42,7 +42,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { shouldShowCountDown, isFetchedTime } = useCountdown();
 
   return (
-    <div className="relative w-screen px-4 xl:px-0 min-h-screen xl:overflow-hidden flex flex-col flex-grow">
+    <div className="relative w-screen px-4 xl:px-0 overflow-y-hidden min-h-screen xl:overflow-hidden flex flex-col flex-grow">
       <Image
         alt="main-bg"
         src="/image/bg-img.png"
@@ -51,9 +51,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       />
       {!shouldShowCountDown && isFetchedTime && <Header />}
       <div className="flex-1">{children}</div>
-      <p className="w-full text-center mt-auto mb-8 text-slate-400">
-        <Link href="">Contact us</Link> to learn more about how to participate!
-      </p>
+      {!shouldShowCountDown && isFetchedTime && (
+        <p className="w-full text-center mt-auto mb-8 text-slate-400">
+          <Link href="">Contact us</Link> to learn more about how to
+          participate!
+        </p>
+      )}
     </div>
   );
 }
