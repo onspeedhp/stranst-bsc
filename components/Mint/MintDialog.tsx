@@ -73,7 +73,7 @@ export default function MintDialog({
         const nftContract = useCollectionContract(signer);
 
         const ref = searchParams.get('ref');
-        let refId = TOTAL_SELLING_NFT;
+        let refId = 999999;
 
         if (ref) {
           const addressRef = await nftContract.ownerOf(ref);
