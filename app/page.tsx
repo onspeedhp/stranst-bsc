@@ -1,16 +1,15 @@
 import HomeLeft from '@/components/Home/HomeLeft';
 import HomeRight from '@/components/Home/HomeRight';
 import dynamic from 'next/dynamic';
-
+import { useMemo } from 'react';
+import { showCountdown } from './utils/checkCountDown';
 
 const Countdown = dynamic(() => import('../components/Countdown/Countdown'), {
   ssr: false,
 });
 
-const renderHomeContent = () => {
-  if (process.env.NEXT_PUBLIC_IS_COUNTDOWN === 'true') {
-    return <Countdown />;
-  }
+const HomeContent = ({ showCountdown }: { showCountdown: boolean }) => {
+  if (showCountdown) return <Countdown />;
 
   return (
     <div className="xl:mt-10 container mx-auto">
@@ -25,5 +24,7 @@ const renderHomeContent = () => {
 };
 
 export default function Home() {
-  return <>{renderHomeContent()}</>;
+  const _showCountdown = useMemo(showCountdown, []);
+
+  return <HomeContent showCountdown={_showCountdown} />;
 }

@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: strant-fe
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: "0.0.0.0"
+    expose:
+      - '3000'
+    networks:
+      - strant-network
+    restart: always
+
+networks:
+  strant-network:
+    driver: bridge
