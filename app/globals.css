@@ -142,6 +142,6 @@ input[type=number] {
   .connect-btn.connected {
     margin-top: -4px;
     margin-bottom: -4px;
-    margin-left: -40px;
+    margin-left: -20px;
   }
 }
