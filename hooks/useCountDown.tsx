@@ -5,43 +5,44 @@ export const useCountdown = () => {
   const [serverTime, setServerTime] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchServerTime = async () => {
+    const fetchExternalTime = async () => {
       try {
-        const response = await fetch('/api/time');
+        const response = await fetch(
+          'https://timeapi.io/api/time/current/zone?timeZone=UTC'
+        );
         if (!response.ok) throw new Error('Failed to fetch server time');
         const data = await response.json();
 
-        const localTime = new Date(data.serverTime);
-
-        const utcTime = new Date(
-          Date.UTC(
-            localTime.getUTCFullYear(),
-            localTime.getUTCMonth(),
-            localTime.getUTCDate(),
-            localTime.getUTCHours(),
-            localTime.getUTCMinutes(),
-            localTime.getUTCSeconds(),
-            localTime.getUTCMilliseconds()
-          )
-        );
-
-        setServerTime(utcTime.getTime());
+        const utcTime = new Date(data.dateTime).getTime();
+        setServerTime(utcTime);
       } catch (error) {
-        console.error('Error fetching server time:', error);
+        console.error('Error fetching time from external server:', error);
       }
     };
 
-    fetchServerTime();
+    fetchExternalTime();
   }, []);
 
   if (serverTime === null)
     return { isFetchedTime: false, shouldShowCountDown: false };
 
   const countdownEnabled = process.env.NEXT_PUBLIC_IS_COUNTDOWN === 'true';
-  const startTime = new Date(process.env.NEXT_PUBLIC_START_TIME!).getTime();
+
+  const startTimeLocal = new Date(process.env.NEXT_PUBLIC_START_TIME!);
+  const startTimeUTC = new Date(
+    Date.UTC(
+      startTimeLocal.getUTCFullYear(),
+      startTimeLocal.getUTCMonth(),
+      startTimeLocal.getUTCDate(),
+      startTimeLocal.getUTCHours(),
+      startTimeLocal.getUTCMinutes(),
+      startTimeLocal.getUTCSeconds(),
+      startTimeLocal.getUTCMilliseconds()
+    )
+  ).getTime();
 
   return {
     isFetchedTime: true,
-    shouldShowCountDown: countdownEnabled && serverTime < startTime,
+    shouldShowCountDown: countdownEnabled && serverTime < startTimeUTC,
   };
 };
