@@ -19,16 +19,17 @@ export default function MintRef({ setRef }: { setRef: (e: string) => void }) {
       </div>
       <div
         className={clsx(
-          'mt-6 p-3 bg-white border border-[#B0BFD1] rounded-lg',
+          'mt-6 p-3 border border-[#B0BFD1] rounded-lg',
           {
             'bg-gray-500': defaultRef,
+            'bg-white': !defaultRef
           }
         )}
       >
         <input
           placeholder="#refcode"
           className={clsx('w-full outline-none text-black bg-transparent', {
-            'text-gray-400': defaultRef,
+            'text-gray-300': defaultRef,
           })}
           value={textInput}
           disabled={!!defaultRef}

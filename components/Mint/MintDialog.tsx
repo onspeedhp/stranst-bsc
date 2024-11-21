@@ -134,6 +134,7 @@ export default function MintDialog({
               {
                 'w-full lg:max-w-[406px] pb-0 h-auto rounded-t-xl translate-x-0 translate-y-0 bottom-0 top-auto left-0 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:top-1/2 lg:left-1/2':
                   isSuccess !== null,
+                  "max-w-[500px]":!ref
               }
             )}
           >
