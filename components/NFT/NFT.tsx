@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
-import { BASE_PRICE, TOTAL_SELLING_NFT } from '@/constant';
-import { useCollectionContract } from '@/hooks/useContract';
-import React, { useEffect, useState } from 'react';
+import { BASE_PRICE } from '@/constant';
+import React from 'react';
 
 const NftImage = ({
   src,
@@ -19,7 +18,7 @@ const NftImage = ({
   </div>
 );
 
-const PriceCard = ({ maxbuy }: { maxbuy: number }) => (
+const PriceCard = () => (
   <div className='absolute bottom-[-60px] left-1/2 transform -translate-x-1/2'>
     <div className='bg-gradient-to-l from-[#8237EA] to-[#098BA8] p-[1px] rounded-xl'>
       <div className='bg-gradient-to-r from-[#077580] to-[#1C2F62] p-4 rounded-xl min-w-[183px]'>
@@ -38,34 +37,34 @@ const PriceCard = ({ maxbuy }: { maxbuy: number }) => (
 );
 
 export default function NFT() {
-  const [maxbuy, setMaxbuy] = useState(1000);
+  // const [maxbuy, setMaxbuy] = useState(1000);
 
-  const getMax = async () => {
-    try {
-      const nftContract = useCollectionContract();
-      const totalMinted = await nftContract.getTotalMinted();
+  // const getMax = async () => {
+  //   try {
+  //     const nftContract = useCollectionContract();
+  //     const totalMinted = await nftContract.getTotalMinted();
 
-      setMaxbuy(TOTAL_SELLING_NFT - Number(totalMinted));
-    } catch (error) {
-      console.error('Error checking max buy:', error);
-    }
-  };
+  //     setMaxbuy(TOTAL_SELLING_NFT - Number(totalMinted));
+  //   } catch (error) {
+  //     console.error('Error checking max buy:', error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getMax();
-  }, []);
+  // useEffect(() => {
+  //   getMax();
+  // }, []);
 
   return (
     <>
       <div className='hidden lg:block'>
         <NftImage src='/image/nft/nft.gif' className='h-[35vw] xl:h-[30vw]'>
-          <PriceCard maxbuy={maxbuy} />
+          <PriceCard />
         </NftImage>
       </div>
       <div className='block lg:hidden'>
         <div className='mt-10 mb-24'>
           <NftImage src='/image/nft/nft.gif' className='w-[80%]'>
-            <PriceCard maxbuy={maxbuy} />
+            <PriceCard />
           </NftImage>
         </div>
       </div>
