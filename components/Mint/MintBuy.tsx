@@ -67,6 +67,7 @@ export default function MintBuy({
                 })}
               >
                 <MintCounter
+                  isApproved={isApproved}
                   amount={amount}
                   setAmount={setAmount}
                   max={maxbuy}

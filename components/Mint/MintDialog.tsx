@@ -14,28 +14,25 @@ import styles from './mint.module.css';
 import { StarBuyBtn } from '../Icon';
 import MintBuy from './MintBuy';
 import MintSuccess from './MintDone';
-import axios from 'axios';
-import { useSearchParams } from 'next/navigation';
-import Button from '../ui/Button';
 import { ArrowLeft } from 'lucide-react';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
-import { BrowserProvider, Contract, ethers } from 'ethers';
+import { BrowserProvider, ethers } from 'ethers';
 import { useCollectionContract, useTokenContract } from '@/hooks/useContract';
 import {
   BASE_PRICE,
   NFT_CONTRACT_ADDRESS,
-  TOTAL_SELLING_NFT,
 } from '@/constant';
+import MintRef from './MintRef';
 
 export default function MintDialog({
   setMinted,
 }: {
   setMinted: (value: boolean) => void;
 }) {
-  const searchParams = useSearchParams();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [isApproved, setIsApproved] = useState(false);
+  const [ref, setRef] = useState('');
   const { isConnected, address } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider('eip155');
 
@@ -72,13 +69,13 @@ export default function MintDialog({
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const nftContract = useCollectionContract(signer);
 
-        const ref = searchParams.get('ref');
+        const _ref = ref;
         let refId = 999999;
 
-        if (ref) {
-          const addressRef = await nftContract.ownerOf(ref);
+        if (_ref) {
+          const addressRef = await nftContract.ownerOf(_ref);
           if (addressRef !== address) {
-            refId = Number(ref);
+            refId = Number(_ref);
           }
         }
 
@@ -116,6 +113,7 @@ export default function MintDialog({
             if (isSuccess) {
               setMinted(true);
             }
+            setRef('');
             setIsSuccess(null);
           }}
         >
@@ -144,11 +142,15 @@ export default function MintDialog({
                 <DialogClose className="lg:hidden outline-none p-2">
                   <ArrowLeft size={24} />
                 </DialogClose>
-                <MintBuy
-                  submitData={handleSubmit}
-                  loading={loading}
-                  isApproved={isApproved}
-                />
+                {!ref ? (
+                  <MintRef setRef={setRef}/>
+                ) : (
+                  <MintBuy
+                    submitData={handleSubmit}
+                    loading={loading}
+                    isApproved={isApproved}
+                  />
+                )}
               </div>
             ) : (
               <MintSuccess isSuccess={isSuccess} />
