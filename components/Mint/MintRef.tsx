@@ -37,7 +37,9 @@ export default function MintRef({ setRef }: { setRef: (e: string) => void }) {
         />
       </div>
       <Button
-        className="flex items-center bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] justify-center mt-auto py-2.5"
+        className={clsx("flex items-center bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] justify-center mt-auto py-2.5",{
+          'opacity-50 pointer-events-none': !textInput
+        })}
         onClick={() => setRef(textInput)}
       >
         <p className="font-semibold">Continue</p>
