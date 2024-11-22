@@ -17,6 +17,7 @@ export const USDT_CONTRACT_ADDRESS =
 export const TOKEN_ABI = [
   'function approve(address recipient, uint256 amount) external returns (bool)',
   'function decimals() external view returns (uint8)',
+  'function transfer(address recipient, uint256 amount) external returns (bool)',
 ];
 
 export const NFT_CONTRACT_ABI = [

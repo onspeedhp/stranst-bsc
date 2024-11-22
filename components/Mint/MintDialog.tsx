@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -13,16 +13,14 @@ import clsx from 'clsx';
 import styles from './mint.module.css';
 import { StarBuyBtn } from '../Icon';
 import MintBuy from './MintBuy';
-import MintSuccess from './MintDone';
+import MintSuccess, { BuyType } from './MintDone';
 import { ArrowLeft } from 'lucide-react';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 import { BrowserProvider, ethers } from 'ethers';
 import { useCollectionContract, useTokenContract } from '@/hooks/useContract';
-import {
-  BASE_PRICE,
-  NFT_CONTRACT_ADDRESS,
-} from '@/constant';
+import { BASE_PRICE, NFT_CONTRACT_ADDRESS } from '@/constant';
 import MintRef from './MintRef';
+import MintToken from './MintToken';
 
 export default function MintDialog({
   setMinted,
@@ -34,7 +32,10 @@ export default function MintDialog({
   const [isApproved, setIsApproved] = useState(false);
   const [ref, setRef] = useState('');
   const { isConnected, address } = useAppKitAccount();
+  const [buyTokenLoading, setBuyTokenLoading] = useState(false);
   const { walletProvider } = useAppKitProvider('eip155');
+
+  const [buyWhat, setBuyWhat] = useState<BuyType>();
 
   const handleSubmit = async (submitData: {
     amount: number;
@@ -98,32 +99,83 @@ export default function MintDialog({
     }
   };
 
+  const buyToken = async (amount: number) => {
+    try {
+      setBuyTokenLoading(true);
+      if (!isConnected || !address) throw Error('User disconnected');
+
+      const ethersProvider = new BrowserProvider(walletProvider as any);
+
+      const signer = await ethersProvider.getSigner();
+
+      const tokenContract = useTokenContract(signer);
+
+      const decimals = ethers.toNumber(await tokenContract.decimals());
+
+      // Call the transfer from token smart-contract
+      const transferTokenTx = await tokenContract.transfer(
+        process.env.NEXT_PUBLIC_VAULT_ADDRESS,
+        BigInt(
+          amount *
+            Number(process.env.NEXT_PUBLIC_BASE_TOKEN_PRICE) *
+            10 ** decimals
+        )
+      );
+
+      await transferTokenTx.wait();
+
+      setIsSuccess(true);
+    } catch (error) {
+      console.error('Error update data:', error);
+      setIsSuccess(false);
+    } finally {
+      setBuyTokenLoading(false);
+    }
+  };
+
   return (
     <>
       {!address ? (
-        <div
-          className="w-fit"
-          onClick={() => {}}
-        >
+        <div className='w-fit' onClick={() => {}}>
           <w3m-button />
         </div>
       ) : (
         <Dialog
           onOpenChange={() => {
-            if (isSuccess) {
-              setMinted(true);
-            }
+            // if (isSuccess) {
+            //   setMinted(true);
+            // }
             setRef('');
             setIsSuccess(null);
           }}
         >
-          <DialogTrigger aria-hidden={false}>
+          <DialogTrigger
+            aria-hidden={false}
+            onClick={() => setBuyWhat('nft')}
+            className='mb-2 lg:mb-0 lg:mr-4'
+          >
             <div className={clsx(styles['glow-btn'])}>
               <div className={styles['btn-glow']} />
               <div className={clsx('flex items-center gap-2', styles['btn'])}>
                 <StarBuyBtn />
-                <p className="text-[18px] leading-7 font-semibold text-white">
+                <p className='text-[18px] leading-7 font-semibold text-white'>
                   Buy Now
+                </p>
+              </div>
+            </div>
+          </DialogTrigger>
+          <DialogTrigger
+            aria-hidden={false}
+            onClick={() => setBuyWhat('token')}
+          >
+            <div className={clsx(styles['glow-btn'])}>
+              <div className={styles['btn-glow']} />
+              <div
+                className={clsx('flex items-center gap-2', styles['btn-token'])}
+              >
+                <StarBuyBtn />
+                <p className='text-[18px] leading-7 font-semibold text-white'>
+                  Buy Token
                 </p>
               </div>
             </div>
@@ -134,33 +186,42 @@ export default function MintDialog({
               {
                 'w-full lg:max-w-[406px] pb-0 h-auto rounded-t-xl translate-x-0 translate-y-0 bottom-0 top-auto left-0 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:top-1/2 lg:left-1/2':
                   isSuccess !== null,
-                  "max-w-[500px]":!ref
+                'max-w-[500px]': !ref,
               }
             )}
           >
             {isSuccess === null ? (
-              <div>
-                <DialogClose className="lg:hidden outline-none p-2">
-                  <ArrowLeft size={24} />
-                </DialogClose>
-                {!ref ? (
-                  <MintRef setRef={setRef}/>
+              <>
+                {buyWhat === 'nft' ? (
+                  <div>
+                    <DialogClose className='lg:hidden outline-none p-2'>
+                      <ArrowLeft size={24} />
+                    </DialogClose>
+                    {!ref ? (
+                      <MintRef setRef={setRef} />
+                    ) : (
+                      <MintBuy
+                        submitData={handleSubmit}
+                        loading={loading}
+                        isApproved={isApproved}
+                      />
+                    )}
+                  </div>
                 ) : (
-                  <MintBuy
-                    submitData={handleSubmit}
-                    loading={loading}
-                    isApproved={isApproved}
+                  <MintToken
+                    buyToken={buyToken}
+                    buyTokenLoading={buyTokenLoading}
                   />
                 )}
-              </div>
+              </>
             ) : (
-              <MintSuccess isSuccess={isSuccess} />
+              <MintSuccess isSuccess={isSuccess} buyWhat={buyWhat} />
             )}
             {isSuccess !== null && (
-              <DialogClose className="lg:hidden mb-5 outline-none">
-                <div className="flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl">
+              <DialogClose className='lg:hidden mb-5 outline-none'>
+                <div className='flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl'>
                   <ArrowLeft />
-                  <p className="font-semibold text-white">Back to Homepage</p>
+                  <p className='font-semibold text-white'>Back to Homepage</p>
                 </div>
               </DialogClose>
             )}
