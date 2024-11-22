@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -133,6 +133,31 @@ export default function MintDialog({
     }
   };
 
+  const [nftIdArr, setNftArr] = useState([]);
+
+  const getUserNftIdArr = async () => {
+    if (isConnected && address) {
+      try {
+        const ethersProvider = new BrowserProvider(walletProvider as any);
+        const signer = await ethersProvider.getSigner();
+        const nftContract = getCollectionContract(signer);
+        const listNftOfOwner = await nftContract.getNFTsOfOwner(address);
+        const list = listNftOfOwner.map((nftId: unknown) =>
+          Number(nftId).toString()
+        );
+        console.log(list);
+
+        setNftArr(list);
+      } catch (error) {
+        console.log('Get list nft id failed: ', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUserNftIdArr();
+  }, [isConnected, address]);
+
   return (
     <>
       {!address ? (
@@ -166,7 +191,9 @@ export default function MintDialog({
           </DialogTrigger>
           <DialogTrigger
             aria-hidden={false}
-            onClick={() => setBuyWhat('token')}
+            onClick={() => {
+              setBuyWhat('token');
+            }}
           >
             <div className={clsx(styles['glow-btn'])}>
               <div className={styles['btn-glow']} />
@@ -180,6 +207,7 @@ export default function MintDialog({
               </div>
             </div>
           </DialogTrigger>
+
           <DialogContent
             className={clsx(
               'bg-[#101111] blur-[100] max-w-[704px] border-none rounded-none lg:rounded-xl overflow-y-auto h-full lg:h-auto',
@@ -208,10 +236,20 @@ export default function MintDialog({
                     )}
                   </div>
                 ) : (
-                  <MintToken
-                    buyToken={buyToken}
-                    buyTokenLoading={buyTokenLoading}
-                  />
+                  <>
+                    {nftIdArr.length != 0 ? (
+                      <MintToken
+                        buyToken={buyToken}
+                        buyTokenLoading={buyTokenLoading}
+                      />
+                    ) : (
+                      <MintSuccess
+                        isSuccess={false}
+                        buyWhat={buyWhat}
+                        notHaveNft={true}
+                      />
+                    )}
+                  </>
                 )}
               </>
             ) : (

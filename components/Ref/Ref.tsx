@@ -16,7 +16,8 @@ import {
 import { DialogClose } from '../ui/dialog';
 import { shareOnMobile } from 'react-mobile-share';
 import { getCollectionContract } from '@/hooks/useContract';
-import { useAppKitAccount } from '@reown/appkit/react';
+import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
+import { BrowserProvider, Eip1193Provider } from 'ethers';
 interface IsVipProps {
   nftIds: string[];
 }
@@ -155,20 +156,25 @@ export default function Ref() {
   const [isVip, setIsVip] = useState(false);
   // const [totalRef, setTotalRef] = useState(0);
 
-  const [nftIdAdrr, setNftIdAdrr] = useState([]);
+  const [nftIdArr, setNftArr] = useState([]);
   const { isConnected, address } = useAppKitAccount();
+  const { walletProvider } = useAppKitProvider('eip155');
 
   const getUserNftIdArr = async () => {
     if (isConnected && address) {
       try {
-        const nftContract = getCollectionContract();
+        const ethersProvider = new BrowserProvider(
+          walletProvider as Eip1193Provider
+        );
+        const signer = await ethersProvider.getSigner();
+        const nftContract = getCollectionContract(signer);
         const listNftOfOwner = await nftContract.getNFTsOfOwner(address);
         const list = listNftOfOwner.map((nftId: unknown) =>
           Number(nftId).toString()
         );
         console.log(list);
 
-        setNftIdAdrr(list);
+        setNftArr(list);
         setIsVip(list.length !== 0);
       } catch (error) {
         console.log('Get list nft id failed: ', error);
@@ -237,7 +243,7 @@ export default function Ref() {
           >
             <div className='relative rounded-xl gradient-border'>
               <div className='bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] rounded-xl overflow-hidden p-[1px]'>
-                {isVip ? <IsVip nftIds={nftIdAdrr} /> : <IsNotVip />}
+                {isVip ? <IsVip nftIds={nftIdArr} /> : <IsNotVip />}
               </div>
             </div>
           </PopoverContent>
@@ -262,7 +268,7 @@ export default function Ref() {
             </DrawerHeader>
             <div className='px-4'>
               {isVip ? (
-                <IsVip nftIds={nftIdAdrr} />
+                <IsVip nftIds={nftIdArr} />
               ) : (
                 <div className='h-[50vh] flex flex-col items-center justify-center'>
                   <Image

@@ -6,14 +6,18 @@ export type BuyType = 'nft' | 'token' | undefined;
 export default function MintSuccess({
   isSuccess,
   buyWhat,
+  notHaveNft,
 }: {
   isSuccess: boolean;
   buyWhat: BuyType;
+  notHaveNft?: boolean;
 }) {
   const titleText = isSuccess
     ? buyWhat === 'nft'
       ? 'You have successfully purchased the Strant VIP Pass!'
       : 'Congratulations, you are one of the earliest $STRANT owners!'
+    : notHaveNft
+    ? `Oops! You don't have NFT`
     : 'Oops! Something Went Wrong';
 
   const messageText = isSuccess ? (
@@ -32,8 +36,17 @@ export default function MintSuccess({
     )
   ) : (
     <>
-      {`It seems there's a hiccup with your purchase. Don't worry, we're working on it! `}
-      Please try again shortly or <a href=''>Contact Us</a> for assistance.
+      {notHaveNft ? (
+        <>
+          {`Looks like you haven't bought our nft yet so you can't buy $STRANT tokens! `}
+          Please try again shortly or <a href=''>Contact Us</a> for assistance.
+        </>
+      ) : (
+        <>
+          {`It seems there's a hiccup with your purchase. Don't worry, we're working on it! `}
+          Please try again shortly or <a href=''>Contact Us</a> for assistance.
+        </>
+      )}
     </>
   );
 
