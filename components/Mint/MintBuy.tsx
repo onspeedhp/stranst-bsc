@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import MintCounter from './MintCouter';
 import { BASE_PRICE, TOTAL_SELLING_NFT } from '@/constant';
 import clsx from 'clsx';
-import { useCollectionContract } from '@/hooks/useContract';
+import { getCollectionContract } from '@/hooks/useContract';
 
 export default function MintBuy({
   submitData,
@@ -20,7 +20,7 @@ export default function MintBuy({
 
   const getMax = async () => {
     try {
-      const nftContract = useCollectionContract();
+      const nftContract = getCollectionContract();
       const totalMinted = await nftContract.getTotalMinted();
 
       setMaxbuy(TOTAL_SELLING_NFT - Number(totalMinted));
@@ -34,33 +34,33 @@ export default function MintBuy({
   }, []);
 
   return (
-    <div className="grid grid-cols1 lg:grid-cols-2 gap-8 items-center">
-      <div className="relative hidden lg:block">
+    <div className='grid grid-cols1 lg:grid-cols-2 gap-8 items-center'>
+      <div className='relative hidden lg:block'>
         <Image
-          src="/image/nft/nft-image.png"
-          alt="nft-image"
+          src='/image/nft/nft-image.png'
+          alt='nft-image'
           width={278}
           height={366}
         />
       </div>
       <div>
-        <p className="text-[24px] leading-[32px] tracking-[-0.75%] font-semibold text-white">
+        <p className='text-[24px] leading-[32px] tracking-[-0.75%] font-semibold text-white'>
           NFT VIP Pass - 1st Edition
         </p>
-        <p className="mt-3 text-lg font-semibold tracking-[-0.5%] bg-gradient-to-r from-[#A2ADB9] via-[#F8FAFC] to-[#99A6B2] text-transparent bg-clip-text">
+        <p className='mt-3 text-lg font-semibold tracking-[-0.5%] bg-gradient-to-r from-[#A2ADB9] via-[#F8FAFC] to-[#99A6B2] text-transparent bg-clip-text'>
           {BASE_PRICE} USDT
         </p>
         <Image
-          src="/image/nft/nft-image.png"
-          alt="nft-image"
+          src='/image/nft/nft-image.png'
+          alt='nft-image'
           width={278}
           height={366}
-          className="block lg:hidden mx-auto"
+          className='block lg:hidden mx-auto'
         />
-        <div className="mt-6 border-t border-slate-600 mb-6">
-          <div className="pt-2">
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-slate-400">Amount</p>
+        <div className='mt-6 border-t border-slate-600 mb-6'>
+          <div className='pt-2'>
+            <div className='flex items-center justify-between'>
+              <p className='text-sm text-slate-400'>Amount</p>
               <div
                 className={clsx({
                   'opacity-30 pointer-events-none': isApproved,
@@ -74,9 +74,9 @@ export default function MintBuy({
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between mt-3">
-              <p className="text-sm text-slate-400">Total</p>
-              <p className="text-[18px] leading-7 font-semibold text-white">
+            <div className='flex items-center justify-between mt-3'>
+              <p className='text-sm text-slate-400'>Total</p>
+              <p className='text-[18px] leading-7 font-semibold text-white'>
                 {(amount * BASE_PRICE).toLocaleString()} USDT
               </p>
             </div>

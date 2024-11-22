@@ -41,7 +41,7 @@ export default function NFT() {
 
   // const getMax = async () => {
   //   try {
-  //     const nftContract = useCollectionContract();
+  //     const nftContract = getCollectionContract();
   //     const totalMinted = await nftContract.getTotalMinted();
 
   //     setMaxbuy(TOTAL_SELLING_NFT - Number(totalMinted));

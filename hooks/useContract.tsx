@@ -8,8 +8,7 @@ import { ethers, JsonRpcSigner } from 'ethers';
 
 const url = `https://bsc-${process.env.NEXT_PUBLIC_CLUSTER}.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`;
 
-export const useCollectionContract = (signer?: JsonRpcSigner) => {
-
+export const getCollectionContract = (signer?: JsonRpcSigner) => {
   const collectionContract = new ethers.Contract(
     NFT_CONTRACT_ADDRESS,
     NFT_CONTRACT_ABI,
@@ -19,7 +18,7 @@ export const useCollectionContract = (signer?: JsonRpcSigner) => {
   return collectionContract;
 };
 
-export const useTokenContract = (signer?: JsonRpcSigner) => {
+export const getTokenContract = (signer?: JsonRpcSigner) => {
   const tokenContract = new ethers.Contract(
     USDT_CONTRACT_ADDRESS,
     TOKEN_ABI,

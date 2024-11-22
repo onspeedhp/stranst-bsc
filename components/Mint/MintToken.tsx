@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../ui/Button';
-import { ChevronRight } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+// import { ChevronRight } from 'lucide-react';
+// import { useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 
 export default function MintToken({
@@ -33,7 +33,7 @@ export default function MintToken({
           )}
           type='number'
           value={textInput}
-          onChange={(e: any) => setTextInput(e.currentTarget.value)}
+          onChange={(e) => setTextInput(e.currentTarget.value)}
         />
       </div>
       <Button

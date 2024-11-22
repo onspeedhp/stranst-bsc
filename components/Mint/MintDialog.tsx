@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -17,7 +17,7 @@ import MintSuccess, { BuyType } from './MintDone';
 import { ArrowLeft } from 'lucide-react';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 import { BrowserProvider, ethers } from 'ethers';
-import { useCollectionContract, useTokenContract } from '@/hooks/useContract';
+import { getCollectionContract, getTokenContract } from '@/hooks/useContract';
 import { BASE_PRICE, NFT_CONTRACT_ADDRESS } from '@/constant';
 import MintRef from './MintRef';
 import MintToken from './MintToken';
@@ -51,7 +51,7 @@ export default function MintDialog({
 
       if (!isApproved) {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const tokenContract = useTokenContract(signer);
+        const tokenContract = getTokenContract(signer);
 
         const decimals = ethers.toNumber(await tokenContract.decimals());
 
@@ -68,7 +68,7 @@ export default function MintDialog({
         setIsApproved(true);
       } else {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const nftContract = useCollectionContract(signer);
+        const nftContract = getCollectionContract(signer);
 
         const _ref = ref;
         let refId = 999999;
@@ -108,7 +108,7 @@ export default function MintDialog({
 
       const signer = await ethersProvider.getSigner();
 
-      const tokenContract = useTokenContract(signer);
+      const tokenContract = getTokenContract(signer);
 
       const decimals = ethers.toNumber(await tokenContract.decimals());
 

@@ -5,7 +5,7 @@ import { StarBuyBtn } from '../Icon';
 import styles from './mint.module.css';
 import clsx from 'clsx';
 import MintDialog from './MintDialog';
-import { useCollectionContract } from '@/hooks/useContract';
+import { getCollectionContract } from '@/hooks/useContract';
 import { TOTAL_SELLING_NFT } from '@/constant';
 
 export default function Mint() {
@@ -14,7 +14,7 @@ export default function Mint() {
 
   const checkOutOfStock = async () => {
     try {
-      const nftContract = useCollectionContract();
+      const nftContract = getCollectionContract();
       const totalMinted = await nftContract.getTotalMinted();
 
       setOutOfStock(Number(totalMinted) === TOTAL_SELLING_NFT);
