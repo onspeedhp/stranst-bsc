@@ -128,12 +128,14 @@ export default function MintDialog({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Origin': window.location.origin,
         },
         body: JSON.stringify({
-          walletAdress: signer.address,
+          walletAddress: signer.address,
           amount: Number(amount),
         }),
       });
+      
 
       setIsSuccess(true);
     } catch (error) {
