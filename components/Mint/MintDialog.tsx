@@ -128,14 +128,13 @@ export default function MintDialog({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Origin': window.location.origin,
+          Origin: window.location.origin,
         },
         body: JSON.stringify({
           walletAddress: signer.address,
           amount: Number(amount),
         }),
       });
-      
 
       setIsSuccess(true);
     } catch (error) {
@@ -262,14 +261,11 @@ export default function MintDialog({
                         buyTokenLoading={buyTokenLoading}
                       />
                     ) : (
-                      <>
-                        <MintSuccess
-                          isSuccess={false}
-                          buyWhat={buyWhat}
-                          notHaveNft={true}
-                        />
-                        <CloseDialog />
-                      </>
+                      <MintSuccess
+                        isSuccess={false}
+                        buyWhat={buyWhat}
+                        notHaveNft={true}
+                      />
                     )}
                   </div>
                 )}
