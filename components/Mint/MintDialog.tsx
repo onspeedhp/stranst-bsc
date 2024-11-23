@@ -171,7 +171,7 @@ export default function MintDialog({
 
   return (
     <>
-      {!address ? (
+      {address ? (
         <div
           className="w-fit"
           onClick={() => {}}
@@ -250,7 +250,7 @@ export default function MintDialog({
                     )}
                   </div>
                 ) : (
-                  <>
+                  <div>
                     <DialogClose className="lg:hidden outline-none p-2">
                       <ArrowLeft size={24} />
                     </DialogClose>
@@ -269,7 +269,7 @@ export default function MintDialog({
                         <DialogClose />
                       </>
                     )}
-                  </>
+                  </div>
                 )}
               </>
             ) : (
