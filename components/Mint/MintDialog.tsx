@@ -268,7 +268,7 @@ export default function MintDialog({
                           buyWhat={buyWhat}
                           notHaveNft={true}
                         />
-                        <DialogClose />
+                        <CloseDialog />
                       </>
                     )}
                   </div>
@@ -280,7 +280,7 @@ export default function MintDialog({
                 buyWhat={buyWhat}
               />
             )}
-            {isSuccess !== null && <DialogClose />}
+            {isSuccess !== null && <CloseDialog />}
           </DialogContent>
         </Dialog>
       )}
