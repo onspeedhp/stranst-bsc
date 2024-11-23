@@ -56,6 +56,7 @@ const IsVip = ({ nftIds }: IsVipProps) => {
       } catch (error) {
         console.error('Error fetching total achievement:', error);
       }
+      // TODO: write get function here, maybe
     };
 
     handleGetTotalAchievement();
@@ -116,6 +117,7 @@ const IsVip = ({ nftIds }: IsVipProps) => {
           <p className='text-white text-base leading-6 font-semibold'>
             Achievement {NFTAchievement}NFTs
           </p>
+          {/* TODO: Get token that user buy: `Tokens: xxx $STRANT` */}
           <p className='text-[#DCDEE0] text-sm leading-5'>
             10% affiliate will be given directly to the referrer!
           </p>

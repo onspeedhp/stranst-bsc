@@ -124,7 +124,7 @@ export default function MintDialog({
 
       await transferTokenTx.wait();
 
-      // TODO: Import db here
+      // TODO: Import db here, address and amount
 
       setIsSuccess(true);
     } catch (error) {
