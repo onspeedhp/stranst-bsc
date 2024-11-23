@@ -173,7 +173,7 @@ export default function MintDialog({
 
   return (
     <>
-      {address ? (
+      {!address ? (
         <div
           className="w-fit"
           onClick={() => {}}
