@@ -124,6 +124,8 @@ export default function MintDialog({
 
       await transferTokenTx.wait();
 
+      // TODO: Import db here
+
       setIsSuccess(true);
     } catch (error) {
       console.error('Error update data:', error);
@@ -237,12 +239,14 @@ export default function MintDialog({
                   </div>
                 ) : (
                   <>
+                    {/* TODO: Check MintToken dialog */}
                     {nftIdArr.length != 0 ? (
                       <MintToken
                         buyToken={buyToken}
                         buyTokenLoading={buyTokenLoading}
                       />
                     ) : (
+                      // TODO: Check MintSuccess
                       <MintSuccess
                         isSuccess={false}
                         buyWhat={buyWhat}
