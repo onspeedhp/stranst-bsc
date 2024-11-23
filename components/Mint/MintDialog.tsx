@@ -124,7 +124,16 @@ export default function MintDialog({
 
       await transferTokenTx.wait();
 
-      // TODO: Import db here, address and amount
+      await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/tokenbuy`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          walletAdress: signer.address,
+          amount: Number(amount),
+        }),
+      });
 
       setIsSuccess(true);
     } catch (error) {
@@ -163,7 +172,10 @@ export default function MintDialog({
   return (
     <>
       {!address ? (
-        <div className='w-fit' onClick={() => {}}>
+        <div
+          className="w-fit"
+          onClick={() => {}}
+        >
           <w3m-button />
         </div>
       ) : (
@@ -179,13 +191,13 @@ export default function MintDialog({
           <DialogTrigger
             aria-hidden={false}
             onClick={() => setBuyWhat('nft')}
-            className='mb-2 lg:mb-0 lg:mr-4'
+            className="mb-2 lg:mb-0 lg:mr-4"
           >
             <div className={clsx(styles['glow-btn'])}>
               <div className={styles['btn-glow']} />
               <div className={clsx('flex items-center gap-2', styles['btn'])}>
                 <StarBuyBtn />
-                <p className='text-[18px] leading-7 font-semibold text-white'>
+                <p className="text-[18px] leading-7 font-semibold text-white">
                   Buy Now
                 </p>
               </div>
@@ -203,7 +215,7 @@ export default function MintDialog({
                 className={clsx('flex items-center gap-2', styles['btn-token'])}
               >
                 <StarBuyBtn />
-                <p className='text-[18px] leading-7 font-semibold text-white'>
+                <p className="text-[18px] leading-7 font-semibold text-white">
                   Buy Token
                 </p>
               </div>
@@ -224,7 +236,7 @@ export default function MintDialog({
               <>
                 {buyWhat === 'nft' ? (
                   <div>
-                    <DialogClose className='lg:hidden outline-none p-2'>
+                    <DialogClose className="lg:hidden outline-none p-2">
                       <ArrowLeft size={24} />
                     </DialogClose>
                     {!ref ? (
@@ -239,31 +251,43 @@ export default function MintDialog({
                   </div>
                 ) : (
                   <>
-                    {/* TODO: Check MintToken dialog */}
+                    <DialogClose className="lg:hidden outline-none p-2">
+                      <ArrowLeft size={24} />
+                    </DialogClose>
                     {nftIdArr.length != 0 ? (
                       <MintToken
                         buyToken={buyToken}
                         buyTokenLoading={buyTokenLoading}
                       />
                     ) : (
-                      // TODO: Check MintSuccess
                       <MintSuccess
                         isSuccess={false}
                         buyWhat={buyWhat}
                         notHaveNft={true}
                       />
                     )}
+                    <DialogClose className="lg:hidden mb-5 outline-none">
+                      <div className="flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl">
+                        <ArrowLeft />
+                        <p className="font-semibold text-white">
+                          Back to Homepage
+                        </p>
+                      </div>
+                    </DialogClose>
                   </>
                 )}
               </>
             ) : (
-              <MintSuccess isSuccess={isSuccess} buyWhat={buyWhat} />
+              <MintSuccess
+                isSuccess={isSuccess}
+                buyWhat={buyWhat}
+              />
             )}
             {isSuccess !== null && (
-              <DialogClose className='lg:hidden mb-5 outline-none'>
-                <div className='flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl'>
+              <DialogClose className="lg:hidden mb-5 outline-none">
+                <div className="flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl">
                   <ArrowLeft />
-                  <p className='font-semibold text-white'>Back to Homepage</p>
+                  <p className="font-semibold text-white">Back to Homepage</p>
                 </div>
               </DialogClose>
             )}
