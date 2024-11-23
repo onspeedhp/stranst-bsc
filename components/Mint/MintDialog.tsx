@@ -260,20 +260,22 @@ export default function MintDialog({
                         buyTokenLoading={buyTokenLoading}
                       />
                     ) : (
-                      <MintSuccess
-                        isSuccess={false}
-                        buyWhat={buyWhat}
-                        notHaveNft={true}
-                      />
+                      <>
+                        <MintSuccess
+                          isSuccess={false}
+                          buyWhat={buyWhat}
+                          notHaveNft={true}
+                        />
+                        <DialogClose className="lg:hidden mb-5 outline-none">
+                          <div className="flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl">
+                            <ArrowLeft />
+                            <p className="font-semibold text-white">
+                              Back to Homepage
+                            </p>
+                          </div>
+                        </DialogClose>
+                      </>
                     )}
-                    <DialogClose className="lg:hidden mb-5 outline-none">
-                      <div className="flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl">
-                        <ArrowLeft />
-                        <p className="font-semibold text-white">
-                          Back to Homepage
-                        </p>
-                      </div>
-                    </DialogClose>
                   </>
                 )}
               </>
