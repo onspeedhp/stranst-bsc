@@ -138,9 +138,9 @@ const IsVip = ({ nftIds }: IsVipProps) => {
           <p className="text-white text-base leading-6 font-semibold">
             Tokens: {tokenBuyed.toLocaleString()} $STRANT
           </p>
-          <p className="text-[#DCDEE0] text-sm leading-5">
+          {/* <p className="text-[#DCDEE0] text-sm leading-5">
             10% affiliate will be given directly to the referrer!
-          </p>
+          </p> */}
         </div>
       </div>
 
