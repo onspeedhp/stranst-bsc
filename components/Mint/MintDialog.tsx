@@ -204,7 +204,7 @@ export default function MintDialog({
               </div>
             </div>
           </DialogTrigger>
-          {/* <DialogTrigger
+          <DialogTrigger
             aria-hidden={false}
             onClick={() => {
               setBuyWhat('token');
@@ -221,7 +221,7 @@ export default function MintDialog({
                 </p>
               </div>
             </div>
-          </DialogTrigger> */}
+          </DialogTrigger>
 
           <DialogContent
             className={clsx(
