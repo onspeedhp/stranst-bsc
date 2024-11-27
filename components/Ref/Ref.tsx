@@ -206,7 +206,7 @@ const IsVip = ({ nftIds }: IsVipProps) => {
       <p className="text-slate-50">Referral Link</p>
 
       <div className="flex items-center justify-between px-3 py-2.5 bg-black rounded-lg mt-2 mb-3">
-        <p>{nftIds[selectedUrlIdx]}</p>
+        <p>{refUrl}</p>
         <div onClick={handleCopyUrl}>
           {isCopy ? (
             <Check
