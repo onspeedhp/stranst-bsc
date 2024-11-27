@@ -61,5 +61,58 @@ const StarBuyBtn = () => (
     />
   </svg>
 );
-
-export { UserPlus, StarBuyBtn };
+const ExchangeIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <mask
+      id="mask0_2642_1850"
+      maskUnits="userSpaceOnUse"
+      x="0"
+      y="0"
+      width="16"
+      height="16"
+    >
+      <path
+        d="M16 0H0V16H16V0Z"
+        fill="white"
+      />
+    </mask>
+    <g mask="url(#mask0_2642_1850)">
+      <mask
+        id="mask1_2642_1850"
+        maskUnits="userSpaceOnUse"
+        x="0"
+        y="0"
+        width="16"
+        height="16"
+      >
+        <path
+          d="M0 9.53674e-07H16V16H0V9.53674e-07Z"
+          fill="white"
+        />
+      </mask>
+      <g mask="url(#mask1_2642_1850)">
+        <path
+          d="M8.83556 2.18507V0.999481C8.83556 0.434356 9.16252 0.298918 9.56212 0.698512L12.219 3.35542C12.6186 3.75501 12.6186 4.40889 12.219 4.80854L9.56212 7.46548C9.16252 7.86507 8.83556 7.72957 8.83556 7.16451V5.97882C8.30962 5.85445 7.76177 5.78664 7.19781 5.78664C4.84621 5.78664 2.76303 6.9322 1.4729 8.69482C1.92215 5.02664 5.04599 2.18507 8.83556 2.18507Z"
+          stroke="white"
+          strokeMiterlimit="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M7.1644 13.815V15.0006C7.1644 15.5658 6.83746 15.7012 6.43783 15.3016L3.7809 12.6448C3.3813 12.2451 3.3813 11.5912 3.7809 11.1916L6.43783 8.5347C6.83746 8.13504 7.1644 8.27054 7.1644 8.83561V10.0214C7.69037 10.1457 8.23818 10.2135 8.80208 10.2135C11.1537 10.2135 13.2369 9.06798 14.527 7.30533C14.0778 10.9735 10.9539 13.815 7.1644 13.815Z"
+          stroke="white"
+          strokeMiterlimit="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+    </g>
+  </svg>
+);
+export { UserPlus, StarBuyBtn, ExchangeIcon };

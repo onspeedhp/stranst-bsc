@@ -2,7 +2,7 @@
 'use client';
 import React, { Fragment, useEffect, useState } from 'react';
 import Button from '../ui/Button';
-import { UserPlus } from '../Icon';
+import { ExchangeIcon, UserPlus } from '../Icon';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Check, Copy, Share, X } from 'lucide-react';
 import Image from 'next/image';
@@ -13,11 +13,17 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../ui/drawer';
-import { DialogClose } from '../ui/dialog';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from '../ui/dialog';
 import { shareOnMobile } from 'react-mobile-share';
 import { getCollectionContract } from '@/hooks/useContract';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 import { BrowserProvider, Eip1193Provider } from 'ethers';
+import clsx from 'clsx';
 interface IsVipProps {
   nftIds: string[];
 }
@@ -99,21 +105,46 @@ const IsVip = ({ nftIds }: IsVipProps) => {
   const renderReferralLink = (id: string, idx: number) => (
     <div
       key={id}
-      className={`flex justify-between items-center rounded-[6px] px-3 py-2 mt-2 mb-3 ${
-        selectedUrlIdx === idx
-          ? 'border border-slate-700 bg-slate-800'
-          : 'bg-[#687B99] hover:opacity-80 cursor-pointer'
-      }`}
+      className={clsx('py-2 px-3 cursor-pointer hover:opacity-80 rounded-md', {
+        'bg-[#1C1F1F]': selectedUrlIdx === idx,
+      })}
       onClick={() => setSelectedUrlIdx(idx)}
     >
-      <p className="text-slate-50 truncate pr-3">
-        {selectedUrlIdx === idx ? refUrl : id}
+      <p className={clsx('text-slate-50 truncate pr-3')}>
+        {refUrl}
       </p>
     </div>
   );
 
+  const ChangeRefIdDialog = () => {
+    return (
+      <Dialog>
+        <DialogTrigger>
+          <Button className="bg-transparent flex items-center gap-2.5 border border-white">
+            <ExchangeIcon />
+            <p className="text-white">Change</p>
+          </Button>
+        </DialogTrigger>
+        <DialogContent
+          className={clsx(
+            'bg-[#101111] blur-[100] max-w-[320px] lg:max-w-[380px] border-none rounded-none lg:rounded-xl overflow-y-auto lg:h-auto'
+          )}
+        >
+          <div>
+            <p className='font-semibold'>Change referral Link</p>
+            <p className='text-sm leading-5 text-[#B8B8B8]'>Choose another referral link.</p>
+          </div>
+          <div className="relative h-[1px] bg-gradient-to-l from-[#2B8CB800] via-[#FFFFFF] to-[#2B8CB800]" />
+          <div className="max-h-[500px] overflow-y-auto pr-3 flex flex-col gap-1">
+            {nftIds.map((id, idx) => renderReferralLink(id, idx))}
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  };
+
   return (
-    <div className="pb-7 lg:p-4 lg:bg-gradient-to-b lg:from-[#37BFEA] lg:to-[#0B0F3F] rounded-xl">
+    <div className="pb-7 lg:px-4 lg:py-7  lg:bg-gradient-to-b lg:from-[#37BFEA] lg:to-[#0B0F3F] rounded-xl">
       <div className="flex items-center gap-2">
         <svg
           width="28"
@@ -135,37 +166,48 @@ const IsVip = ({ nftIds }: IsVipProps) => {
           <p className="text-white text-base leading-6 font-semibold">
             Achievement {NFTAchievement}NFTs
           </p>
-          <p className="text-white text-base leading-6 font-semibold">
-            Tokens: {tokenBuyed.toLocaleString()} $STRANT
-          </p>
-          {/* <p className="text-[#DCDEE0] text-sm leading-5">
+          <p className="text-[#DCDEE0] text-sm leading-5">
             10% affiliate will be given directly to the referrer!
-          </p> */}
+          </p>
         </div>
       </div>
 
-      <div className="relative my-6 px-4 h-[1px] bg-gradient-to-l from-[#8237EA] to-[#098BA8]" />
-
-      <p className="text-slate-50">Referral Link</p>
-      <div className="max-h-[200px] overflow-y-auto pr-3">
-        {nftIds.map((id, idx) => renderReferralLink(id, idx))}
+      <div className="flex items-center gap-2 mt-4">
+        <Image
+          src={'/image/strant-token.png'}
+          alt="strant-token-icon"
+          objectFit="cover"
+          objectPosition="center"
+          width={20}
+          height={20}
+          className="ml-[1.5%]"
+        />
+        <div className="flex-1 flex items-center justify-between">
+          <p className="text-white text-base leading-6 font-semibold">Tokens</p>
+          <div className="flex items-center gap-1">
+            <Image
+              src={'/image/strant-token.png'}
+              alt="strant-token-icon"
+              objectFit="cover"
+              objectPosition="center"
+              width={20}
+              height={20}
+              className="ml-[1.5%]"
+            />
+            <p className="text-sm leading-5 font-semibold text-white">
+              {tokenBuyed.toLocaleString()}
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        <Button
-          className="bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] flex gap-3 items-center justify-center flex-1"
-          onClick={handleShare}
-        >
-          <Share
-            color="white"
-            size={20}
-          />
-          <p className="text-white">Share</p>
-        </Button>
-        <div
-          className="flex items-center justify-center border border-white px-4 py-3 rounded-xl cursor-pointer hover:opacity-50"
-          onClick={handleCopyUrl}
-        >
+      <div className="relative my-6 px-4 h-[1px] bg-gradient-to-l from-[#2B8CB800] via-[#FFFFFF] to-[#2B8CB800]" />
+
+      <p className="text-slate-50">Referral Link</p>
+
+      <div className="flex items-center justify-between px-3 py-2.5 bg-black rounded-lg mt-2 mb-3">
+        <p>{nftIds[selectedUrlIdx]}</p>
+        <div onClick={handleCopyUrl}>
           {isCopy ? (
             <Check
               color="#FFFFFF"
@@ -179,13 +221,26 @@ const IsVip = ({ nftIds }: IsVipProps) => {
           )}
         </div>
       </div>
+
+      <div className="flex items-center gap-3">
+        <ChangeRefIdDialog />
+        <Button
+          className="bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] flex gap-3 items-center justify-center flex-1"
+          onClick={handleShare}
+        >
+          <Share
+            color="white"
+            size={20}
+          />
+          <p className="text-white">Share</p>
+        </Button>
+      </div>
     </div>
   );
 };
 
 export default function Ref() {
   const [isVip, setIsVip] = useState(false);
-  // const [totalRef, setTotalRef] = useState(0);
 
   const [nftIdArr, setNftArr] = useState([]);
   const { isConnected, address } = useAppKitAccount();
@@ -203,7 +258,6 @@ export default function Ref() {
         const list = listNftOfOwner.map((nftId: unknown) =>
           Number(nftId).toString()
         );
-        console.log(list);
 
         setNftArr(list);
         setIsVip(list.length !== 0);
@@ -216,45 +270,6 @@ export default function Ref() {
   useEffect(() => {
     getUserNftIdArr();
   }, [isConnected, address]);
-
-  //   const checkMinted = async (walletAddress: string) => {
-  //     try {
-  //       const { data } = await axios.post(
-  //         `${process.env.NEXT_PUBLIC_API_URL}/checkMinted`,
-  //         { walletAddress }
-  //       );
-  //       setIsVip(data.isMinted);
-  //     } catch (error) {
-  //       console.error('Error checking minted status:', error);
-  //     }
-  //   };
-
-  //   const getTotalRef = async (walletAddress: string) => {
-  //     try {
-  //       const { data } = await axios.get(
-  //         `${process.env.NEXT_PUBLIC_API_URL}/totalRef/${walletAddress}`
-  //       );
-  //       setTotalRef(data);
-  //     } catch (error) {
-  //       console.error('Error checking minted status:', error);
-  //     }
-  //   };
-
-  //   TODO: check ref
-  //   useEffect(() => {
-  //     const checkAndFetch = () => {
-  //       if (userFriendlyAddress) {
-  //         checkMinted(userFriendlyAddress);
-  //         getTotalRef(userFriendlyAddress);
-  //       }
-  //     };
-
-  //     checkAndFetch();
-
-  //     const interval = setInterval(checkAndFetch, 60000);
-
-  //     return () => clearInterval(interval);
-  //   }, [userFriendlyAddress]);
 
   return (
     <>
@@ -270,7 +285,7 @@ export default function Ref() {
           </PopoverTrigger>
           <PopoverContent
             align="end"
-            className="p-0 rounded-none overflow-hidden border-none bg-transparent w-[353px]"
+            className="p-0 rounded-none overflow-hidden border-none bg-transparent w-[385px]"
           >
             <div className="relative rounded-xl gradient-border">
               <div className="bg-gradient-to-l from-[#37BFEA66] to-[#0B0F3F66] rounded-xl overflow-hidden p-[1px]">
