@@ -21,6 +21,7 @@ import { getCollectionContract, getTokenContract } from '@/hooks/useContract';
 import { BASE_PRICE, NFT_CONTRACT_ADDRESS } from '@/constant';
 import MintRef from './MintRef';
 import MintToken from './MintToken';
+import MintSuccessToken from './MintSuccessToken';
 
 export default function MintDialog({
   setMinted,
@@ -204,7 +205,7 @@ export default function MintDialog({
               </div>
             </div>
           </DialogTrigger>
-          {/* <DialogTrigger
+          <DialogTrigger
             aria-hidden={false}
             onClick={() => {
               setBuyWhat('token');
@@ -221,7 +222,7 @@ export default function MintDialog({
                 </p>
               </div>
             </div>
-          </DialogTrigger> */}
+          </DialogTrigger>
 
           <DialogContent
             className={clsx(
@@ -257,14 +258,13 @@ export default function MintDialog({
                     </DialogClose>
                     {nftIdArr.length != 0 ? (
                       <MintToken
+                        nftList={nftIdArr}
                         buyToken={buyToken}
                         buyTokenLoading={buyTokenLoading}
                       />
                     ) : (
-                      <MintSuccess
-                        isSuccess={false}
-                        buyWhat={buyWhat}
-                        notHaveNft={true}
+                      <MintSuccessToken
+                        setBuyWhat={setBuyWhat}
                       />
                     )}
                   </div>
