@@ -114,6 +114,7 @@ export default function MintToken({
             'pointer-events-none opacity-50':
               buyTokenLoading || selectedNft.length === 0,
           })}
+          onClick={()=>buyToken(selectedNft.length * 1500)}
         >
           <div className={styles['btn-glow']} />
           <div className={clsx('flex items-center gap-2', styles['btn'])}>
