@@ -111,7 +111,7 @@ const IsVip = ({ nftIds }: IsVipProps) => {
       onClick={() => setSelectedUrlIdx(idx)}
     >
       <p className={clsx('text-slate-50 truncate pr-3')}>
-        {refUrl}
+      {process.env.NEXT_PUBLIC_APP_URL}?ref=${nftIds[idx]}
       </p>
     </div>
   );
@@ -206,7 +206,7 @@ const IsVip = ({ nftIds }: IsVipProps) => {
       <p className="text-slate-50">Referral Link</p>
 
       <div className="flex items-center justify-between px-3 py-2.5 bg-black rounded-lg mt-2 mb-3">
-        <p>{refUrl}</p>
+        <p className='text-white text-sm'>{refUrl}</p>
         <div onClick={handleCopyUrl}>
           {isCopy ? (
             <Check
