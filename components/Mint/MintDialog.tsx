@@ -35,6 +35,7 @@ export default function MintDialog({
   const { isConnected, address } = useAppKitAccount();
   const [buyTokenLoading, setBuyTokenLoading] = useState(false);
   const { walletProvider } = useAppKitProvider('eip155');
+  const [nftIdArr, setNftArr] = useState([]);
 
   const [buyWhat, setBuyWhat] = useState<BuyType>();
 
@@ -100,7 +101,7 @@ export default function MintDialog({
     }
   };
 
-  const buyToken = async (amount: number) => {
+  const buyToken = async (nfts: string[]) => {
     try {
       setBuyTokenLoading(true);
       if (!isConnected || !address) throw Error('User disconnected');
@@ -117,7 +118,7 @@ export default function MintDialog({
       const transferTokenTx = await tokenContract.transfer(
         process.env.NEXT_PUBLIC_VAULT_ADDRESS,
         BigInt(
-          amount *
+          (nfts.length * 1500) *
             Number(process.env.NEXT_PUBLIC_BASE_TOKEN_PRICE) *
             10 ** decimals
         )
@@ -133,7 +134,7 @@ export default function MintDialog({
         },
         body: JSON.stringify({
           walletAddress: signer.address,
-          amount: Number(amount),
+          nfts,
         }),
       });
 
@@ -146,7 +147,19 @@ export default function MintDialog({
     }
   };
 
-  const [nftIdArr, setNftArr] = useState([]);
+  const checkNftsBought = async (nfts: string[]) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/tokenbuy`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nfts,
+      }),
+    });
+
+    return await res.json();
+  };
 
   const getUserNftIdArr = async () => {
     if (isConnected && address) {
@@ -158,9 +171,9 @@ export default function MintDialog({
         const list = listNftOfOwner.map((nftId: unknown) =>
           Number(nftId).toString()
         );
-        console.log(list);
 
-        setNftArr(list);
+        const listChecked = await checkNftsBought(list);
+        setNftArr(listChecked);
       } catch (error) {
         console.log('Get list nft id failed: ', error);
       }
@@ -263,9 +276,7 @@ export default function MintDialog({
                         buyTokenLoading={buyTokenLoading}
                       />
                     ) : (
-                      <MintSuccessToken
-                        setBuyWhat={setBuyWhat}
-                      />
+                      <MintSuccessToken setBuyWhat={setBuyWhat} />
                     )}
                   </div>
                 )}

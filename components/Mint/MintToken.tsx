@@ -10,11 +10,11 @@ export default function MintToken({
   buyToken,
   buyTokenLoading,
 }: {
-  buyToken: (e: number) => void;
+  buyToken: (nfts: string[] ) => void;
   buyTokenLoading: boolean;
-  nftList: Array<string | number>;
+  nftList: Array<string>;
 }) {
-  const [selectedNft, setSelectedNft] = useState<Array<string | number>>([]);
+  const [selectedNft, setSelectedNft] = useState<Array<string>>([]);
   return (
     <div className="flex flex-col min-h-[400px] h-[90%]">
       <div className="relative mb-3 mt-5">
@@ -114,7 +114,7 @@ export default function MintToken({
             'pointer-events-none opacity-50':
               buyTokenLoading || selectedNft.length === 0,
           })}
-          onClick={()=>buyToken(selectedNft.length * 1500)}
+          onClick={()=>buyToken(selectedNft)}
         >
           <div className={styles['btn-glow']} />
           <div className={clsx('flex items-center gap-2', styles['btn'])}>
