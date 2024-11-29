@@ -37,7 +37,10 @@ const IsNotVip = () => {
 };
 
 const IsVip = ({ nftIds }: IsVipProps) => {
-  const [selectedUrlIdx, setSelectedUrlIdx] = useState(0);
+  const [selectedUrlIdx, setSelectedUrlIdx] = useState(() => {
+    const localNftId = localStorage.getItem('selectedNftId');
+    return nftIds.findIndex((item) => item === localNftId) ?? 0;
+  });
   const [isCopy, setIsCopy] = useState(false);
   const [NFTAchievement, setNFTAchievement] = useState(0);
   const [tokenBuyed, setTokenBuyed] = useState(0);
@@ -108,7 +111,10 @@ const IsVip = ({ nftIds }: IsVipProps) => {
       className={clsx('py-2 px-3 cursor-pointer hover:opacity-80 rounded-md', {
         'bg-[#1C1F1F]': selectedUrlIdx === idx,
       })}
-      onClick={() => setSelectedUrlIdx(idx)}
+      onClick={() => {
+        localStorage.setItem('selectedNftId', idx.toString());
+        setSelectedUrlIdx(idx);
+      }}
     >
       <p className={clsx('text-slate-50 truncate pr-3')}>
         {process.env.NEXT_PUBLIC_APP_URL}?ref=${nftIds[idx]}
@@ -299,7 +305,7 @@ export default function Ref() {
         <Drawer>
           <DrawerTrigger aria-hidden={false}>
             <div className="bg-gradient-to-b from-[#37BFEA] to-[#0B0F3F] lg:bg-[#0F172AD9] flex items-center gap-3 p-2 rounded-xl hover:opacity-50">
-                <WalletIcon />
+              <WalletIcon />
             </div>
           </DrawerTrigger>
           <DrawerContent className="bg-[#101111]">
