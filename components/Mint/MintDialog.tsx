@@ -18,7 +18,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 import { BrowserProvider, ethers } from 'ethers';
 import { getCollectionContract, getTokenContract } from '@/hooks/useContract';
-import { BASE_PRICE, NFT_CONTRACT_ADDRESS, TOTAL_SELLING_NFT } from '@/constant';
+import { BASE_PRICE, NFT_CONTRACT_ADDRESS } from '@/constant';
 import MintRef from './MintRef';
 import MintToken from './MintToken';
 import MintSuccessToken from './MintSuccessToken';
@@ -43,11 +43,11 @@ export default function MintDialog({
     amount: number;
     total: number;
   }) => {
-    if(!Number(ref) || !ref) {
+    if (!Number(ref) || !ref) {
       setRef('');
       setIsSuccess(null);
-      alert('Must have ref')
-      return ;
+      alert('Must have ref');
+      return;
     }
     try {
       setLoading(true);
@@ -78,22 +78,19 @@ export default function MintDialog({
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const nftContract = getCollectionContract(signer);
 
-        const _ref = Number(ref);
-
-        if (_ref) {
-          const addressRef = await nftContract.ownerOf(_ref);
-          if(!Number(_ref) || !_ref || addressRef === address) {
+        if (ref) {
+          if (!Number(ref) || !ref) {
             setRef('');
             setIsSuccess(null);
-            alert('ref incorrect')
-            return ;
+            alert('ref incorrect');
+            return;
           }
         }
 
         const mintNftTx = await nftContract.createEdaNFT(
           submitData.amount,
           signer.address.toString(),
-          BigInt(_ref)
+          BigInt(ref)
         );
 
         await mintNftTx.wait();
