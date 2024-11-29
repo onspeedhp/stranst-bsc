@@ -118,7 +118,8 @@ export default function MintDialog({
       const transferTokenTx = await tokenContract.transfer(
         process.env.NEXT_PUBLIC_VAULT_ADDRESS,
         BigInt(
-          (nfts.length * 1500) *
+          nfts.length *
+            1500 *
             Number(process.env.NEXT_PUBLIC_BASE_TOKEN_PRICE) *
             10 ** decimals
         )
@@ -190,10 +191,7 @@ export default function MintDialog({
   return (
     <>
       {!address ? (
-        <div
-          className="w-fit"
-          onClick={() => {}}
-        >
+        <div className='w-fit' onClick={() => {}}>
           <w3m-button />
         </div>
       ) : (
@@ -209,13 +207,13 @@ export default function MintDialog({
           <DialogTrigger
             aria-hidden={false}
             onClick={() => setBuyWhat('nft')}
-            className="mb-2 lg:mb-0 lg:mr-4"
+            className='mb-2 lg:mb-0 lg:mr-4'
           >
             <div className={clsx(styles['glow-btn'])}>
               <div className={styles['btn-glow']} />
               <div className={clsx('flex items-center gap-2', styles['btn'])}>
                 <StarBuyBtn />
-                <p className="text-[18px] leading-7 font-semibold text-white">
+                <p className='text-[18px] leading-7 font-semibold text-white'>
                   Buy Now
                 </p>
               </div>
@@ -233,7 +231,7 @@ export default function MintDialog({
                 className={clsx('flex items-center gap-2', styles['btn-token'])}
               >
                 <StarBuyBtn />
-                <p className="text-[18px] leading-7 font-semibold text-white">
+                <p className='text-[18px] leading-7 font-semibold text-white'>
                   Buy Token
                 </p>
               </div>
@@ -254,7 +252,7 @@ export default function MintDialog({
               <>
                 {buyWhat === 'nft' ? (
                   <div>
-                    <DialogClose className="lg:hidden outline-none p-2">
+                    <DialogClose className='lg:hidden outline-none p-2'>
                       <ArrowLeft size={24} />
                     </DialogClose>
                     {!ref ? (
@@ -269,7 +267,7 @@ export default function MintDialog({
                   </div>
                 ) : (
                   <div>
-                    <DialogClose className="lg:hidden outline-none p-2">
+                    <DialogClose className='lg:hidden outline-none p-2'>
                       <ArrowLeft size={24} />
                     </DialogClose>
                     {nftIdArr.length != 0 ? (
@@ -285,10 +283,7 @@ export default function MintDialog({
                 )}
               </>
             ) : (
-              <MintSuccess
-                isSuccess={isSuccess}
-                buyWhat={buyWhat}
-              />
+              <MintSuccess isSuccess={isSuccess} buyWhat={buyWhat} />
             )}
             {isSuccess !== null && <CloseDialog />}
           </DialogContent>
@@ -299,10 +294,14 @@ export default function MintDialog({
 }
 
 const CloseDialog = () => (
-  <DialogClose className="lg:hidden mb-5 outline-none">
-    <div className="flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl">
+  <DialogClose
+    className='lg:hidden mb-5 outline-none'
+    // TODO: Want to click close dialog and reload
+    onClick={() => window.location.reload()}
+  >
+    <div className='flex items-center justify-center gap-1.5 py-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-xl'>
       <ArrowLeft />
-      <p className="font-semibold text-white">Back to Homepage</p>
+      <p className='font-semibold text-white'>Back to Homepage</p>
     </div>
   </DialogClose>
 );

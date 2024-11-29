@@ -10,19 +10,19 @@ export default function MintToken({
   buyToken,
   buyTokenLoading,
 }: {
-  buyToken: (nfts: string[] ) => void;
+  buyToken: (nfts: string[]) => void;
   buyTokenLoading: boolean;
   nftList: Array<string>;
 }) {
   const [selectedNft, setSelectedNft] = useState<Array<string>>([]);
   return (
-    <div className="flex flex-col min-h-[400px] h-[90%]">
-      <div className="relative mb-3 mt-5">
-        <div className="flex items-center justify-between">
-          <p className="text-base leading-4 font-semibold">NFT List</p>
-          <div className="flex items-center gap-1">
+    <div className='flex flex-col min-h-[400px] h-[90%]'>
+      <div className='relative mb-3 mt-5'>
+        <div className='flex items-center justify-between'>
+          <p className='text-base leading-4 font-semibold'>NFT List</p>
+          <div className='flex items-center gap-1'>
             <Checkbox
-              className="border-white"
+              className='border-white'
               onCheckedChange={(checked) => {
                 if (checked) {
                   setSelectedNft(nftList);
@@ -31,10 +31,10 @@ export default function MintToken({
                 }
               }}
             />
-            <p className="text-sm leading-5 text-white">Select all</p>
+            <p className='text-sm leading-5 text-white'>Select all</p>
           </div>
         </div>
-        <div className="flex flex-col gap-2 mt-5 max-h-[300px] lg:max-h-[500px]">
+        <div className='flex flex-col gap-2 mt-5 max-h-[300px] lg:max-h-[500px]'>
           {nftList.map((item, idx) => (
             <Fragment key={item}>
               <div
@@ -42,9 +42,9 @@ export default function MintToken({
                   'opacity-50': selectedNft.includes(item),
                 })}
               >
-                <div className="flex items-center gap-3">
+                <div className='flex items-center gap-3'>
                   <Checkbox
-                    className="border-white"
+                    className='border-white'
                     checked={selectedNft.includes(item)}
                     onCheckedChange={() =>
                       setSelectedNft((prev) =>
@@ -60,48 +60,48 @@ export default function MintToken({
                     <p>Straint VIP Pass</p>#{item}
                   </div>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className='flex items-center gap-1'>
                   <p>1500</p>
                   <Image
                     src={'/image/strant-token.png'}
-                    alt="strant-token-icon"
-                    objectFit="cover"
-                    objectPosition="center"
+                    alt='strant-token-icon'
+                    objectFit='cover'
+                    objectPosition='center'
                     width={20}
                     height={20}
                   />
                 </div>
               </div>
               {idx + 1 !== nftList.length && (
-                <div className="relative h-[1px] w-full bg-gradient-to-l from-[#2B8CB800] via-[#FFFFFF] to-[#2B8CB800]" />
+                <div className='relative h-[1px] w-full bg-gradient-to-l from-[#2B8CB800] via-[#FFFFFF] to-[#2B8CB800]' />
               )}
             </Fragment>
           ))}
         </div>
-        <div className="flex items-center justify-between mt-5 bg-white rounded-xl text-[#101111] p-3  text-sm leading-5 font-semibold">
-          <p className="text-transparent bg-gradient-to-b from-[#37BFEA] to-[#0B0F3F] bg-clip-text">
+        <div className='flex items-center justify-between mt-5 bg-white rounded-xl text-[#101111] p-3  text-sm leading-5 font-semibold'>
+          <p className='text-transparent bg-gradient-to-b from-[#37BFEA] to-[#0B0F3F] bg-clip-text'>
             Total
           </p>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1">
+          <div className='flex items-center gap-3'>
+            <div className='flex items-center gap-1'>
               <Image
                 src={'/image/strant-token-colored.png'}
-                alt="strant-token-icon-colored"
-                objectFit="cover"
-                objectPosition="center"
+                alt='strant-token-icon-colored'
+                objectFit='cover'
+                objectPosition='center'
                 width={14}
                 height={14}
               />
               <p>{1500 * selectedNft.length}</p>
             </div>
             <LeftRightIcon />
-            <div className="flex items-center gap-1">
+            <div className='flex items-center gap-1'>
               <p>{150 * selectedNft.length}</p>
               <Image
                 src={'/image/strant-usdt.png'}
-                alt="strant-usdt-icon"
-                objectFit="cover"
-                objectPosition="center"
+                alt='strant-usdt-icon'
+                objectFit='cover'
+                objectPosition='center'
                 width={14}
                 height={14}
               />
@@ -114,14 +114,22 @@ export default function MintToken({
             'pointer-events-none opacity-50':
               buyTokenLoading || selectedNft.length === 0,
           })}
-          onClick={()=>buyToken(selectedNft)}
+          onClick={() => buyToken(selectedNft)}
         >
           <div className={styles['btn-glow']} />
           <div className={clsx('flex items-center gap-2', styles['btn'])}>
-            <StarBuyBtn />
-            <p className="text-[18px] leading-7 font-semibold text-white">
-              Buy Now
-            </p>
+            {buyTokenLoading ? (
+              <p className='text-[18px] leading-7 font-semibold text-white'>
+                In progress...
+              </p>
+            ) : (
+              <>
+                <StarBuyBtn />
+                <p className='text-[18px] leading-7 font-semibold text-white'>
+                  Buy Now
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
