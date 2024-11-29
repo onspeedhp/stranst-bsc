@@ -115,14 +115,13 @@ export default function MintDialog({
       const decimals = ethers.toNumber(await tokenContract.decimals());
 
       // Call the transfer from token smart-contract
+      const basePrice = Math.round(
+        Number(process.env.NEXT_PUBLIC_BASE_TOKEN_PRICE) * 10 ** decimals
+      );
+
       const transferTokenTx = await tokenContract.transfer(
         process.env.NEXT_PUBLIC_VAULT_ADDRESS,
-        BigInt(
-          nfts.length *
-            1500 *
-            Number(process.env.NEXT_PUBLIC_BASE_TOKEN_PRICE) *
-            10 ** decimals
-        )
+        BigInt(nfts.length * 1500) * BigInt(basePrice)
       );
 
       await transferTokenTx.wait();
