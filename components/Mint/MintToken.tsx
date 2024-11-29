@@ -34,11 +34,11 @@ export default function MintToken({
             <p className='text-sm leading-5 text-white'>Select all</p>
           </div>
         </div>
-        <div className='flex flex-col gap-2 mt-5 max-h-[300px] lg:max-h-[500px]'>
+        <div className='flex flex-col gap-2 mt-5 max-h-[300px] overflow-auto lg:max-h-[500px]'>
           {nftList.map((item, idx) => (
             <Fragment key={item}>
               <div
-                className={clsx('flex items-start justify-between', {
+                className={clsx('flex items-start justify-between text-white', {
                   'opacity-50': selectedNft.includes(item),
                 })}
               >

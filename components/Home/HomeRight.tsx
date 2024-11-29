@@ -9,8 +9,8 @@ import NFT from '../NFT/NFT';
 
 const HeadingContent = () => (
   <div className="flex flex-col items-center lg:items-start gap-2 lg:gap-3">
-    <p className="bg-gradient-to-r from-[#37BFEA] to-[#2187BE] text-sm lg:text-[18px] font-semibold lg:leading-7 inline-block text-transparent bg-clip-text">
-      {`A Golden Opportunity to Own STRANT's First NFT!`}
+    <p className="bg-gradient-to-r from-[#37BFEA] to-[#2187BE] text-center w-2/3 lg:text-left text-sm lg:text-[18px] font-semibold lg:leading-7 inline-block text-transparent bg-clip-text">
+      {`An opportunity to earn benefits by owning STRANT AI NFT!`}
     </p>
     <p className="text-[30px] leading-[36px] font-extrabold tracking-[-0.75%] text-white">
       Strant VIP Pass
@@ -36,7 +36,7 @@ export default function HomeRight() {
         </div>
         <div className="mt-2">
           <div
-            className="flex items-center justify-between p-3 bg-gradient-to-r from-[#9A01CEB2] via-[#4E3BE0B2] to-[#43A1FFB2] rounded-lg"
+            className="flex items-center justify-between p-3 bg-gradient-to-r from-[#37BFEA] to-[#0B0F3F] rounded-lg"
             onClick={() => window.open('https://www.bnbchain.org/en/bnb-smart-chain', '_blank')}
           >
             <p className="text-sm font-semibold italic text-white">

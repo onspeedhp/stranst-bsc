@@ -168,4 +168,23 @@ const LeftRightIcon = () => (
     />
   </svg>
 );
-export { UserPlus, StarBuyBtn, ExchangeIcon, EmptyBox, NFTIcon, LeftRightIcon };
+
+const WalletIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M15 12V13.25C15 13.9395 14.439 14.5 13.75 14.5H3C1.897 14.5 1 13.603 1 12.5C1 12.5 1 4.0075 1 4C1 2.897 1.897 2 3 2H12.25C12.6645 2 13 2.336 13 2.75C13 3.164 12.6645 3.5 12.25 3.5H3C2.7245 3.5 2.5 3.724 2.5 4C2.5 4.276 2.7245 4.5 3 4.5H13.75C14.439 4.5 15 5.0605 15 5.75V7H12.5C11.1215 7 10 8.1215 10 9.5C10 10.8785 11.1215 12 12.5 12H15Z"
+      fill="white"
+    />
+    <path
+      d="M15 8V11H12.5C11.6715 11 11 10.3285 11 9.5C11 8.6715 11.6715 8 12.5 8H15Z"
+      fill="white"
+    />
+  </svg>
+);
+export { UserPlus, StarBuyBtn, ExchangeIcon, EmptyBox, NFTIcon, LeftRightIcon, WalletIcon };
