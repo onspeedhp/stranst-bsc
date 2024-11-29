@@ -73,7 +73,7 @@ export default function MintSuccess({
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_2276_990)'>
+      <g clipPath='url(#clip0_2276_990)'>
         <path
           d='M20.5 0C9.47156 0 0.5 8.97156 0.5 20C0.5 31.0284 9.47156 40 20.5 40C31.5284 40 40.5 31.0284 40.5 20C40.5 8.97156 31.5284 0 20.5 0Z'
           fill='#F57E76'

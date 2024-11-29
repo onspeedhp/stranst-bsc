@@ -148,15 +148,18 @@ export default function MintDialog({
   };
 
   const checkNftsBought = async (nfts: string[]) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/tokenbuy`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nfts,
-      }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BE_URL}/checkNftBought`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nfts,
+        }),
+      }
+    );
 
     return await res.json();
   };
