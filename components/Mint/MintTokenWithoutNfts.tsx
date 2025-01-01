@@ -13,14 +13,14 @@ export default function MintTokenWithoutNfts({
 }) {
   const [textInput, setTextInput] = useState('');
   return (
-    <div className="flex flex-col min-h-[400px] h-[90%]">
-      <div className="relative mb-3">
-        <p className="text-base leading-4 font-semibold">Buy Token</p>
-        <p className="mt-1.5 text-xs leading-5">
+    <div className='flex flex-col min-h-[400px] h-[90%]'>
+      <div className='relative mb-3'>
+        <p className='text-base leading-4 font-semibold'>Buy Token</p>
+        <p className='mt-1.5 text-xs leading-5'>
           You have to enter token amount to buy this token (1 $STRANT /{' '}
-          {Math.round(Number(process.env.NEXT_PUBLIC_BASE_TOKEN_PRICE))})
+          {Number(process.env.NEXT_PUBLIC_BASE_TOKEN_PRICE)})$
         </p>
-        <div className="h-[1px] bg-slate-700 mt-3 absolute -bottom-3 -left-6 -right-6" />
+        <div className='h-[1px] bg-slate-700 mt-3 absolute -bottom-3 -left-6 -right-6' />
       </div>
       <div
         className={clsx(
@@ -28,11 +28,11 @@ export default function MintTokenWithoutNfts({
         )}
       >
         <input
-          placeholder="10000"
+          placeholder='10000'
           className={clsx(
             'w-full outline-none text-black bg-transparent text-gray-300'
           )}
-          type="number"
+          type='number'
           value={textInput}
           onChange={(e) => setTextInput(e.currentTarget.value)}
         />
@@ -46,7 +46,7 @@ export default function MintTokenWithoutNfts({
         )}
         onClick={() => buyToken(Number(textInput))}
       >
-        <p className="font-semibold">
+        <p className='font-semibold'>
           {buyTokenLoading ? 'In progress...' : 'Buy'}
         </p>
         {/* <ChevronRight /> */}
