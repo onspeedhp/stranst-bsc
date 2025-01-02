@@ -15,8 +15,8 @@ export default function MintTokenWithoutNfts({
   return (
     <div className='flex flex-col min-h-[400px] h-[90%]'>
       <div className='relative mb-3'>
-        <p className='text-base leading-4 font-semibold'>Buy Token</p>
-        <p className='mt-1.5 text-xs leading-5'>
+        <p className='text-base leading-4 font-semibold text-white'>Buy Token</p>
+        <p className='mt-1.5 text-xs leading-5 text-gray-300'>
           You have to enter token amount to buy this token (1 $STRANT /{' '}
           {Number(process.env.NEXT_PUBLIC_BASE_TOKEN_PRICE)})$
         </p>
@@ -30,7 +30,7 @@ export default function MintTokenWithoutNfts({
         <input
           placeholder='10000'
           className={clsx(
-            'w-full outline-none text-black bg-transparent text-gray-300'
+            'w-full outline-none bg-transparent text-gray-300'
           )}
           type='number'
           value={textInput}
