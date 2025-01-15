@@ -61,7 +61,7 @@ export default function MintToken({
                   </div>
                 </div>
                 <div className='flex items-center gap-1'>
-                  <p>1500</p>
+                  <p>{process.env.NEXT_PUBLIC_TOKEN_PER_NFT}</p>
                   <Image
                     src={'/image/strant-token.png'}
                     alt='strant-token-icon'
@@ -92,11 +92,14 @@ export default function MintToken({
                 width={14}
                 height={14}
               />
-              <p>{1500 * selectedNft.length}</p>
+              <p>
+                {Number(process.env.NEXT_PUBLIC_TOKEN_PER_NFT!) *
+                  selectedNft.length}
+              </p>
             </div>
             <LeftRightIcon />
             <div className='flex items-center gap-1'>
-              <p>{150 * selectedNft.length}</p>
+              <p>{1000 * selectedNft.length}</p>
               <Image
                 src={'/image/strant-usdt.png'}
                 alt='strant-usdt-icon'

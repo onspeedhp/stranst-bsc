@@ -127,7 +127,8 @@ export default function MintDialog({
 
       const transferTokenTx = await tokenContract.transfer(
         process.env.NEXT_PUBLIC_VAULT_ADDRESS,
-        BigInt(nfts.length * 1500) * BigInt(basePrice)
+        BigInt(nfts.length * Number(process.env.NEXT_PUBLIC_TOKEN_PER_NFT!)) *
+          BigInt(basePrice)
       );
 
       await transferTokenTx.wait();
@@ -322,16 +323,16 @@ export default function MintDialog({
                       <ArrowLeft size={24} />
                     </DialogClose>
                     {nftIdArr.length != 0 ? (
-                      // <MintToken
-                      //   nftList={nftIdArr}
-                      //   buyToken={buyToken}
-                      //   buyTokenLoading={buyTokenLoading}
-                      // />
-                      <MintTokenWithoutNfts
-                        buyToken={buyTokenWithoutNfts}
+                      <MintToken
+                        nftList={nftIdArr}
+                        buyToken={buyToken}
                         buyTokenLoading={buyTokenLoading}
                       />
                     ) : (
+                      // <MintTokenWithoutNfts
+                      //   buyToken={buyTokenWithoutNfts}
+                      //   buyTokenLoading={buyTokenLoading}
+                      // />
                       <MintSuccessToken setBuyWhat={setBuyWhat} />
                     )}
                   </div>
