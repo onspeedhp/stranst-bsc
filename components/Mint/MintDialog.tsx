@@ -322,15 +322,17 @@ export default function MintDialog({
                     <DialogClose className='lg:hidden outline-none p-2'>
                       <ArrowLeft size={24} />
                     </DialogClose>
+
                     {nftIdArr.length != 0 ? (
-                      <MintToken
-                        nftList={nftIdArr}
-                        buyToken={buyToken}
+                      <MintTokenWithoutNfts
+                        buyToken={buyTokenWithoutNfts}
                         buyTokenLoading={buyTokenLoading}
+                        nftIdArr={nftIdArr}
                       />
                     ) : (
-                      // <MintTokenWithoutNfts
-                      //   buyToken={buyTokenWithoutNfts}
+                      // <MintToken
+                      //   nftList={nftIdArr}
+                      //   buyToken={buyToken}
                       //   buyTokenLoading={buyTokenLoading}
                       // />
                       <MintSuccessToken setBuyWhat={setBuyWhat} />
