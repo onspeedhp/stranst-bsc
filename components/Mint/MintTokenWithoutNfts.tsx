@@ -11,7 +11,7 @@ export default function MintTokenWithoutNfts({
   buyTokenLoading,
   nftIdArr,
 }: {
-  nftIdArr: any[];
+  nftIdArr: never[];
   buyToken: (e: number) => void;
   buyTokenLoading: boolean;
 }) {
