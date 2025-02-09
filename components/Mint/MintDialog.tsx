@@ -44,12 +44,6 @@ export default function MintDialog({
     amount: number;
     total: number;
   }) => {
-    if (!Number(ref) || !ref) {
-      setRef('');
-      setIsSuccess(null);
-      alert('Must have ref');
-      return;
-    }
     try {
       setLoading(true);
       if (!isConnected || !address) throw Error('User disconnected');
@@ -57,6 +51,16 @@ export default function MintDialog({
       const ethersProvider = new BrowserProvider(walletProvider as any);
 
       const signer = await ethersProvider.getSigner();
+
+      const nftContract = getCollectionContract(signer);
+
+      try {
+        const owner = await nftContract.ownerOf(Number(ref));
+        console.log(owner);
+      } catch (error) {
+        setIsSuccess(false);
+        return;
+      }
 
       if (!isApproved) {
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -77,16 +81,6 @@ export default function MintDialog({
         setIsApproved(true);
       } else {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const nftContract = getCollectionContract(signer);
-
-        if (ref) {
-          if (!Number(ref) || !ref) {
-            setRef('');
-            setIsSuccess(null);
-            alert('ref incorrect');
-            return;
-          }
-        }
 
         const mintNftTx = await nftContract.createEdaNFT(
           submitData.amount,
@@ -308,7 +302,18 @@ export default function MintDialog({
                       <ArrowLeft size={24} />
                     </DialogClose>
                     {!ref ? (
-                      <MintRef setRef={setRef} />
+                      <MintRef
+                        setRef={(refId: any) => {
+                          if (!Number(refId) || !refId) {
+                            setRef('');
+                            setIsSuccess(null);
+                            alert('Must have ref');
+                            return;
+                          }
+
+                          setRef(refId);
+                        }}
+                      />
                     ) : (
                       <MintBuy
                         submitData={handleSubmit}
