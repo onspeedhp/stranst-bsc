@@ -25,7 +25,7 @@ export default function MintTokenWithoutNfts({
     const ethersProvider = new BrowserProvider(walletProvider as any);
     const signer = await ethersProvider.getSigner();
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BE_URL}/tokenbuy/${signer.address}`
+      `${process.env.NEXT_PUBLIC_BE_URL}/tokenbuy/${signer.address}?version=2`
     );
     const amount = await res.json();
     
